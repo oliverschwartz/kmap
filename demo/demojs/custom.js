@@ -44,7 +44,7 @@ require.config({
     };
   
     // fetch some graph data
-    $.getJSON("../data/empty.json", handleDataFun);
+    $.getJSON("../data/custom.json", handleDataFun);
   
   });
   

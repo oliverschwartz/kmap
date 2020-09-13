@@ -4,5 +4,11 @@
         "summary": "Some summary information",
         "id": 1,
         "title": "first-node"
+    },
+    {
+        "dependencies": [],
+        "summary": "Some summary information",
+        "id": 2,
+        "title": "second-node"
     }
 ]
