@@ -11,11 +11,13 @@ require.config({
     // create the model/settings so we can pass it into the views
     var graphModel = new KMap.GraphModel(),
         settings = {model: graphModel, useWisps: false,  graphDirection: "TB", showTransEdgesWisps: true};
+    console.log(terminalModel)
+    var terminalModel = new KMap.TerminalModel()
   
     var graphView = new KMap.GraphView(settings),
         graphListView = new KMap.GraphListView({model: graphModel});
     
-    var terminalView = new KMap.TerminalView(); 
+    var terminalView = new KMap.TerminalView({model: terminalModel}); 
   
     var handleDataFun = function (data) {
 

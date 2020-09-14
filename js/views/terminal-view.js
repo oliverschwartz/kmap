@@ -69,14 +69,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
       render: function(){
         var thisView = this;
 
-        console.log("before modification")
-        console.log(this.$("#" + pvt.consts.headerId).text())
-
-        console.log($("#" + pvt.consts.headerId))
-        thisView.$("#" + pvt.consts.headerId).text("NEW TITLE"); 
-        console.log("after modification")
-        console.log(thisView.$(pvt.consts.headerId)); 
-
 
         thisView.prerender();
         thisView.postrender();
