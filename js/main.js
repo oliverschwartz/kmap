@@ -39,7 +39,6 @@ requirejs.config(  {
 define(["models/graph-model", "models/terminal-model", "views/graph-view", "views/concept-list-view", "views/terminal-view", "jquery", "btouch"], function(GraphModel, TerminalModel, GraphView, ListView, TerminalView) {
   var KMap = {};
   KMap.GraphModel = GraphModel;
-  console.log(TerminalModel);
   KMap.TerminalModel = TerminalModel;
   KMap.GraphView = GraphView;
   KMap.GraphListView = ListView;
