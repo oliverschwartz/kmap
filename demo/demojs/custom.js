@@ -7,28 +7,36 @@ require.config({
   
   /*global require, KMap, $*/
   require(["main"], function(KMap){
+
     // create the model/settings so we can pass it into the views
     var graphModel = new KMap.GraphModel(),
         settings = {model: graphModel, useWisps: false,  graphDirection: "TB", showTransEdgesWisps: true};
   
     var graphView = new KMap.GraphView(settings),
         graphListView = new KMap.GraphListView({model: graphModel});
+    
+    var terminalView = new KMap.TerminalView(); 
   
     var handleDataFun = function (data) {
-  
+
       // add the data to the graph model
       graphModel.addJsonNodesToGraph(data);
   
       // set the graph placement (don't use if "x" and "y" are specified in the data)
       graphView.optimizeGraphPlacement(false, false);
   
+      console.log(KMap);
+      console.log(terminalView);
+
       // render the views
       graphView.render();
       graphListView.render();
+      terminalView.render(); 
   
       // insert them into the html
       $("body").prepend(graphListView.$el);
       $("#graph-view-wrapper").append(graphView.$el);
+      $("#terminal-view-wrapper").append(terminalView.$el);
   
       // TODO integrate this into the view
       var $wrap = $(document.body);

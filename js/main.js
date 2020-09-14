@@ -36,11 +36,12 @@ requirejs.config(  {
 });
 
 //main execution
-define(["models/graph-model", "views/graph-view", "views/concept-list-view", "jquery", "btouch"], function(GraphModel, GraphView, ListView){
+define(["models/graph-model", "views/graph-view", "views/concept-list-view", "views/terminal-view", "jquery", "btouch"], function(GraphModel, GraphView, ListView, TerminalView) {
   var KMap = {};
   KMap.GraphModel = GraphModel;
   KMap.GraphView = GraphView;
   KMap.GraphListView = ListView;
+  KMap.TerminalView = TerminalView;
   /* make the KMap object global
      this hack provides a library-esk mode for kmap
      and preserves metacademy integration */
