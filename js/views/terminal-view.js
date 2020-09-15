@@ -8,8 +8,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
         var pvt = {};
 
         pvt.consts = {
-            headerId: "terminal-header",
-            viewId: "terminal"
+            viewId: "terminal", 
+            tagName: "div",
 
             //   viewClass: "learn-title-display",
             //   viewIdPrefix: "node-title-view-", // must also change in parent
@@ -18,7 +18,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
         // return public object for node list item view
         return Backbone.View.extend({
-            template: _.template($("#terminal-template").html()),
             id: pvt.consts.viewId,
 
             // TODO handle click event correctly
@@ -34,6 +33,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
             initialize: function (inp) {
                 var thisView = this;
                 thisView.preinitialize(inp);
+
+                thisView.listenTo(thisView.model, "render", thisView.render);
+
                 thisView.postinitialize(inp);
             },
 
@@ -48,9 +50,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
              */
             render: function () {
                 var thisView = this;
-                thisView.$el.html(this.template("<div>hello</div>"));
-                console.log(this.template);
-
+               
+                console.log("render called")
+                $("#terminal-list").append("<li>ITEM</li>")
 
                 thisView.prerender();
                 thisView.postrender();

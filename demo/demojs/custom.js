@@ -32,6 +32,8 @@ require.config({
       // render the views
       graphView.render();
       graphListView.render();
+      console.log("rendering terminal view");
+      console.log(terminalView);
       terminalView.render(); 
   
       // insert them into the html
