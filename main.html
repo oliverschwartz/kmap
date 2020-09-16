@@ -17,8 +17,8 @@
             <h1>Terminal</h1>
             <div id="terminal-window">
                 <span id="terminal-prompt"></span>
+                <input id="terminal-input" onkeyup="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
                 <span id="terminal-cursor">_</span>
-                <input id="terminal-input"></input>
             </div>
         </div>
 

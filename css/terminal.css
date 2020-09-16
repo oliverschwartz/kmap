@@ -21,3 +21,10 @@
     from, to { opacity: 0; } 
     50% {opacity: 1;}
 }
+
+#terminal-input {
+    width: 8px;
+    /* background-color: transparent!important; */
+    /* border-color: transparent!important; */
+    /* outline: transparent!important; */
+} 

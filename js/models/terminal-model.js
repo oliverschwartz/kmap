@@ -7,10 +7,17 @@ TODOs:
 define(["backbone", "underscore"], function(Backbone, _, ){
     return Backbone.Model.extend({
 
+        // Set attributes. 
+        setAttributes: function() {
+            this.set({
+                "prompt": "> "
+            })
+        },
+
         // Set up this model. 
         initialize: function(inp) {
             var thisModel = this; 
-            thisModel.prompt = "> ";
+            thisModel.setAttributes();
         },
 
 

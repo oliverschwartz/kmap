@@ -8,6 +8,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
         // return public object for node list item view
         return Backbone.View.extend({
             el: "#terminal-div",
+            promptId: "#terminal-prompt",
 
 
             /** override in subclass */
@@ -41,6 +42,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisView.prerender();
 
                 // Rendering logic.
+                thisView.$(this.promptId).html(this.model.get("prompt"))
 
                 thisView.postrender();
                 return thisView;

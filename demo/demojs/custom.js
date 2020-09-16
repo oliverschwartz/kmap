@@ -26,14 +26,9 @@ require.config({
       // set the graph placement (don't use if "x" and "y" are specified in the data)
       graphView.optimizeGraphPlacement(false, false);
   
-      console.log(KMap);
-      console.log(terminalView);
-
       // render the views
       graphView.render();
       graphListView.render();
-      console.log("rendering terminal view");
-      console.log(terminalView);
       terminalView.render(); 
   
       // insert them into the html
