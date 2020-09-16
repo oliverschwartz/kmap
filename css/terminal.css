@@ -1,4 +1,23 @@
-#repl {
-    height: 100px; 
+/* The overall div containing the terminal */
+#terminal-div {
+    padding: 20px 30px 20px 30px;
+    height: 10%; 
     width: 100%; 
+    background-color: rgb(255, 255, 168);
+    border-block: 5px;
+}
+
+/* The window that contains the input prompt */
+#terminal-window {
+    max-height: inherit;
+    width: 100%; 
+    background-color: lightblue;
+}
+
+/* Some fun: a blinking cursor. */
+#terminal-cursor {
+    animation: blink 1s infinite step-end;
+} @keyframes blink {
+    from, to { opacity: 0; } 
+    50% {opacity: 1;}
 }

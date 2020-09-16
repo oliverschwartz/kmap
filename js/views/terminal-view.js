@@ -4,24 +4,11 @@ define(["backbone", "underscore"], function (Backbone, _) {
      * Display the concepts as an item in the node list
      */
     return (function () {
-        // define private variables and methods
-        var pvt = {};
-
-        pvt.consts = {
-            viewId: "terminal", 
-            tagName: "div",
-
-            //   viewClass: "learn-title-display",
-            //   viewIdPrefix: "node-title-view-", // must also change in parent
-            //   clickedItmClass: "clicked-title" // must also change in parent
-        };
 
         // return public object for node list item view
         return Backbone.View.extend({
-            id: pvt.consts.viewId,
+            el: "#terminal-div",
 
-            // TODO handle click event correctly
-            events: {},
 
             /** override in subclass */
             preinitialize: function () {},
@@ -34,6 +21,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 var thisView = this;
                 thisView.preinitialize(inp);
 
+                // Create some listeners.
                 thisView.listenTo(thisView.model, "render", thisView.render);
 
                 thisView.postinitialize(inp);
@@ -50,11 +38,10 @@ define(["backbone", "underscore"], function (Backbone, _) {
              */
             render: function () {
                 var thisView = this;
-               
-                console.log("render called")
-                $("#terminal-list").append("<li>ITEM</li>")
-
                 thisView.prerender();
+
+                // Rendering logic.
+
                 thisView.postrender();
                 return thisView;
             },
@@ -75,12 +62,16 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 }
             },
 
-            /**
-             * return a shallow copy of the private consts for this view
-             */
-            getConstsClone: function () {
-                return _.clone(pvt.consts);
+            events: {
+                "keyup #terminal-input": "handleTerminalInput", 
             },
+
+            // Only send input to model if enter was pressed.
+            handleTerminalInput: function(e) {
+                if (e.keyCode == 13) {
+                    console.log("user pressed enter!")
+                }
+            }
         });
     })();
 });
