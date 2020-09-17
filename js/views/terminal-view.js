@@ -10,7 +10,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
             el: "#terminal-div",
             promptId: "#terminal-prompt",
             inputId: "#terminal-input",
-
+            events: {
+                "keyup #terminal-input": "handleTerminalInput", 
+            },
 
             /** override in subclass */
             preinitialize: function () {},
@@ -24,7 +26,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
                 // Create some listeners.
                 this.listenTo(this.model, 'changeInput', function() {
-                    this.$(inputId).text("");
+                    this.$(this.inputId).val("");
                 });
 
                 this.postinitialize(inp);
@@ -52,24 +54,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
             /** override in subclass */
             postrender: function () {},
 
-            /**
-             * Change the title display properties given by prop
-             */
-            changeTitleClass: function (classVal, status) {
-                if (status) {
-                    this.$el.addClass(classVal);
-                } else {
-                    this.$el.removeClass(classVal);
-                }
-            },
-
-            events: {
-                "keyup #terminal-input": "handleTerminalInput", 
-            },
-
             // Only send input to model if enter was pressed.
             handleTerminalInput: function(e) {
-                if (e.keyCode == 13) {
+                if (e.keyCode == 13) { // Enter key. 
                     this.model.trigger("processCommand", e.target.value)
                 }
             }

@@ -13,6 +13,11 @@ define(["backbone", "underscore"], function(Backbone, _, ){
          */
         // Process the terminal command.
         processCommand: function(cmd) {
+            // Parse the words. 
+
+            // Update the graph. 
+
+            // Trigger a terminal clear. (Pipe new info to terminal)
             this.trigger("changeInput");
         },
 
