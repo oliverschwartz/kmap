@@ -9,6 +9,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
         return Backbone.View.extend({
             el: "#terminal-div",
             promptId: "#terminal-prompt",
+            inputId: "#terminal-input",
 
 
             /** override in subclass */
@@ -19,13 +20,14 @@ define(["backbone", "underscore"], function (Backbone, _) {
              * NOTE: this should not be overridden in a subclass - use post/preinitialize
              */
             initialize: function (inp) {
-                var thisView = this;
-                thisView.preinitialize(inp);
+                this.preinitialize(inp);
 
                 // Create some listeners.
-                thisView.listenTo(thisView.model, "render", thisView.render);
+                this.listenTo(this.model, 'changeInput', function() {
+                    this.$(inputId).text("");
+                });
 
-                thisView.postinitialize(inp);
+                this.postinitialize(inp);
             },
 
             /** override in subclass */
@@ -38,20 +40,17 @@ define(["backbone", "underscore"], function (Backbone, _) {
              * Render the learning view given the supplied model
              */
             render: function () {
-                var thisView = this;
-                thisView.prerender();
+                this.prerender();
 
                 // Rendering logic.
-                thisView.$(this.promptId).html(this.model.get("prompt"))
+                this.$(this.promptId).html(this.model.get("prompt"))
 
-                thisView.postrender();
-                return thisView;
+                this.postrender();
+                return this;
             },
 
             /** override in subclass */
-            postrender: function () {
-                var thisView = this;
-            },
+            postrender: function () {},
 
             /**
              * Change the title display properties given by prop
@@ -71,7 +70,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
             // Only send input to model if enter was pressed.
             handleTerminalInput: function(e) {
                 if (e.keyCode == 13) {
-                    console.log("user pressed enter!")
+                    this.model.trigger("processCommand", e.target.value)
                 }
             }
         });
