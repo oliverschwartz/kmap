@@ -9,7 +9,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
         return Backbone.View.extend({
             el: "#terminal-div",
             promptId: "#terminal-prompt",
-
+            inputId: "#terminal-input",
 
             /** override in subclass */
             preinitialize: function () {},
@@ -23,7 +23,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisView.preinitialize(inp);
 
                 // Create some listeners.
-                thisView.listenTo(thisView.model, "render", thisView.render);
+                // thisView.listenTo(thisView.model, "render", thisView.render);
+                thisView.render();
 
                 thisView.postinitialize(inp);
             },
@@ -39,10 +40,11 @@ define(["backbone", "underscore"], function (Backbone, _) {
              */
             render: function () {
                 var thisView = this;
+                var thisModel = this.model;
                 thisView.prerender();
 
-                // Rendering logic.
-                thisView.$(this.promptId).html(this.model.get("prompt"))
+                // Rendering logic.;
+                thisView.addNode();
 
                 thisView.postrender();
                 return thisView;
@@ -53,25 +55,36 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 var thisView = this;
             },
 
-            /**
-             * Change the title display properties given by prop
-             */
-            changeTitleClass: function (classVal, status) {
-                if (status) {
-                    this.$el.addClass(classVal);
-                } else {
-                    this.$el.removeClass(classVal);
-                }
-            },
-
             events: {
                 "keyup #terminal-input": "handleTerminalInput", 
+            },
+
+            // Add a node. 
+            addNode: function() {
+                thisModel = this.model;
+                var node = {
+                    "dependencies": undefined,
+                    "summary": "Some summary information",
+                    "id": 3,
+                    "title": "third-node"
+                };
+                thisModel.addNode(node);
             },
 
             // Only send input to model if enter was pressed.
             handleTerminalInput: function(e) {
                 if (e.keyCode == 13) {
-                    console.log("user pressed enter!")
+                    var input = $(this.inputId).val();
+                    console.log(input);
+                    
+                    // Split command by space. 
+                    commandList = input.split(" ")
+                    console.log(commandList)
+                    // See what command was issued. 
+
+                    // Issue a call to addNode, addEdge etc. 
+                    
+                    // console.log("user pressed enter!");
                 }
             }
         });
