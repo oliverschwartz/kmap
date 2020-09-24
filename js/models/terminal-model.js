@@ -7,6 +7,20 @@ TODOs:
 define(["backbone", "underscore"], function(Backbone, _, ){
     return Backbone.Model.extend({
 
+        /* Event Listeners:
+         * Triggered by the terminal view. 
+         * Update state of the model.
+         */
+        // Process the terminal command.
+        processCommand: function(cmd) {
+            // Parse the words. 
+
+            // Update the graph. 
+
+            // Trigger a terminal clear. (Pipe new info to terminal)
+            this.trigger("changeInput");
+        },
+
         // Set attributes. 
         setAttributes: function() {
             this.set({
@@ -16,20 +30,12 @@ define(["backbone", "underscore"], function(Backbone, _, ){
 
         // Set up this model. 
         initialize: function(inp) {
-            var thisModel = this; 
-            thisModel.setAttributes();
+            this.setAttributes();
+
+            // Set up listeners.
+            this.on("processCommand", function(cmd) {
+                this.processCommand(cmd)
+            }); 
         },
-
-
-        // Update the terminal prompt.
-        updatePrompt: function(newPrompt) {
-            thisModel.prompt = newPrompt; 
-        },
-
-
-        // Process the terminal command.
-        processCommand: function(cmd) {
-            // TODO            
-        }
     });
 });
