@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
-</head>
-<body>
-    <script>
-        function get_image(url) {
-            return new Promise(function(resolve, reject) {
-                const img = $('<img src="' + url + '"/>');
-                img.on('load', () => resolve(img));
-                img.on('error', reject);
-            });
-        }
-        $('body').terminal({
-            cat: function(width, height) {
-                return get_image('https://placekitten.com/' + width +
-                                '/' + height);
-            }
-        }, {
-            greetings: 'My First Terminal\n'
-        });
-    </script>
-</body>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"
+        />
+    </head>
+    <body>
+        <script>
+            $("body").terminal(
+                {
+                    cat: function (width, height) {
+                        const img = $(
+                            '<img src="https://placekitten.com/' +
+                                width +
+                                "/" +
+                                height +
+                                '">'
+                        );
+                        img.on("load", this.resume);
+                        this.pause();
+                        this.echo(img);
+                    },
+                },
+                {
+                    greetings: "My First Terminal\n",
+                }
+            );
+        </script>
+    </body>
 </html>

@@ -4,12 +4,11 @@ define(["backbone", "underscore"], function (Backbone, _) {
      * Display the concepts as an item in the node list
      */
     return (function () {
-
         // return public object for node list item view
         return Backbone.View.extend({
-            el: "#terminal-div",
-            promptId: "#terminal-prompt",
-            inputId: "#terminal-input",
+            el: "#terminal",
+            // promptId: "#terminal-prompt",
+            // inputId: "#terminal-input",
 
             /** override in subclass */
             preinitialize: function () {},
@@ -45,7 +44,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
                 // Rendering logic.;
                 thisView.addNode();
-
+                thisView.createTerminal();
+                
                 thisView.postrender();
                 return thisView;
             },
@@ -56,37 +56,56 @@ define(["backbone", "underscore"], function (Backbone, _) {
             },
 
             events: {
-                "keyup #terminal-input": "handleTerminalInput", 
+                "keyup #terminal-input": "handleTerminalInput",
             },
 
-            // Add a node. 
-            addNode: function() {
+            // Add a node.
+            addNode: function () {
                 thisModel = this.model;
                 var node = {
-                    "dependencies": undefined,
-                    "summary": "Some summary information",
-                    "id": 3,
-                    "title": "third-node"
+                    dependencies: undefined,
+                    summary: "Some summary information",
+                    id: 3,
+                    title: "third-node",
                 };
                 thisModel.addNode(node);
             },
 
+            createTerminal: function () {
+                console.log($("#terminal"));
+                console.log($("#terminal").terminal);
+                // terminal = this.$(".terminalContainer").terminal(
+                //     {
+                //         cat: function () {
+                //             return "you called cat\n"
+                //         },
+
+                //         dog: function () {
+                //             return "you called dog\n"      
+                //         }
+                //     },
+                //     {
+                //         greetings: "My First Terminal\n",
+                //     }
+                // );
+            },
+
             // Only send input to model if enter was pressed.
-            handleTerminalInput: function(e) {
+            handleTerminalInput: function (e) {
                 if (e.keyCode == 13) {
                     var input = $(this.inputId).val();
                     console.log(input);
-                    
-                    // Split command by space. 
-                    commandList = input.split(" ")
-                    console.log(commandList)
-                    // See what command was issued. 
 
-                    // Issue a call to addNode, addEdge etc. 
-                    
+                    // Split command by space.
+                    commandList = input.split(" ");
+                    console.log(commandList);
+                    // See what command was issued.
+
+                    // Issue a call to addNode, addEdge etc.
+
                     // console.log("user pressed enter!");
                 }
-            }
+            },
         });
     })();
 });

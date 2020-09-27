@@ -16,38 +16,25 @@
         <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
     </head>
     <body>
-      
-        <div id="terminal-div">
-            <h1>Terminal</h1>
-            <div id="terminal-window">
-                <span id="terminal-prompt"></span>
-                <input id="terminal-input" onkeyup="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
-                <span id="terminal-cursor">_</span>
-            </div>
-        </div>
 
         <div id="main-display-view">
             <div id="graph-view-wrapper"></div>
         </div>
-        <script>
-          function get_image(url) {
-              return new Promise(function(resolve, reject) {
-                  const img = $('<img src="' + url + '"/>');
-                  img.on('load', () => resolve(img));
-                  img.on('error', reject);
-              });
-          }
-          $('body').terminal({
-              cat: function(width, height) {
-                var result = get_image('https://placekitten.com/' + width +
-                                  '/' + height)
-                console.log(result.ret());
-                return result;
-              }
-          }, {
-              greetings: 'My First Terminal\n'
-          });
-      </script>
+
+
+        <!-- Terminal goes here. -->
+        <div id="terminal">
+            <script>
+                $("#terminal").terminal(
+                    {}, 
+                    {
+                        greetings: "oi"
+                    }
+                )
+            </script>
+        </div>
+
+
         <!-- Underscore Templates -->
         <script type="text/template" id="concept-list-template">
 
