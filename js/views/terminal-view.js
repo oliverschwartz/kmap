@@ -7,6 +7,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
         // return public object for node list item view
         return Backbone.View.extend({
             el: "#terminal",
+            nextId: 3,
             // promptId: "#terminal-prompt",
             // inputId: "#terminal-input",
 
@@ -21,7 +22,10 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 var thisView = this;
                 thisView.preinitialize(inp);
 
-                // Create some listeners.
+                // Add listeners.
+                this.el.addEventListener("cat", this.handleCat);
+                this.el.addEventListener("addNode", this.handleAddNode);
+
                 // thisView.listenTo(thisView.model, "render", thisView.render);
                 thisView.render();
 
@@ -42,9 +46,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 var thisModel = this.model;
                 thisView.prerender();
 
-                // Rendering logic.;
+                // Rendering logic.
                 thisView.addNode();
-                thisView.createTerminal();
                 
                 thisView.postrender();
                 return thisView;
@@ -56,55 +59,37 @@ define(["backbone", "underscore"], function (Backbone, _) {
             },
 
             events: {
-                "keyup #terminal-input": "handleTerminalInput",
+                "click #terminal-header": "handleClick"
             },
 
+            handleClick: function(e) {
+                console.log("terminal clicked");
+            },
+
+            handleCat: function(e) {
+                console.log("handling cat");
+            },
+            
+            handleAddNode: function(e) {
+                console.log("summary: " + e.summary);
+                console.log("title: " + e.title);
+                this.foo();
+                thisView.addNode([], e.summary, e.title);
+            },
+
+            foo: function() {console.log("foo")},
+
             // Add a node.
-            addNode: function () {
+            addNode: function (dependencies, summary, title) {
                 thisModel = this.model;
                 var node = {
                     dependencies: undefined,
                     summary: "Some summary information",
-                    id: 3,
+                    id: this.nextId,
                     title: "third-node",
                 };
+                this.nextId++;
                 thisModel.addNode(node);
-            },
-
-            createTerminal: function () {
-                console.log($("#terminal"));
-                console.log($("#terminal").terminal);
-                // terminal = this.$(".terminalContainer").terminal(
-                //     {
-                //         cat: function () {
-                //             return "you called cat\n"
-                //         },
-
-                //         dog: function () {
-                //             return "you called dog\n"      
-                //         }
-                //     },
-                //     {
-                //         greetings: "My First Terminal\n",
-                //     }
-                // );
-            },
-
-            // Only send input to model if enter was pressed.
-            handleTerminalInput: function (e) {
-                if (e.keyCode == 13) {
-                    var input = $(this.inputId).val();
-                    console.log(input);
-
-                    // Split command by space.
-                    commandList = input.split(" ");
-                    console.log(commandList);
-                    // See what command was issued.
-
-                    // Issue a call to addNode, addEdge etc.
-
-                    // console.log("user pressed enter!");
-                }
             },
         });
     })();

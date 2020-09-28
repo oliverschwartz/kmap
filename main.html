@@ -24,11 +24,40 @@
 
         <!-- Terminal goes here. -->
         <div id="terminal">
+            <h1 id="terminal-header">oioi</h1>
             <script>
                 $("#terminal").terminal(
-                    {}, 
                     {
-                        greetings: "oi"
+                        cat: function () {
+
+                            // Fire an event listener with information. 
+                            const event = document.createEvent("Event"); 
+                            event.initEvent("cat", true, true);
+                            event.eventName = "cat";
+                            console.log("event fired");
+                            document.dispatchEvent(event);
+                            
+                            // Return the terminal output. 
+                            return "you called cat\n";
+                        },
+
+                        /* `addNode content` */
+                        addNode: function(dependencies, summary, title) {
+                           
+                            // Build an event and fire it. 
+                            const event = document.createEvent("Event"); 
+                            event.initEvent("addNode", true, true);
+                            event.dependencies = undefined;
+                            event.summary = summary;
+                            event.title = title;
+                            $("#terminal").dispatchEvent(event);
+                            
+                            // Return the terminal output. 
+                            return "node added to graph\n"; 
+                        }
+                    }, 
+                    {
+                        greetings: "Study Graph"
                     }
                 )
             </script>
