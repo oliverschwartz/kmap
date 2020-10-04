@@ -24,40 +24,49 @@
 
         <!-- Terminal goes here. -->
         <div id="terminal">
-            <h1 id="terminal-header">oioi</h1>
+
+            <!-- Placeholder element. We attach dispatched events to this. -->
+            <div id="event-dispatcher"></div>
             <script>
+                var dispatcher = document.getElementById("event-dispatcher");
+
+                /* Define the functions that our terminal will take as input. */
                 $("#terminal").terminal(
                     {
+
+                        // Dummy cat function.
                         cat: function () {
 
                             // Fire an event listener with information. 
                             const event = document.createEvent("Event"); 
                             event.initEvent("cat", true, true);
                             event.eventName = "cat";
-                            console.log("event fired");
-                            document.dispatchEvent(event);
+                            dispatcher.dispatchEvent(event);
                             
                             // Return the terminal output. 
-                            return "you called cat\n";
+                            return "You called cat";
                         },
 
-                        /* `addNode content` */
+                        // Add a node to the graph. 
                         addNode: function(dependencies, summary, title) {
                            
                             // Build an event and fire it. 
-                            const event = document.createEvent("Event"); 
-                            event.initEvent("addNode", true, true);
-                            event.dependencies = undefined;
-                            event.summary = summary;
-                            event.title = title;
-                            $("#terminal").dispatchEvent(event);
+                            const event = new CustomEvent("addNode", {
+                                bubbles: true,
+                                detail: {
+                                    dependencies: undefined,
+                                    summary: summary,
+                                    title: title,
+                                }
+                            }); 
+                            dispatcher.dispatchEvent(event);
                             
                             // Return the terminal output. 
-                            return "node added to graph\n"; 
+                            return "Node \"" + title + "\" added to graph\n"; 
                         }
                     }, 
                     {
-                        greetings: "Study Graph"
+                        greetings: "Modify your graph here..."
                     }
                 )
             </script>

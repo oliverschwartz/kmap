@@ -8,8 +8,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
         return Backbone.View.extend({
             el: "#terminal",
             nextId: 3,
-            // promptId: "#terminal-prompt",
-            // inputId: "#terminal-input",
 
             /** override in subclass */
             preinitialize: function () {},
@@ -21,14 +19,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
             initialize: function (inp) {
                 var thisView = this;
                 thisView.preinitialize(inp);
-
-                // Add listeners.
-                this.el.addEventListener("cat", this.handleCat);
-                this.el.addEventListener("addNode", this.handleAddNode);
-
-                // thisView.listenTo(thisView.model, "render", thisView.render);
+                thisView.listenTo(thisView.model, "render", thisView.render);
                 thisView.render();
-
                 thisView.postinitialize(inp);
             },
 
@@ -38,17 +30,10 @@ define(["backbone", "underscore"], function (Backbone, _) {
             /** override in subclass */
             prerender: function (inp) {},
 
-            /**
-             * Render the learning view given the supplied model
-             */
+            /* Render the learning view given the supplied model. */
             render: function () {
                 var thisView = this;
-                var thisModel = this.model;
                 thisView.prerender();
-
-                // Rendering logic.
-                thisView.addNode();
-                
                 thisView.postrender();
                 return thisView;
             },
@@ -58,8 +43,11 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 var thisView = this;
             },
 
+            /* Handle listener config. */
             events: {
-                "click #terminal-header": "handleClick"
+                "click #terminal-header": "handleClick", 
+                "cat #event-dispatcher": "handleCat", 
+                "addNode #event-dispatcher": "handleAddNode"
             },
 
             handleClick: function(e) {
@@ -69,25 +57,21 @@ define(["backbone", "underscore"], function (Backbone, _) {
             handleCat: function(e) {
                 console.log("handling cat");
             },
-            
+           
+            // Listener: add a node to the graph. 
             handleAddNode: function(e) {
-                console.log("summary: " + e.summary);
-                console.log("title: " + e.title);
-                this.foo();
-                thisView.addNode([], e.summary, e.title);
-            },
-
-            foo: function() {console.log("foo")},
-
-            // Add a node.
-            addNode: function (dependencies, summary, title) {
                 thisModel = this.model;
+                detail = e.originalEvent.detail; 
+
+                // Create the node. 
                 var node = {
                     dependencies: undefined,
-                    summary: "Some summary information",
+                    summary: detail.summary,
+                    title: detail.title,
                     id: this.nextId,
-                    title: "third-node",
                 };
+
+                // Increment our ID counter.
                 this.nextId++;
                 thisModel.addNode(node);
             },
