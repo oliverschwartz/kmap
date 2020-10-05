@@ -35,35 +35,37 @@
                 $("#terminal").terminal(
                     {
 
-                        // // Dummy cat function.
-                        // cat: function () {
-
-                        //     // Fire an event listener with information. 
-                        //     const event = document.createEvent("Event"); 
-                        //     event.initEvent("cat", true, true);
-                        //     event.eventName = "cat";
-                        //     dispatcher.dispatchEvent(event);
-                            
-                        //     // Return the terminal output. 
-                        //     return "You called cat";
-                        // },
-
-                        // Add a node to the graph. 
-                        addNode: function(dependencies, summary, title) {
+                        /* Add a node to the graph. */
+                        addNode: function(title, summary) {
                            
                             // Build an event and fire it. 
                             const event = new CustomEvent("addNode", {
                                 bubbles: true,
                                 detail: {
-                                    dependencies: undefined,
-                                    summary: summary,
                                     title: title,
+                                    summary: summary,
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
                             
                             // Return the terminal output. 
                             return "Node \"" + title + "\" added to graph\n"; 
+                        }, 
+
+                        /* Connect a parent and a child node. */
+                        connect: function(parent, child) { 
+
+                            // Build an event and fire it. 
+                            const event = new CustomEvent("connect", {
+                                bubbles: true,
+                                detail: {
+                                    parent: parent, 
+                                    child: child,
+                                }
+                            }); 
+                            dispatcher.dispatchEvent(event);
+
+                            return "Node \"" + child + "\" made child of \"" + parent + "\"";
                         }
                     }, 
                     {

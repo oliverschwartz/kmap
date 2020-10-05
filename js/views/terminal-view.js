@@ -7,7 +7,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
         // return public object for node list item view
         return Backbone.View.extend({
             el: "#terminal",
-            nextId: 3,
 
             /** override in subclass */
             preinitialize: function () {},
@@ -45,37 +44,34 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
             /* Handle listener config. */
             events: {
-                "click #terminal-header": "handleClick", 
-                "cat #event-dispatcher": "handleCat", 
-                "addNode #event-dispatcher": "handleAddNode"
+                "addNode #event-dispatcher": "handleAddNode",
+                "connect #event-dispatcher": "handleConnect",
             },
 
-            handleClick: function(e) {
-                console.log("terminal clicked");
-            },
-
-            handleCat: function(e) {
-                console.log("handling cat");
-            },
-           
             // Listener: add a node to the graph. 
             handleAddNode: function(e) {
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
-
-                // Create the node. 
-                var node = {
+                thisModel.addNode({
                     dependencies: undefined,
                     summary: detail.summary,
                     title: detail.title,
-                    id: this.nextId,
-                };
-
-                // Increment our ID counter.
-                this.nextId++;
-                thisModel.addNode(node);
+                    id: detail.title,
+                });
             },
+
+            // Listener: connect two nodes.  
+            handleConnect: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+                thisModel.addEdge({
+                    source: detail.parent, 
+                    target: detail.child, 
+                    isContracted: true,
+                });
+            }
         });
     })();
 });
