@@ -27,6 +27,7 @@
 
             <!-- Placeholder element. We attach dispatched events to this. -->
             <div id="event-dispatcher"></div>
+
             <script>
                 var dispatcher = document.getElementById("event-dispatcher");
 
@@ -34,18 +35,18 @@
                 $("#terminal").terminal(
                     {
 
-                        // Dummy cat function.
-                        cat: function () {
+                        // // Dummy cat function.
+                        // cat: function () {
 
-                            // Fire an event listener with information. 
-                            const event = document.createEvent("Event"); 
-                            event.initEvent("cat", true, true);
-                            event.eventName = "cat";
-                            dispatcher.dispatchEvent(event);
+                        //     // Fire an event listener with information. 
+                        //     const event = document.createEvent("Event"); 
+                        //     event.initEvent("cat", true, true);
+                        //     event.eventName = "cat";
+                        //     dispatcher.dispatchEvent(event);
                             
-                            // Return the terminal output. 
-                            return "You called cat";
-                        },
+                        //     // Return the terminal output. 
+                        //     return "You called cat";
+                        // },
 
                         // Add a node to the graph. 
                         addNode: function(dependencies, summary, title) {

@@ -61,6 +61,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
             // Listener: add a node to the graph. 
             handleAddNode: function(e) {
                 thisModel = this.model;
+                thisView = this;
                 detail = e.originalEvent.detail; 
 
                 // Create the node. 
