@@ -66,6 +66,18 @@
                             dispatcher.dispatchEvent(event);
 
                             return "Node \"" + child + "\" made child of \"" + parent + "\"";
+                        },
+
+                        /********** HELP COMMANDS ************/
+                        help: function(command) {
+                            switch(command) {
+                                case "addNode":
+                                    return "\tusage: addNode \"title\" \"summary\""
+                                case "connect": 
+                                    return "\tusage: connect \"title of parent\" \"title of child\""
+                                default: 
+                                    return command + " not found"
+                            }
                         }
                     }, 
                     {
