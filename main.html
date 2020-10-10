@@ -78,7 +78,7 @@
                                 default: 
                                     return command + " not found"
                             }
-                        }
+                        },
                     }, 
                     {
                         greetings: "Modify your graph here..."
@@ -123,5 +123,29 @@
             data-main="demo/demojs/custom.js"
             src="./js/lib/require-min.js"
         ></script>
+
+        <script>
+            /* TODO: 
+            Get the element that corresponds with the terminal. 
+
+            Create an event that fires on tilde press. 
+            Maintain some state (is terminal visible or invisible?).
+            Modify the css of the terminal div accordingly.
+
+             */
+            var terminalVisible = true; 
+
+            document.addEventListener("keypress", function(e) {
+                if (e.which == 96) {
+                    terminalVisible = !terminalVisible; 
+                    console.log(terminalVisible)
+                    if (terminalVisible) {
+                        document.getElementById("terminal").style.height = "100%"; 
+                    } else {
+                        document.getElementById("terminal").style.height = 0; 
+                    }
+                }
+            })
+        </script>
     </body>
 </html>

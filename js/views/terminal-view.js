@@ -59,6 +59,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     title: detail.title,
                     id: detail.title,
                 });
+                thisModel.trigger("render");
             },
 
             // Listener: connect two nodes.  
