@@ -69,9 +69,17 @@
                             return "Node \"" + title + "\" added to graph\n"; 
                         }, 
 
-                        /* Edit the contents of a node in the graph. */                         
-                        editNode: function(title, summary) {
-
+                        removeNode: function(title) {
+                           
+                            // Build an event and fire it. 
+                            const event = new CustomEvent("removeNode", {
+                                bubbles: true,
+                                detail: {
+                                    title: title,
+                                }
+                            }); 
+                            dispatcher.dispatchEvent(event);
+                            return "";
                         },
 
                         /* Connect a parent and a child node. */

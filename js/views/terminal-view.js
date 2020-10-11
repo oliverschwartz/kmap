@@ -45,6 +45,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
             /* Handle listener config. */
             events: {
                 "addNode #event-dispatcher": "handleAddNode",
+                "removeNode #event-dispatcher": "handleRemoveNode",
                 "connect #event-dispatcher": "handleConnect",
                 "save #event-dispatcher": "handleSave",
             },
@@ -71,6 +72,20 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     id: detail.title,
                 });
                 //thisModel.trigger("render");
+            },
+
+            // Listener: remove a node. 
+            handleRemoveNode: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                title = e.originalEvent.detail.title; 
+
+                // Ensure such a node exists. 
+                // TODO: throw an error if a node doesnt exist. 
+                node = thisModel.getNode(title);
+                if (node != undefined) {
+                    thisModel.removeNode(node);
+                }
             },
 
             // Listener: connect two nodes.  

@@ -2,13 +2,13 @@
     {
         "dependencies": [],
         "summary": "Some summary information",
-        "id": 1,
+        "id": "first-node",
         "title": "first-node"
     },
     {
         "dependencies": [],
         "summary": "Some summary information",
-        "id": 2,
+        "id": "second-node",
         "title": "second-node"
     }
 ]
