@@ -806,12 +806,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .enter()
             .append("g")
             .attr("opacity", 0);
-
-      console.log()
-      console.log(newGs.length)
-      if (newGs.length== 3) {
-          console.log("length is three")
-      }
+      console.log(newGs);
 
       newGs.classed(consts.circleGClass, true)
         .attr("id", function (d) { return thisView.getCircleGId(d); })
@@ -1535,7 +1530,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      * Handles the click event from the "show all" [concepts] buttons
      */
     handleShowAllClick: function (evt) {
-        console.log("show all click")
+      console.log("show all click");
       var thisView = this;
       thisView.simulate(document.getElementById(thisView.getCircleGId(thisView.focusNode)), "mouseup");
     },

@@ -1,4 +1,3 @@
-
 /*global define */
 define(["jquery", "underscore", "backbone", "../collections/edge-collection", "../collections/node-collection", "../models/node-model", "../models/edge-model"], function($, _, Backbone, BaseEdgeCollection, BaseNodeCollection){
   var pvt = {};
@@ -305,6 +304,7 @@ define(["jquery", "underscore", "backbone", "../collections/edge-collection", ".
      * @param {node object} node: the node to be added to the model
      */
     addNode: function(node) {
+      console.log("graph-model.js: addNode()");
       var thisGraph = this,
           isNewNode = false;
       if (!(node.set )){

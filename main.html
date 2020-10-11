@@ -17,6 +17,7 @@
     </head>
     <body>
 
+
         <div id="main-display-view">
             <div id="graph-view-wrapper"></div>
         </div>
@@ -24,18 +25,33 @@
 
         <!-- Terminal goes here. -->
         <div id="terminal">
-
+           
+            <!-- TODO: do some event listener that saves this graph to JSON file -->
+            <button onclick="
+                var dispatcher = document.getElementById('event-dispatcher');
+                const saveEvent = new CustomEvent('save', {
+                    bubbles: true,
+                }); 
+                dispatcher.dispatchEvent(saveEvent); 
+            ">SAVE GRAPH</button>
+            
             <!-- Placeholder element. We attach dispatched events to this. -->
             <div id="event-dispatcher"></div>
 
             <script>
                 var dispatcher = document.getElementById("event-dispatcher");
 
+                /**************************************************************/
                 /* Define the functions that our terminal will take as input. */
+                /**************************************************************/
                 $("#terminal").terminal(
                     {
 
-                        /* Add a node to the graph. */
+                        /* 
+                            Add a node to the graph. 
+                            If there's already a node with title=title, 
+                            just update its summary. 
+                        */
                         addNode: function(title, summary) {
                            
                             // Build an event and fire it. 
@@ -47,10 +63,16 @@
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
+
                             
                             // Return the terminal output. 
                             return "Node \"" + title + "\" added to graph\n"; 
                         }, 
+
+                        /* Edit the contents of a node in the graph. */                         
+                        editNode: function(title, summary) {
+
+                        },
 
                         /* Connect a parent and a child node. */
                         connect: function(parent, child) { 

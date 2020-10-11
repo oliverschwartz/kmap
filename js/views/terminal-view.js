@@ -46,6 +46,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
             events: {
                 "addNode #event-dispatcher": "handleAddNode",
                 "connect #event-dispatcher": "handleConnect",
+                "save #event-dispatcher": "handleSave",
             },
 
             // Listener: add a node to the graph. 
@@ -53,13 +54,23 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
+                title = detail.title; 
+                summary = detail.summary; 
+
+                // Check if this node already exists. 
+                if (thisModel.getNode(title) != undefined) {
+                    thisModel.getNode(title).attributes.summary = summary;
+                    return;
+                }
+
+
                 thisModel.addNode({
                     dependencies: undefined,
                     summary: detail.summary,
-                    title: detail.title,
+                    title: title,
                     id: detail.title,
                 });
-                thisModel.trigger("render");
+                //thisModel.trigger("render");
             },
 
             // Listener: connect two nodes.  
@@ -72,6 +83,15 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     target: detail.child, 
                     isContracted: true,
                 });
+            }, 
+
+            // Listener: save the graph. 
+            handleSave: function(e) {
+                thisModel = this.model; 
+                saved = thisModel.toJSON();
+                console.log(saved);
+                // TODO: figure out some way of writing this to cloud storage? 
+                // Firebase??
             }
         });
     })();
