@@ -3,7 +3,6 @@
     padding: 20px 30px 20px 30px;
     height: 10%; 
     width: 100%; 
-    background-color: rgb(255, 255, 168);
     border-block: 5px;
 }
 
@@ -22,9 +21,40 @@
     50% {opacity: 1;}
 }
 
-#terminal-input {
-    width: 8px;
-    background-color: transparent!important;
-    border-color: transparent!important;
-    outline: transparent!important;
-} 
+.button {
+    background-color: rgb(67, 99, 168);
+    
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Courier New';
+    font-size: 10px;
+    text-decoration: none;
+    border: none;
+    position: absolute;
+    right: 8px;
+    bottom:   .1;
+    padding: 1.5em;
+}
+.button:hover {
+    border: none;
+    background: rgb(45, 74, 138);;
+    box-shadow: 0px 0px 1px #777;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+#terminal {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    background-color: rgb(194, 232, 255);
+}
+.terminal {
+    --color: rgba(10, 23, 82, 0.99);
+    --background:rgb(194, 232, 255);
+    --size: 1.5;
+}
