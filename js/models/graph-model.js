@@ -395,9 +395,7 @@ define(["jquery", "underscore", "backbone", "../collections/edge-collection", ".
      */
     getTopoSort: function(){
       var thisGraph = this;
-      if (!thisGraph.topoSort || !thisGraph.topoSort.length){
-        thisGraph.doTopoSort();
-      }
+      thisGraph.doTopoSort();
       return thisGraph.topoSort;
     },
 

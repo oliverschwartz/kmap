@@ -46,6 +46,11 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
         thisView.idToTitleView = {};
         thisView.listenTo(thisView.model, "refreshList", function() {
             console.log("in concept list view");
+            console.log($("body"));
+            console.log(thisView.$el);
+            thisView.close();
+            thisView.render();
+            // $("body").innerHTML = thisView.$el;
             $("body").prepend(thisView.$el);
         });
         thisView.listenTo(thisView.model, "setFocusNode", function (id) {
@@ -87,6 +92,7 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
 
         var $list = thisView.$el.find("#" + olId),
             nodeOrdering = thisView.model.getTopoSort();
+        console.log(nodeOrdering);
         $list = $list.length ? $list : $(document.createElement("ol"));
         $list.attr("id", olId);
 

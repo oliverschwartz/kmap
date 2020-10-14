@@ -32,6 +32,7 @@ require.config({
       terminalView.render(); 
   
       // insert them into the html
+      console.log(graphListView.$el);
       $("body").prepend(graphListView.$el);
       $("#graph-view-wrapper").append(graphView.$el);
       $("#terminal-view-wrapper").append(terminalView.$el);
