@@ -519,6 +519,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
   };
 
 
+
   /***************
    Return the public backbone view
   ***************/
@@ -555,10 +556,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       thisView.summaryTOStartList = {};
 
       // TODO find a better way to communicate between views w/out involving urls
-      thisView.listenTo(thisView.model, "addNewNodeView", function() {
-        thisView.optimizeGraphPlacement(false, false);
-        thisView.render();
-      })
+      thisView.listenTo(thisView.model, "refreshView", thisView.refreshView);
       thisView.listenTo(thisView.model, "render", thisView.render);
       thisView.listenTo(thisView.model, "destroyNode", thisView.render);
       thisView.listenTo(thisView.model, "destroyEdge", thisView.render);
@@ -642,6 +640,14 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       });
 
       thisView.postinitialize();
+    },
+
+    refreshView: function() {
+        thisView = this;
+        console.log("refreshing view");
+        thisView.isRendered = false;
+        thisView.optimizeGraphPlacement(true, false);
+        thisView.render();
     },
 
     /**

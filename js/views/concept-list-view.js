@@ -24,6 +24,8 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
 
       id: pvt.consts.viewId,
 
+      // Listeners to model changes. 
+
       events: {
         "keyup #concept-list-search-input": "keyUpCLSearchInput",
         "click #concept-list-show-button": "clickListShowButton",
@@ -42,6 +44,10 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
         var thisView = this;
         thisView.preinitialize(inp);
         thisView.idToTitleView = {};
+        thisView.listenTo(thisView.model, "refreshList", function() {
+            console.log("in concept list view");
+            $("body").prepend(thisView.$el);
+        });
         thisView.listenTo(thisView.model, "setFocusNode", function (id) {
           thisView.changeSelectedTitle(id);
         });
@@ -65,6 +71,9 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
        * NOTE: this function should typically not be overridden -- use pre/post render to customize
        */
       render: function () {
+        console.log("concept list view render");
+        console.log(this.model.getNodes())
+
         var thisView = this,
             nodes = thisView.model.getNodes(),
             appRouter = thisView.appRouter, // TODO disentangle metacademy object from graph

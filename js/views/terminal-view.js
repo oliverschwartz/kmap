@@ -72,7 +72,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     id: detail.title,
                 });
                 
-                thisModel.trigger("addNewNode")
+                thisModel.trigger("refreshModel")
             },
 
             // Listener: remove a node. 
@@ -99,6 +99,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     target: detail.child, 
                     isContracted: true,
                 });
+
+                // Refresh the model. 
+                thisModel.trigger("refreshModel");
+
+                // Set the focus on the parent, then toggle the focus. 
+                thisModel.trigger("setFocusNode", detail.parent);
+                thisModel.trigger("toggleNodeScope", detail.parent);
             }, 
 
             // Listener: save the graph. 

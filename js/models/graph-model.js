@@ -23,8 +23,11 @@ define(["jquery", "underscore", "backbone", "../collections/edge-collection", ".
       thisModel.get("nodes").on("toggleNodeScope", function(id){
         thisModel.trigger("toggleNodeScope", id);
       });
-      thisModel.on("addNewNode", function() {
-        thisModel.trigger("addNewNodeView");
+
+      // ADDED. 
+      thisModel.on("refreshModel", function() {
+        thisModel.trigger("refreshView");
+        thisModel.trigger("refreshList");
       });
       thisModel.get("nodes").on("destroy", function () {
         thisModel.trigger("destroyNode");
