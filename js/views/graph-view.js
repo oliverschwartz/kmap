@@ -647,7 +647,6 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      */
     render: function() {
 
-      console.log("in graph-view.render()")
       var thisView = this,
           consts = pvt.consts;
 
@@ -806,7 +805,6 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .enter()
             .append("g")
             .attr("opacity", 0);
-      console.log(newGs);
 
       newGs.classed(consts.circleGClass, true)
         .attr("id", function (d) { return thisView.getCircleGId(d); })
@@ -1530,7 +1528,6 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      * Handles the click event from the "show all" [concepts] buttons
      */
     handleShowAllClick: function (evt) {
-      console.log("show all click");
       var thisView = this;
       thisView.simulate(document.getElementById(thisView.getCircleGId(thisView.focusNode)), "mouseup");
     },
@@ -1687,7 +1684,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      * Function called after render actions
      * This function should be overwritten in subclasses if desired
      */
-    postrender: function() {},
+    postrender: function() {
+        console.log("post render called!")
+
+    },
 
     /**
      * Function called before initialize actions
