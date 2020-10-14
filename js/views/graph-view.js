@@ -35,6 +35,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
    *    private vars    *
    **********************/
   var pvt = {};
+  // comment 
   pvt.consts = {
     exPlusWidth: 5, // expand plus sign width in pixels
     minusRectW: 11,
