@@ -65,18 +65,14 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 }
                     
                 // TODO: should we specific a node id? 
-                node = {
+                thisModel.addNode({
                     dependencies: undefined,
                     summary: detail.summary,
                     title: title,
                     id: detail.title,
-                };
-
-                thisModel.getNodes().add(node);
-                thisModel.postAddNode(node, true);
+                });
                 
-                // thisModel.trigger("render")
-                // thisModel.postAddNode(node, isNewNode);
+                thisModel.trigger("addNewNode")
             },
 
             // Listener: remove a node. 

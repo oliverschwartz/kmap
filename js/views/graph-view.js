@@ -554,6 +554,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       thisView.summaryTOStartList = {};
 
       // TODO find a better way to communicate between views w/out involving urls
+      thisView.listenTo(thisView.model, "addNewNodeView", function() {
+        thisView.optimizeGraphPlacement(false, false);
+        thisView.render();
+      })
       thisView.listenTo(thisView.model, "render", thisView.render);
       thisView.listenTo(thisView.model, "destroyNode", thisView.render);
       thisView.listenTo(thisView.model, "destroyEdge", thisView.render);
@@ -1684,10 +1688,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      * Function called after render actions
      * This function should be overwritten in subclasses if desired
      */
-    postrender: function() {
-        console.log("post render called!")
-
-    },
+    postrender: function() {},
 
     /**
      * Function called before initialize actions
