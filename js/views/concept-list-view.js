@@ -33,6 +33,15 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
         "click #cancel-search-input": "clickCancelSearchInput"
       },
 
+      refreshList: function() {
+        thisView = this;
+        console.log("in concept list view");
+        console.log($("body"));
+        console.log(thisView.$el);
+        thisView.render();
+        $("body").prepend(thisView.$el);
+      },
+
       /** override in subclass */
       preinitialize: function () {},
 
@@ -44,15 +53,7 @@ define(["backbone", "underscore", "jquery", "../views/concept-list-item"], funct
         var thisView = this;
         thisView.preinitialize(inp);
         thisView.idToTitleView = {};
-        thisView.listenTo(thisView.model, "refreshList", function() {
-            console.log("in concept list view");
-            console.log($("body"));
-            console.log(thisView.$el);
-            thisView.close();
-            thisView.render();
-            // $("body").innerHTML = thisView.$el;
-            $("body").prepend(thisView.$el);
-        });
+        thisView.listenTo(thisView.model, "refreshList", thisView.refreshList);
         thisView.listenTo(thisView.model, "setFocusNode", function (id) {
           thisView.changeSelectedTitle(id);
         });

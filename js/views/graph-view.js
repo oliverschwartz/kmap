@@ -581,6 +581,15 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         thisView.state.isFocusing = false;
       });
 
+      thisView.listenTo(thisView.model, "dummyTester", function() {
+        console.log("dummy tester");
+        // Try and manually simulate a mouse click. 
+        console.log(document.getElementsByTagName("svg"));
+        console.log($("#main-display-view"));
+
+        
+      });
+
       // change node scope
       thisView.listenTo(thisView.model, "toggleNodeScope", function (id) {
         // toggle node scope by simulating a mouse click on the node

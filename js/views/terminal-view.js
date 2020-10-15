@@ -72,7 +72,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     id: detail.title,
                 });
                 
-                thisModel.trigger("refreshModel")
+                thisModel.trigger("refreshModel");
             },
 
             // Listener: remove a node. 
@@ -87,6 +87,10 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 if (node != undefined) {
                     thisModel.removeNode(node);
                 }
+                
+                // TODO re-render the grpah
+
+                thisModel.trigger("refreshModel");
             },
 
             // Listener: connect two nodes.  
@@ -104,6 +108,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel.trigger("refreshModel");
 
                 // Set the focus on the parent, then toggle the focus. 
+                thisModel.trigger("dummyTester", detail.parent);
                 thisModel.trigger("setFocusNode", detail.parent);
                 thisModel.trigger("toggleNodeScope", detail.parent);
             }, 

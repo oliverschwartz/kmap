@@ -25,7 +25,9 @@
 
 
     <body>
-        <div id="main-display-view">
+
+
+        <div id="main-display-view" onclick="console.log('maindisplay clicked');">
             <div id="graph-view-wrapper"></div>
         </div>
 
@@ -43,13 +45,13 @@
         <div id="terminal">
            
             <!-- TODO: do some event listener that saves this graph to JSON file -->
-            <button class = "button" onclick="
+            <!-- <button class = "button" onclick="
                 var dispatcher = document.getElementById('event-dispatcher');
                 const saveEvent = new CustomEvent('save', {
                     bubbles: true,
                 }); 
                 dispatcher.dispatchEvent(saveEvent); 
-            ">SAVE GRAPH</button>
+            ">SAVE GRAPH</button> -->
             
             <!-- Placeholder element. We attach dispatched events to this. -->
             <div id="event-dispatcher"></div>
@@ -108,6 +110,10 @@
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
+
+                            // TODO: return something if there isn't a node 
+                            // called 'title'
+
                             return "";
                         },
 
@@ -123,6 +129,10 @@
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
+                            
+                            setTimeout(function() {
+                                $("#main-display-view").click();
+                            }, 1000);
 
                             return "Node \"" + child + "\" made child of \"" + parent + "\"";
                         },

@@ -26,6 +26,7 @@ define(["jquery", "underscore", "backbone", "../collections/edge-collection", ".
 
       // ADDED. 
       thisModel.on("refreshModel", function() {
+        console.log("in graph-model, on refreshModel");
         thisModel.trigger("refreshView");
         thisModel.trigger("refreshList");
       });
@@ -405,6 +406,8 @@ define(["jquery", "underscore", "backbone", "../collections/edge-collection", ".
      * @return {list} - sorted ids of the nodes in the graph
      */
     doTopoSort: function () {
+        console.log("doing topo sort");
+
       // TODO cache the sort
       var thisGraph = this,
           nodes = thisGraph.getNodes(),
