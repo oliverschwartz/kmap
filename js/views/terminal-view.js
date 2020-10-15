@@ -108,9 +108,10 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel.trigger("refreshModel");
 
                 // Set the focus on the parent, then toggle the focus. 
-                thisModel.trigger("dummyTester", detail.parent);
                 thisModel.trigger("setFocusNode", detail.parent);
                 thisModel.trigger("toggleNodeScope", detail.parent);
+                thisModel.trigger("showAllTrigger", detail.parent);
+
             }, 
 
             // Listener: save the graph. 

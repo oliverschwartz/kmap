@@ -584,8 +584,9 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       thisView.listenTo(thisView.model, "dummyTester", function() {
         console.log("dummy tester");
         // Try and manually simulate a mouse click. 
-        console.log(document.getElementsByTagName("svg"));
-        console.log($("#main-display-view"));
+        // console.log(document.getElementsByTagName("svg"));
+        // console.log($("#main-display-view"));
+        thisView.simulate(document.getElementById(thisView.getCircleGId(thisView.focusNode)), "mouseup");
 
         
       });
