@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="./css/graph.css" />
         <link rel="stylesheet" href="./css/list.css" />
         <link rel="stylesheet" href="./css/terminal.css" />
+        <!-- <link rel="stylesheet" href="./css/menu.css" /> -->
         <link
             href="http://fonts.googleapis.com/css?family=Lato:400,700"
             rel="stylesheet"
@@ -32,7 +33,24 @@
 
 
     <body>
-
+        <!-- INTRO MODAL CONTENT -->
+        <div class="overlay" id="menu">
+            <div id="instruction_menu">
+              <div id="instruction_btn_container">
+                <div id="instruction_btn">
+                  X
+                </div>
+              </div>
+              <div id="instruction_content">
+                <h2 id="instruction_content_title">
+                  Welcome to Study Graph! 
+                </h2>
+                <p class="instructions" id="instruction_content_text">
+                    Create interactive mind maps to study. Hit the tilde key to get started!
+                </p>
+              </div>
+            </div>
+        </div>
 
         <div id="main-display-view" onclick="console.log('maindisplay clicked');">
             <div id="graph-view-wrapper"></div>
@@ -62,6 +80,16 @@
             
             <!-- Placeholder element. We attach dispatched events to this. -->
             <div id="event-dispatcher"></div>
+
+            <script> 
+                // $("#menu").css("display", "none");
+                $("#instructions_btn").click(function () {
+                    $("#instruction_menu").css("display", "flex");
+                });
+                $("#instruction_btn").click(function () {
+                    $("#instruction_menu").css("display", "none");
+                });
+            </script>
 
             <script>
                 var dispatcher = document.getElementById("event-dispatcher");
