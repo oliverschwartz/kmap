@@ -34,7 +34,7 @@
     <body>
 
 
-        <div id="main-display-view" onclick="console.log('maindisplay clicked');">
+        <div id="main-display-view">
             <div id="graph-view-wrapper"></div>
         </div>
 
@@ -102,9 +102,7 @@
                             }); 
                             dispatcher.dispatchEvent(event);
 
-                            
-                            // Return the terminal output. 
-                            return "Node \"" + title + "\" added to graph\n"; 
+                            return "";
                         }, 
 
                         removeNode: function(title) {
@@ -141,7 +139,7 @@
                                 $("#main-display-view").click();
                             }, 1000);
 
-                            return "Node \"" + child + "\" made child of \"" + parent + "\"";
+                            return "";
                         },
 
                         /********** HELP COMMANDS ************/
@@ -250,7 +248,6 @@
             });
         }
 
-        writeUserData(1, "Oliver", "example@example.com", "www.google.com");
 
         </script>
 

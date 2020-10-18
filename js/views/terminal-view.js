@@ -82,14 +82,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 title = e.originalEvent.detail.title; 
 
                 // Ensure such a node exists. 
-                // TODO: throw an error if a node doesnt exist. 
                 node = thisModel.getNode(title);
                 if (node != undefined) {
                     thisModel.removeNode(node);
+                } else {                        
+                    alert("removeNode: node must be present in graph.");
                 }
                 
-                // TODO re-render the grpah
-
                 thisModel.trigger("refreshModel");
             },
 
@@ -98,13 +97,21 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
+
+                // Corner case: one/both nodes aren't present.
+                if (thisModel.getNode(detail.parent) == undefined || 
+                    thisModel.getNode(detail.child) == undefined) {
+                    alert("connect: nodes must be present in graph.");
+                    return
+                } 
+
+                // Add the edge to the model. 
                 thisModel.addEdge({
                     source: detail.parent, 
                     target: detail.child, 
                     isContracted: true,
                 });
 
-                // Refresh the model. 
                 thisModel.trigger("refreshModel");
 
                 // Set the focus on the parent, then toggle the focus. 
@@ -116,11 +123,15 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
             // Listener: save the graph. 
             handleSave: function(e) {
+                console.log("handling save")
+
+
                 thisModel = this.model; 
                 saved = thisModel.toJSON();
-                console.log(saved);
+            
                 // TODO: figure out some way of writing this to cloud storage? 
                 // Firebase??
+
             }
         });
     })();
