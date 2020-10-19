@@ -94,6 +94,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
             // Listener: connect two nodes.  
             handleConnect: function(e) {
+
+                // TODO: handle case where an edge already exists.
+
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
@@ -124,14 +127,24 @@ define(["backbone", "underscore"], function (Backbone, _) {
             // Listener: save the graph. 
             handleSave: function(e) {
                 console.log("handling save")
-
+                obj = []
 
                 thisModel = this.model; 
-                saved = thisModel.toJSON();
-            
-                // TODO: figure out some way of writing this to cloud storage? 
-                // Firebase??
+                nodes = thisModel.getNodes(); 
+                console.log(nodes.models);
+                nodes.models.forEach(function(node) {
+                    console.log(node.attributes);
+                    obj.push({
+                        "dependencies": node.attributes.dependencies, 
+                        "summary": node.attributes.summary,
+                        "id": node.attributes.id,
+                        "title": node.attributes.title,
+                    })
+                });
 
+            
+                // TODO: figure out some way of writing this to cloud storage?                     
+                database.ref().set({'some-graph-id': obj});
             }
         });
     })();
