@@ -6,20 +6,20 @@
         <link rel="stylesheet" href="./css/graph.css" />
         <link rel="stylesheet" href="./css/list.css" />
         <link rel="stylesheet" href="./css/terminal.css" />
+        <link rel="stylesheet" href="./css/menu.css" />
         <link
             href="http://fonts.googleapis.com/css?family=Lato:400,700"
             rel="stylesheet"
             type="text/css"
         />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
+       
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="./js/lib/jquery.mousewheel.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
     
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
@@ -28,6 +28,7 @@
             https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+<<<<<<< HEAD
     </head>
 
 
@@ -37,9 +38,12 @@
         <div id="main-display-view">
             <div id="graph-view-wrapper"></div>
         </div>
+=======
+>>>>>>> introModal
 
         <script>
             jQuery(document).ready(function($) {
+                $('#introModal').modal('show');
                 $(window).scroll(function() {
                     $('#terminal').each(function() {
                         $(this).css({top: $('body').prop('scrollTop')});
@@ -47,18 +51,55 @@
                 });
             });
         </script>
+
+    </head>
+
+
+    <body>
+        
+
+        <!-- Modal -->
+        <div id="introModal" class="modal fade">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Welcome to Study Graph! </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    Create interactive mind maps to study, save and share! <br>
+                    Hit the tilde key to get started with the Command Line. 
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div id="main-display-view" onclick="console.log('maindisplay clicked');">
+            <div id="graph-view-wrapper"></div>
+        </div>
+
+        
         
         <!-- Terminal goes here. -->
         <div id="terminal">
            
-            <!-- TODO: do some event listener that saves this graph to JSON file -->
-            <button class = "button" onclick="
-                var dispatcher = document.getElementById('event-dispatcher');
-                const saveEvent = new CustomEvent('save', {
-                    bubbles: true,
-                }); 
-                dispatcher.dispatchEvent(saveEvent); 
-            ">SAVE GRAPH</button>
+            <div class="btns">
+                <!-- Button trigger modal -->
+                <button data-toggle="modal" data-target="#introModal">
+                    Manual
+                </button>
+                <!-- TODO: do some event listener that saves this graph to JSON file -->
+                <button onclick="
+                    var dispatcher = document.getElementById('event-dispatcher');
+                    const saveEvent = new CustomEvent('save', {
+                        bubbles: true,
+                    }); 
+                    dispatcher.dispatchEvent(saveEvent); 
+                ">Save Graph</button>
+            </div>
             
             <!-- Placeholder element. We attach dispatched events to this. -->
             <div id="event-dispatcher"></div>
