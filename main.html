@@ -46,19 +46,50 @@
     <body>
         
 
-        <!-- Modal -->
+        <!-- Intro Modal -->
         <div id="introModal" class="modal fade">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Welcome to Study Graph! </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="introModalLabel">Welcome to Study Graph! </h5>
+                <button class="close btn-primary" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     Create interactive mind maps to study, save and share! <br>
-                    Hit the tilde key to get started with the Command Line. 
+                    Hit the tilde key to get started with the Command Line Interface.  
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Manual Modal -->
+        <div id="manualModal" class="modal fade">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="manualModalLabel">Command Line Manual </h5>
+                <button class="close btn-primary" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    addNode <br> 
+                    - Add a node with a title and description <br> 
+                    - usage: addNode ["title"] ["summary"] <br> <br> 
+
+                    connect <br> 
+                    - Connect two nodes <br> 
+                    - usage: connect ["title of parent"] ["title of child"] <br> <br> 
+                    
+                    removeNode <br> 
+                    - Remove a node <br> 
+                    - usage: removeNode ["title"] <br> <br> 
+
+                    help <br> 
+                    - See manual on the Command Line <br> 
+                    - usage: help 
                 </div>
             </div>
             </div>
@@ -74,9 +105,9 @@
         <!-- Terminal goes here. -->
         <div id="terminal">
            
-            <div class="btns">
+            <div class="btns float-right">
                 <!-- Button trigger modal -->
-                <button data-toggle="modal" data-target="#introModal">
+                <button data-toggle="modal" data-target="#manualModal">
                     Manual
                 </button>
                 <!-- TODO: do some event listener that saves this graph to JSON file -->

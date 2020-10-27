@@ -7,7 +7,7 @@
     },
     {
         "dependencies": [],
-        "summary": "Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem with stg Bayes' theorem with strong (naïve) independence assumptions between the features. They are among the simplest Bayesian network models",
+        "summary": "Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem with stg Bayes' theorem with strong (naïve) independence assumptions between the features. They are among the simplest Bayesian network models.",
         "id": "Naive Bayes",
         "title": "Naive Bayes"
     }
