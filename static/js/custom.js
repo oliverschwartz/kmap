@@ -57,7 +57,7 @@ require.config({
     };
   
     // fetch some graph data
-    $.getJSON("../data/custom.json", handleDataFun);
+    $.getJSON("{{ url_for('static', filename) }}", handleDataFun);
   
   });
   

@@ -1,11 +1,15 @@
 """ server.py """
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path="")
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-if __name__ == '__main__':
-    app.run(port=8000)
+@app.route("/graph/")
+def graph(): 
+    return render_template("main.html")
+
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
