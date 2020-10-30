@@ -8,6 +8,10 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.route('/graph')
+def graph():
+    return render_template('graph.html')
+
 @main.route('/profile')
 def profile(): 
     return 'Profile'
