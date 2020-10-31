@@ -2,4 +2,4 @@
 .DS_Store
 demo_kmap.json
 flask/*
-__pycache__/*
+*/__pycache__/*
