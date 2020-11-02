@@ -55,22 +55,32 @@ require.config({
       })
 
     };
-  
+
+
+    $(function() {
+        $.ajax('/dummy').done(
+            function(s) {
+                obj = JSON.parse(s)
+                handleDataFun(obj);
+            }
+        );
+    });
+
     // fetch some graph data
-    obj = [
-        {
-            "dependencies": [],
-            "summary": "Machine learning (ML) is the study of computer algorithms that improve automatically through experience.",
-            "id": "Machine Learning",
-            "title": "Machine Learning"
-        },
-        {
-            "dependencies": [],
-            "summary": "Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem with stg Bayes' theorem with strong (naïve) independence assumptions between the features. They are among the simplest Bayesian network models.",
-            "id": "Naive Bayes",
-            "title": "Naive Bayes"
-        }
-    ]
-    handleDataFun(obj);
+    // obj = [
+    //     {
+    //         "dependencies": [],
+    //         "summary": "Machine learning (ML) is the study of computer algorithms that improve automatically through experience.",
+    //         "id": "Machine Learning",
+    //         "title": "Machine Learning"
+    //     },
+    //     {
+    //         "dependencies": [],
+    //         "summary": "Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem with stg Bayes' theorem with strong (naïve) independence assumptions between the features. They are among the simplest Bayesian network models.",
+    //         "id": "Naive Bayes",
+    //         "title": "Naive Bayes"
+    //     }
+    // ]
+    // handleDataFun(obj);
   
   });

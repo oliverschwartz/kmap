@@ -14,9 +14,13 @@
     <table>
         <th>Your graph files</th>
         {% for graph in graphs %}
-            <tr><td><a>
-                {{ graph.graph_text }}
-            </a></td></tr>
+            <<tr><td>
+                <form method="POST" action="/graph">
+                    <button name="graph_id" value="{{ graph.id }}">
+                        {{ graph.filename }}
+                    </button>
+                </form>
+            </td></tr>
         {% endfor %}
 
     </table>
