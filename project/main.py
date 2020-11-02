@@ -7,16 +7,26 @@ from .models import Graph
 main = Blueprint('main', __name__)
 
 @main.route('/')
-@login_required
 def index():
+    # Landing page for anonymous user
+    if not current_user.is_authenticated:  
+        return render_template('index-anon.html')
+    
+    # Landing page for signed-in user
     graphs = Graph.query.filter_by(user_id=current_user.id)
     return render_template('index.html', name=current_user.name, graphs=graphs)
 
+@main.route('/login')
+def login():
+    return render_template('login.html')
+
+@main.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 @main.route('/graph')
 def graph():
     return render_template('graph.html')
-
 
 # 'add-graph': endpoint for creating new graph files & adding them to the DB. 
 @main.route('/add-graph', methods=['POST'])

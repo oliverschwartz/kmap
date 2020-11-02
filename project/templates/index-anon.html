@@ -29,7 +29,6 @@
 
         <!-- Navbar brand -->
         <a class="navbar-brand" href="#">Study Graph</a>
-        <h1>You are logged in as {{ name }}</h1>
 
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -53,6 +52,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#contact">Contact</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.login') }}">Log In</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.signup') }}">Sign Up</a>
             </li>
           </ul>
           <!-- Links -->
