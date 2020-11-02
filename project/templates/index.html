@@ -4,18 +4,19 @@
 <div class="column is-4 is-offset-4">
     
     <!-- Add a graph. -->
-    <form action="/add-graph" method="POST">
-        <input name="filename" type="text">
-        <button>Add graph</button>
-    </form>
+    <div class="container">
+        <form action="/graph-add" method="POST">
+            <input name="filename" type="text">
+            <button>Add graph</button>
+        </form>
+    </div>
 
 
-    <h3 class="title">List graph files here</h3>
-    <table>
+    <table class="table">
         <th>Your graph files</th>
         {% for graph in graphs %}
-            <<tr><td>
-                <form method="POST" action="/graph">
+            <tr><td>
+                <form method="POST" action="/graph-load">
                     <button name="graph_id" value="{{ graph.id }}">
                         {{ graph.filename }}
                     </button>

@@ -58,9 +58,12 @@ require.config({
 
 
     $(function() {
-        $.ajax('/dummy').done(
-            function(s) {
-                obj = JSON.parse(s)
+        var graph_id = Number($("#graph_id").text()); 
+
+        $.post('/graph-content', {'graph_id': graph_id}, 
+            function(data, status) {
+                console.log(status);
+                obj = JSON.parse(data)
                 handleDataFun(obj);
             }
         );

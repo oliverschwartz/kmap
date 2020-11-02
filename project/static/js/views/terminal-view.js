@@ -134,17 +134,43 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 console.log(nodes.models);
                 nodes.models.forEach(function(node) {
                     console.log(node.attributes);
+
+                    getDeps = function(dependencies) {
+                        console.log("dependencies: ", dependencies);
+                        if (dependencies.length = 0) {
+                            return []; 
+                        } else {
+                            parents = []
+                            for (i = 0; i < dependencies.models.length; i++) {
+                                element = dependencies.models[i];
+                                parents.push({
+                                    "source": element.attributes.source.id
+                                });
+                            }
+                            return parents;
+                        }
+                    }
+
                     obj.push({
-                        "dependencies": node.attributes.dependencies, 
+                        "dependencies": getDeps(node.attributes.dependencies), 
                         "summary": node.attributes.summary,
                         "id": node.attributes.id,
                         "title": node.attributes.title,
                     })
                 });
 
-            
-                // TODO: figure out some way of writing this to cloud storage?                     
-                database.ref().set({'some-graph-id': obj});
+                var s = JSON.stringify(obj); 
+                console.log(s);
+                $.post(
+                    "/graph-save", 
+                    {
+                        "graph_text": s,
+                        "graph_id": Number($("#graph_id").text())
+                    }, 
+                    function(data, status) {
+                        console.log(status); 
+                    }
+                )
             }
         });
     })();

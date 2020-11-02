@@ -14,38 +14,55 @@ def index():
 
 # Retrieve a hard-coded graph. 
 # TODO: parse the id from the post request.
-@main.route('/dummy', methods=["POST"])
+@main.route('/graph-content', methods=['POST'])
 @login_required
-def dummy():
-    g = Graph.query.filter_by(id=4)[0]
+def graph_content():
+    graph_id = request.form['graph_id']
+    g = Graph.query.filter_by(id=graph_id)[0]
+
+    print(g.graph_text)
+
     return g.graph_text
 
 
-@main.route('/graph', methods=['POST'])
+@main.route('/graph-load', methods=['POST'])
 @login_required
-def graph():
+def graph_load():
     graph_id = request.form['graph_id']
 
     # Retrieve graph object from database. 
     g = Graph.query.filter_by(id=graph_id)[0]
     if g is None: print("Could not retrieve such graph.")
-    json = g.graph_text
-    return render_template('graph.html', json=json)
+    return render_template('graph.html', graph_id=graph_id)
 
 
 # 'add-graph': endpoint for creating new graph files & adding them to the DB. 
-@main.route('/add-graph', methods=['POST'])
+@main.route('/graph-add', methods=['POST'])
 @login_required
-def add_graph(): 
+def graph_add(): 
     filename = request.form['filename']
     
-    print('filename: ', filename)
     # TODO: create a graph object and save it to db
-    graph = Graph(filename="filname", user_id=current_user.id, graph_text='[{"dependencies":[],"summary":"Machinelearning(ML)isthestudyofcomputeralgorithmsthatimproveautomaticallythroughexperience.","id":"MachineLearning","title":"MachineLearning"},{"dependencies":[],"summary":"NaiveBayesclassifiersareafamilyofsimpleprobabilisticclassifiersbasedonapplyingBayestheoremwithstgBayestheoremwithstrong(naïve)independenceassumptionsbetweenthefeatures.TheyareamongthesimplestBayesiannetworkmodels.","id":"NaiveBayes","title":"NaiveBayes"}]')
-    db.session.add(graph)
+    g = Graph(filename=filename, user_id=current_user.id, graph_text='[{"dependencies":[],"summary":"Machinelearning(ML)isthestudyofcomputeralgorithmsthatimproveautomaticallythroughexperience.","id":"MachineLearning","title":"MachineLearning"},{"dependencies":[],"summary":"NaiveBayesclassifiersareafamilyofsimpleprobabilisticclassifiersbasedonapplyingBayestheoremwithstgBayestheoremwithstrong(naïve)independenceassumptionsbetweenthefeatures.TheyareamongthesimplestBayesiannetworkmodels.","id":"NaiveBayes","title":"NaiveBayes"}]')
+    db.session.add(g)
     db.session.commit()
 
     return redirect(url_for("main.index"))
+
+@main.route('/graph-save', methods=['POST'])
+@login_required
+def graph_save(): 
+    graph_text = str(request.form['graph_text'])
+    graph_id = int(request.form['graph_id'])
+
+    # Get this graph from the database; update it; save it. 
+    g = Graph.query.filter_by(id=graph_id)[0]
+    g.graph_text = graph_text
+    db.session.commit()
+
+    print(graph_text)
+
+    return render_template('graph.html', graph_id=graph_id)
 
 
 @main.route('/profile')
