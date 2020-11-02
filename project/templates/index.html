@@ -12,12 +12,14 @@
 
     <h3 class="title">List graph files here</h3>
     <table>
+        <th>Your graph files</th>
         {% for graph in graphs %}
-            <tr>{{ graph.graph_text }}<tr>
+            <tr><td><a>
+                {{ graph.graph_text }}
+            </a></td></tr>
         {% endfor %}
 
     </table>
 
-    <p>Name of logged in user: {{ name }}</p>
 </div>
 {% endblock %}
