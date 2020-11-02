@@ -2,7 +2,22 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4">
+    
+    <!-- Add a graph. -->
+    <form action="/add-graph" method="POST">
+        <input name="filename" type="text">
+        <button>Add graph</button>
+    </form>
+
+
     <h3 class="title">List graph files here</h3>
+    <table>
+        {% for graph in graphs %}
+            <tr>{{ graph.graph_text }}<tr>
+        {% endfor %}
+
+    </table>
+
     <p>Name of logged in user: {{ name }}</p>
 </div>
 {% endblock %}

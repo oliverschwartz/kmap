@@ -11,5 +11,6 @@ class User(UserMixin, db.Model):
 class Graph(db.Model): 
     __tablename__ = 'graph'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    filename = db.Column(db.String(50))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    graph_text = db.Column(db.String(100))
+    graph_text = db.Column(db.String())
