@@ -1,25 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    
-    <!-- Add a graph. -->
-    <form action="/add-graph" method="POST">
-        <input name="filename" type="text">
-        <button>Add graph</button>
-    </form>
+<header>
+    <!--Mask-->
 
+    <!-- Main Pane, Anonymous User -->
+    <div id="intro" class="view">
 
-    <h3 class="title">List graph files here</h3>
-    <table>
-        <th>Your graph files</th>
-        {% for graph in graphs %}
-            <tr><td><a>
-                {{ graph.graph_text }}
-            </a></td></tr>
-        {% endfor %}
+        <!-- <div class="mask light"> -->
+        
+            <div class="container-fluid d-flex align-items-center justify-content-center h-100">
 
-    </table>
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-md-12">
+                    <!-- Heading -->
+                <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Workspace</h2>
+                        
+                <!-- Divider -->
+                <hr class="hr-light">
 
-</div>
+                <!-- Description -->
+                <h4 class="white-text my-4">Modify and add new graphs here.</h4>
+
+                <div class="column is-4 is-offset-4">
+                    
+                
+                    <!-- Add a graph. -->
+                    <form action="/add-graph" method="POST">
+                        <input name="filename" type="text">
+                        <button>New Graph</button>
+                    </form>
+                    <br>
+                    <h3 class="title">My Graphs</h3>
+                    <table class="center">
+                        <th>Your graph files</th>
+                        {% for graph in graphs %}
+                            <tr><td><a>
+                                {{ graph.graph_text }}
+                            </a></td></tr>
+                        {% endfor %}
+                    </table>
+                    
+
+                </div>
+                </div>
+                 
+
+            </div>
+
+        <!-- </div> -->
+        </div>
+
+    </div>
+    <!--/.Mask-->
+
+</header>
+
 {% endblock %}

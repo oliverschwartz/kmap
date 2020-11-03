@@ -53,7 +53,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="#contact">Contact</a>
             </li>
+          </ul>
+          <!-- Links -->
 
+          <!-- Log In / Sign Up  -->
+          <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('main.login') }}">Log In</a>
             </li>
@@ -62,13 +66,6 @@
               <a class="nav-link" href="{{ url_for('main.signup') }}">Sign Up</a>
             </li>
           </ul>
-          <!-- Links -->
-
-          <!-- <form class="form-inline">
-            <div class="md-form my-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            </div>
-          </form> -->
         </div>
         <!-- Collapsible content -->
 
@@ -77,9 +74,9 @@
     </nav>
     <!--/.Navbar-->
     <!--Mask-->
-    <div id="intro" class="view">
+    <div id="anon-intro" class="view">
 
-      <!-- <div class="mask rgba-red-light"> -->
+      <!-- <div class="mask light"> -->
         
           <div class="container-fluid d-flex align-items-center justify-content-center h-100">
 
@@ -88,7 +85,7 @@
                 <div class="col-md-10">
 
                     <!-- Heading -->
-                    <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Welcome to Study Graph!</h2>
+                    <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Welcome to <br> Study Graph!</h2>
 
                     <!-- Divider -->
                     <hr class="hr-light">
@@ -101,8 +98,8 @@
 
             </div>
 
-        </div>
-      <!-- </div> -->
+        <!-- </div> -->
+      </div>
 
     </div>
     <!--/.Mask-->

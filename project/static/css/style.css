@@ -1,16 +1,24 @@
 html,
 body,
-header,
-#intro {
+header {
     height: 100%;
 }
 
-#intro {
-    background: rgb(68, 3, 30) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed;
+#anon-intro {
+    height: 100%;
+    background: rgba(0, 81, 231, 0.733) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+#intro {
+  height: 100%;
+  background: rgba(0, 81, 231, 0.733) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .top-nav-collapse {
@@ -25,4 +33,9 @@ header,
     .navbar:not(.top-nav-collapse) {
       background-color: #24355C;
     }
-  }
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
