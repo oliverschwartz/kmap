@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from . import db
 from .models import Graph
@@ -29,20 +29,81 @@ def graph():
     return render_template('graph.html')
 
 # 'add-graph': endpoint for creating new graph files & adding them to the DB. 
-@main.route('/add-graph', methods=['POST'])
+@main.route('/graph-add', methods=['POST'])
 @login_required
-def add_graph(): 
+def graph_add(): 
     filename = request.form['filename']
     
-    print('filename: ', filename)
     # TODO: create a graph object and save it to db
-    graph = Graph(filename="filname", user_id=current_user.id, graph_text="some text")
-    db.session.add(graph)
+    g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
+    db.session.add(g)
     db.session.commit()
 
     return redirect(url_for("main.index"))
 
 
-@main.route('/profile')
-def profile(): 
-    return 'Profile'
+# 'graph-load': load a specific graph from the index page. 
+@main.route('/graph-load', methods=['GET'])
+@login_required
+def graph_load(): 
+    graph_id = request.args.get('graph_id')
+
+    # Retrieve graph object from database. 
+    g = Graph.query.filter_by(id=graph_id)[0]
+    if g is None: print("Could not retrieve such graph.")
+    return render_template('graph.html', graph_id=graph_id)
+
+
+# 'graph-delete': delete the specified graph from the database. 
+@main.route('/graph-delete', methods=['GET'])
+@login_required
+def graph_delete(): 
+    graph_id = request.args.get('graph_id')
+    
+    # Retrieve graph object from database and delete it.
+    g = Graph.query.filter_by(id=graph_id)[0]
+    if g is None: print("Could not retrieve such graph.")
+    db.session.delete(g)
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
+
+# 'graph-rename': rename the specified graph. 
+@main.route('/graph-rename', methods=['POST'])
+@login_required
+def graph_rename(): 
+    graph_id = request.args.get('graph_id')
+    new_filename = request.form['new_filename']
+    print(new_filename)
+
+    # Retrive the graph object and rename it. 
+    g = Graph.query.filter_by(id=graph_id)[0]
+    if g is None: print("Could not retrieve such graph.")
+    g.filename = new_filename
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
+
+# 'graph-content': Retrieve the encoded graph from the database. 
+@main.route('/graph-content', methods=['POST'])
+@login_required
+def graph_content():
+    graph_id = request.form['graph_id']
+    g = Graph.query.filter_by(id=graph_id)[0]
+    return g.graph_text
+
+
+# 'graph-save': save a graph to the DB. Called from Javascript (terminal-view.js).
+@main.route('/graph-save', methods=['POST'])
+@login_required
+def graph_save(): 
+    graph_text = str(request.form['graph_text'])
+    graph_id = int(request.form['graph_id'])
+
+    # Get this graph from the database; update it; save it. 
+    g = Graph.query.filter_by(id=graph_id)[0]
+    g.graph_text = graph_text
+    db.session.commit()
+
+    # This should not change the rendered view. 
+    return "Ok"

@@ -95,17 +95,28 @@ define(["backbone", "underscore"], function (Backbone, _) {
             // Listener: connect two nodes.  
             handleConnect: function(e) {
 
-                // TODO: handle case where an edge already exists.
-
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
+                sourceID = detail.parent; 
+                targetID = detail.child;
 
-                // Corner case: one/both nodes aren't present.
+                // Error handling: edge already exists.
+                edges = thisModel.getEdges(); 
+                console.log(edges);
+                for (i = 0; i < edges.length; i++) {
+                    attr = edges.models[i].attributes; 
+                    if (attr.source.id == sourceID && attr.target.id == targetID) {
+                        alert("connect: this edge already exists"); 
+                        return;
+                    }
+                }
+
+                // Error case: one/both nodes aren't present.
                 if (thisModel.getNode(detail.parent) == undefined || 
                     thisModel.getNode(detail.child) == undefined) {
                     alert("connect: nodes must be present in graph.");
-                    return
+                    return;
                 } 
 
                 // Add the edge to the model. 
@@ -124,6 +135,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
             }, 
 
+            // Listener: disconnect two nodes. 
+            handleDisconnect: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+            },
+
             // Listener: save the graph. 
             handleSave: function(e) {
                 console.log("handling save")
@@ -134,17 +152,43 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 console.log(nodes.models);
                 nodes.models.forEach(function(node) {
                     console.log(node.attributes);
+
+                    getDeps = function(dependencies) {
+                        console.log("dependencies: ", dependencies);
+                        if (dependencies.length = 0) {
+                            return []; 
+                        } else {
+                            parents = []
+                            for (i = 0; i < dependencies.models.length; i++) {
+                                element = dependencies.models[i];
+                                parents.push({
+                                    "source": element.attributes.source.id
+                                });
+                            }
+                            return parents;
+                        }
+                    }
+
                     obj.push({
-                        "dependencies": node.attributes.dependencies, 
+                        "dependencies": getDeps(node.attributes.dependencies), 
                         "summary": node.attributes.summary,
                         "id": node.attributes.id,
                         "title": node.attributes.title,
                     })
                 });
 
-            
-                // TODO: figure out some way of writing this to cloud storage?                     
-                database.ref().set({'some-graph-id': obj});
+                var s = JSON.stringify(obj); 
+                console.log(s);
+                $.post(
+                    "/graph-save", 
+                    {
+                        "graph_text": s,
+                        "graph_id": Number($("#graph_id").text())
+                    }, 
+                    function(data, status) {
+                        console.log(status); 
+                    }
+                )
             }
         });
     })();

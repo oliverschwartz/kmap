@@ -27,17 +27,39 @@
                 
                     <!-- Add a graph. -->
                     <form action="/add-graph" method="POST">
-                        <input name="filename" type="text">
-                        <button>New Graph</button>
+                        <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                        <button class="btn white">Add graph</button>
                     </form>
                     <br>
                     <h3 class="title">My Graphs</h3>
                     <table class="center">
-                        <th>Your graph files</th>
                         {% for graph in graphs %}
-                            <tr><td><a>
-                                {{ graph.graph_text }}
-                            </a></td></tr>
+                            <tr><td>
+
+                                <!-- Button to load the graph. -->
+                                <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
+                                    <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
+                                        {{ graph.filename }}
+                                    </button>
+                                </form>
+
+                                <!-- Button to delete the graph. -->
+                                <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                                    <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
+                                        Delete
+                                    </button>
+                                </form>
+                                
+                                <!-- Button to rename the graph. -->
+                                <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
+                                    Rename
+                                </button>
+
+                                <!-- Input to put in new name -->
+                                <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                                    <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                                </form>
+                            </td></tr>
                         {% endfor %}
                     </table>
                     

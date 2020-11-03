@@ -45,6 +45,10 @@
 
 
     <body>
+
+        <!-- Placeholder to hold the graph id of this graph. -->
+        <!-- This is so we can fetch the ID using JQuery. -->
+        <p style="display: none;" id="graph_id">{{ graph_id }}</p>
         
 
         <!-- Intro Modal -->
@@ -97,7 +101,7 @@
         </div>
 
 
-        <div id="main-display-view" onclick="console.log('maindisplay clicked');">
+        <div id="main-display-view">
             <div id="graph-view-wrapper"></div>
         </div>
 
