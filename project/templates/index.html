@@ -14,7 +14,7 @@
 
     <div class="container">
         <table class="table">
-            <th>Your graph files</th>
+            <th>Your graphs</th>
         
             {% for graph in graphs %}
                 <tr><td>
@@ -31,6 +31,16 @@
                         <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
                             Delete
                         </button>
+                    </form>
+                    
+                    <!-- Button to rename the graph. -->
+                    <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
+                        Rename
+                    </button>
+
+                    <!-- Input to put in new name -->
+                    <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                        <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
                     </form>
                 </td></tr>
             {% endfor %}

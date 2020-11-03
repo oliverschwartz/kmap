@@ -53,7 +53,23 @@ def graph_delete():
     return redirect(url_for("main.index"))
 
 
-# Retrieve the encoded graph from the database. 
+# 'graph-rename': rename the specified graph. 
+@main.route('/graph-rename', methods=['POST'])
+@login_required
+def graph_rename(): 
+    graph_id = request.args.get('graph_id')
+    new_filename = request.form['new_filename']
+    print(new_filename)
+
+    # Retrive the graph object and rename it. 
+    g = Graph.query.filter_by(id=graph_id)[0]
+    if g is None: print("Could not retrieve such graph.")
+    g.filename = new_filename
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
+
+# 'graph-content': Retrieve the encoded graph from the database. 
 @main.route('/graph-content', methods=['POST'])
 @login_required
 def graph_content():
