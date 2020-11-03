@@ -6,26 +6,37 @@
     <!-- Add a graph. -->
     <div class="container">
         <form action="/graph-add" method="POST">
-            <input name="filename" type="text">
-            <button>Add graph</button>
+            <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+            <button class="btn btn-primary">Add graph</button>
         </form>
     </div>
 
 
-    <table class="table">
-        <th>Your graph files</th>
+    <div class="container">
+        <table class="table">
+            <th>Your graph files</th>
         
-        {% for graph in graphs %}
-            <tr><td>
-                <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
-                    <button name="graph_id" value="{{ graph.id }}">
-                        {{ graph.filename }}
-                    </button>
-                </form>
-            </td></tr>
-        {% endfor %}
+            {% for graph in graphs %}
+                <tr><td>
 
-    </table>
+                    <!-- Button to load the graph. -->
+                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
+                        <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
+                            {{ graph.filename }}
+                        </button>
+                    </form>
+
+                    <!-- Button to delete the graph. -->
+                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                        <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
+                            Delete
+                        </button>
+                    </form>
+                </td></tr>
+            {% endfor %}
+
+        </table>
+    </div>
 
 </div>
 {% endblock %}
