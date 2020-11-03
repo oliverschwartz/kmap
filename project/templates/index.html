@@ -14,9 +14,10 @@
 
     <table class="table">
         <th>Your graph files</th>
+        
         {% for graph in graphs %}
             <tr><td>
-                <form method="POST" action="/graph-load">
+                <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
                     <button name="graph_id" value="{{ graph.id }}">
                         {{ graph.filename }}
                     </button>
