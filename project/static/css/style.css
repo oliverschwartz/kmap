@@ -6,7 +6,7 @@ header {
 
 #anon-intro {
     height: 100%;
-    background: rgba(0, 81, 231, 0.733) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed;
+    background: rgba(1, 103, 255, 0.568) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -14,7 +14,7 @@ header {
 }
 #intro {
   height: 100%;
-  background: rgba(0, 81, 231, 0.733) no-repeat center center fixed;
+  background: rgba(1, 103, 255, 0.568) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
