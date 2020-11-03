@@ -95,11 +95,18 @@ define(["backbone", "underscore"], function (Backbone, _) {
             // Listener: connect two nodes.  
             handleConnect: function(e) {
 
-                // TODO: handle case where an edge already exists.
-
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
+                sourceID = detail.parent; 
+                targetID = detail.child;
+
+                // TODO: handle case where an edge already exists.
+                edges = thisModel.getEdges(); 
+                for (i = 0; i < edges.length; i++) {
+
+                }
+
 
                 // Corner case: one/both nodes aren't present.
                 if (thisModel.getNode(detail.parent) == undefined || 
@@ -123,6 +130,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel.trigger("showAllTrigger", detail.parent);
 
             }, 
+
+            // Listener: disconnect two nodes. 
+            handleDisconnect: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+            },
 
             // Listener: save the graph. 
             handleSave: function(e) {
