@@ -101,7 +101,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 sourceID = detail.parent; 
                 targetID = detail.child;
 
-                // TODO: handle case where an edge already exists.
+                // Error handling: edge already exists.
                 edges = thisModel.getEdges(); 
                 console.log(edges);
                 for (i = 0; i < edges.length; i++) {
@@ -112,8 +112,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     }
                 }
 
-
-                // Corner case: one/both nodes aren't present.
+                // Error case: one/both nodes aren't present.
                 if (thisModel.getNode(detail.parent) == undefined || 
                     thisModel.getNode(detail.child) == undefined) {
                     alert("connect: nodes must be present in graph.");
