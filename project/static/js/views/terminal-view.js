@@ -101,18 +101,22 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 sourceID = detail.parent; 
                 targetID = detail.child;
 
-                // TODO: handle case where an edge already exists.
+                // Error handling: edge already exists.
                 edges = thisModel.getEdges(); 
+                console.log(edges);
                 for (i = 0; i < edges.length; i++) {
-
+                    attr = edges.models[i].attributes; 
+                    if (attr.source.id == sourceID && attr.target.id == targetID) {
+                        alert("connect: this edge already exists"); 
+                        return;
+                    }
                 }
 
-
-                // Corner case: one/both nodes aren't present.
+                // Error case: one/both nodes aren't present.
                 if (thisModel.getNode(detail.parent) == undefined || 
                     thisModel.getNode(detail.child) == undefined) {
                     alert("connect: nodes must be present in graph.");
-                    return
+                    return;
                 } 
 
                 // Add the edge to the model. 
