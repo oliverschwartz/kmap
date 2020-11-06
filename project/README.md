@@ -3,7 +3,7 @@
 ## Setup
 From the top level directory, run:
 - `export FLASK_APP=project`
-- `export DEBUG=1`
+- `export FLASK_DEBUG=1`
 - `rm project/db.sqlite`
 
 Then, run a Python shell in the top level directory and run the following commands: 
