@@ -10,6 +10,7 @@ main = Blueprint('main', __name__)
 def index():
     # Landing page for anonymous user
     if not current_user.is_authenticated:  
+        print("index: current user not authenticated")
         return render_template('index-anon.html')
     
     # Landing page for signed-in user
