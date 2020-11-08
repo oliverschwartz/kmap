@@ -37,25 +37,20 @@
                         {% endwith %}
 
                         <br>
-                        <h3 class="title">My Graphs</h3>
-                        <table class="center">
-                            {% for graph in graphs %}
-                                <tr><td>
 
-                                    <!-- Button to load the graph. -->
-                                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
-                                        <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
+
+                        <table>
+                            {% for graph in graphs %}
+                            <tr>
+                                <td>
+                                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
+                                        <!-- <input type="text" name="company" form="my_form" /> -->
+                                        <button class="btn white" name="graph_id" value="{{ graph.id }}">
                                             {{ graph.filename }}
                                         </button>
                                     </form>
-
-                                    <!-- Button to delete the graph. -->
-                                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                                        <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
-                                            Delete
-                                        </button>
-                                    </form>
-                                    
+                                </td>
+                                <td>
                                     <!-- Button to rename the graph. -->
                                     <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
                                         Rename
@@ -65,12 +60,19 @@
                                     <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
                                         <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
                                     </form>
-                                </td></tr>
+                                </td>
+                                
+                                <td>
+                                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                                        <button class="btn red" name="graph_id" value="{{ graph.id }}">
+                                            x
+                                        </button>
+                                    </form>
+                                </td>
+                                
+                            </tr>
                             {% endfor %}
                         </table>
-                        
-
-                        
                     </div>
                 </div>
 
