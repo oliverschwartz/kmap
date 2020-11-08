@@ -1,1 +1,1 @@
-web: gunicorn application:flaskapp --log-file=-
+web: gunicorn application:flaskapp --preload
