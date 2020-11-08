@@ -7,9 +7,7 @@
     <!-- Main Pane, Anonymous User -->
     <div id="intro" class="view">
 
-        <!-- <div class="mask light"> -->
-        
-            <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+        <div class="container-fluid d-flex align-items-center justify-content-center h-100">
 
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-md-12">
@@ -23,51 +21,61 @@
                     <h4 class="white-text my-4">Modify and add new graphs here.</h4>
 
                     <div class="column is-4 is-offset-4">
-                                    
+                        
                         <!-- Add a graph. -->
                         <form action="/graph-add" method="POST">
                             <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
                             <button class="btn btn-primary">Add graph</button>
                         </form>
+
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="text-danger">
+                                {{ messages[0] }}
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+
                         <br>
+                        <h3 class="title">My Graphs</h3>
+                        <table class="center">
+                            {% for graph in graphs %}
+                                <tr><td>
 
-                        <table>
-                            <tr>
-                                <td>Name</td>
-                                <td>Owner</td>
-                                <td>Last Opened</td>
-                                <td>&nbsp;</td>
-                            </tr>
-
-                            {% for graph in graphs%}
-                            <tr onclick = "loadGraph(this, {{ graph.id }})"> {{ graph.filename }}
-                                <!-- <td><form id="form1"><input type="hidden" name="id" value="1" /></form></td> -->
-                                <!--<td>
+                                    <!-- Button to load the graph. -->
                                     <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
                                         <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
                                             {{ graph.filename }}
                                         </button>
                                     </form>
-                                </td>-->
-                                <!-- <td>
-                                    owner
-                                </td>
-                                <td>
-                                    date
-                                </td> -->
-                                
-                            </tr>
-                            {% endfor%}
-                            
-                            
+
+                                    <!-- Button to delete the graph. -->
+                                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                                        <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
+                                            Delete
+                                        </button>
+                                    </form>
+                                    
+                                    <!-- Button to rename the graph. -->
+                                    <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
+                                        Rename
+                                    </button>
+
+                                    <!-- Input to put in new name -->
+                                    <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                                        <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                                    </form>
+                                </td></tr>
+                            {% endfor %}
                         </table>
+                        
+
+                        
                     </div>
                 </div>
-                 
 
             </div>
 
-        <!-- </div> -->
         </div>
 
     </div>
@@ -75,7 +83,7 @@
 
 </header>
 
-<script>
+<!-- <script>
     function loadGraph(row, graph_id)
     {
         let url = "/graph-load?graph_id=%i"graph_id 
@@ -94,7 +102,7 @@
         console.log("isAdmin: " + {{isAdmin}})
     }
 
-</script>
+</script> -->
 
 
 {% endblock %}

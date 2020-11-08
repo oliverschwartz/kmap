@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
 from .models import Graph
@@ -33,11 +33,17 @@ def graph():
 @login_required
 def graph_add(): 
     filename = request.form['filename']
-    
-    # TODO: create a graph object and save it to db
-    g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
-    db.session.add(g)
-    db.session.commit()
+
+    # Check if a graph with this name already exists.
+    g = Graph.query.filter_by(filename=filename)
+    if g.first() is not None: 
+        flash("This file name is already taken.")
+
+    # Create a graph object and save it to db
+    else: 
+        g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
+        db.session.add(g)
+        db.session.commit()
 
     return redirect(url_for("main.index"))
 
@@ -49,8 +55,10 @@ def graph_load():
     graph_id = request.args.get('graph_id')
 
     # Retrieve graph object from database. 
-    g = Graph.query.filter_by(id=graph_id)[0]
-    if g is None: print("Could not retrieve such graph.")
+    g = Graph.query.filter_by(id=graph_id)
+    if g.first() is None: 
+        print("Could not retrieve such graph.")
+        return redirect(url_for("main.index"))
     return render_template('graph.html', graph_id=graph_id)
 
 
@@ -61,9 +69,9 @@ def graph_delete():
     graph_id = request.args.get('graph_id')
     
     # Retrieve graph object from database and delete it.
-    g = Graph.query.filter_by(id=graph_id)[0]
-    if g is None: print("Could not retrieve such graph.")
-    db.session.delete(g)
+    g = Graph.query.filter_by(id=graph_id)
+    if g.first() is None: print("Could not retrieve such graph.")
+    db.session.delete(g[0])
     db.session.commit()
     return redirect(url_for("main.index"))
 

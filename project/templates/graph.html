@@ -111,10 +111,18 @@
         <div id="terminal">
            
             <div class="btns float-right">
+               
+                <form action="/" method="GET" style="display:inline-block;">
+                    <button>
+                        Home
+                    </button>
+                </form>
+
                 <!-- Button trigger modal -->
                 <button data-toggle="modal" data-target="#manualModal">
                     Manual
                 </button>
+
                 <!-- TODO: do some event listener that saves this graph to JSON file -->
                 <button onclick="
                     var dispatcher = document.getElementById('event-dispatcher');
