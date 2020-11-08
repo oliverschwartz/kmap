@@ -49,8 +49,10 @@ def graph_load():
     graph_id = request.args.get('graph_id')
 
     # Retrieve graph object from database. 
-    g = Graph.query.filter_by(id=graph_id)[0]
-    if g is None: print("Could not retrieve such graph.")
+    g = Graph.query.filter_by(id=graph_id)
+    if g.first() is None: 
+        print("Could not retrieve such graph.")
+        return redirect(url_for("main.index"))
     return render_template('graph.html', graph_id=graph_id)
 
 
@@ -61,9 +63,9 @@ def graph_delete():
     graph_id = request.args.get('graph_id')
     
     # Retrieve graph object from database and delete it.
-    g = Graph.query.filter_by(id=graph_id)[0]
-    if g is None: print("Could not retrieve such graph.")
-    db.session.delete(g)
+    g = Graph.query.filter_by(id=graph_id)
+    if g.first() is None: print("Could not retrieve such graph.")
+    db.session.delete(g[0])
     db.session.commit()
     return redirect(url_for("main.index"))
 
