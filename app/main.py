@@ -50,8 +50,12 @@ def graph_add():
 
 # 'graph-load': load a specific graph from the index page. 
 @main.route('/graph-load', methods=['GET'])
-@login_required
 def graph_load(): 
+
+    if not current_user.is_authenticated: 
+        return redirect(url_for("auth.login"))
+
+
     graph_id = request.args.get('graph_id')
 
     # Retrieve graph object from database. 
