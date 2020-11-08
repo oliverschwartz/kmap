@@ -14,57 +14,54 @@
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-md-12">
                     <!-- Heading -->
-                <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Workspace</h2>
-                        
-                <!-- Divider -->
-                <hr class="hr-light">
+                    <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Workspace</h2>
+                            
+                    <!-- Divider -->
+                    <hr class="hr-light">
 
-                <!-- Description -->
-                <h4 class="white-text my-4">Modify and add new graphs here.</h4>
+                    <!-- Description -->
+                    <h4 class="white-text my-4">Modify and add new graphs here.</h4>
 
-                <div class="column is-4 is-offset-4">
-                    
-                
-                    <!-- Add a graph. -->
-                    <form action="/graph-add" method="POST">
-                        <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
-                        <button class="btn btn-primary">Add graph</button>
-                    </form>
-                    <br>
-                    <h3 class="title">My Graphs</h3>
-                    <table class="center">
-                        {% for graph in graphs %}
-                            <tr><td>
+                    <div class="column is-4 is-offset-4">
+                                    
+                        <!-- Add a graph. -->
+                        <form action="/graph-add" method="POST">
+                            <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                            <button class="btn btn-primary">Add graph</button>
+                        </form>
+                        <br>
 
-                                <!-- Button to load the graph. -->
-                                <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
-                                    <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
-                                        {{ graph.filename }}
-                                    </button>
-                                </form>
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>Owner</td>
+                                <td>Last Opened</td>
+                                <td>&nbsp;</td>
+                            </tr>
 
-                                <!-- Button to delete the graph. -->
-                                <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                                    <button class="btn btn-danger" name="graph_id" value="{{ graph.id }}">
-                                        Delete
-                                    </button>
-                                </form>
+                            {% for graph in graphs%}
+                            <tr onclick = "loadGraph(this, {{ graph.id }})"> {{ graph.filename }}
+                                <!-- <td><form id="form1"><input type="hidden" name="id" value="1" /></form></td> -->
+                                <!--<td>
+                                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
+                                        <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
+                                            {{ graph.filename }}
+                                        </button>
+                                    </form>
+                                </td>-->
+                                <!-- <td>
+                                    owner
+                                </td>
+                                <td>
+                                    date
+                                </td> -->
                                 
-                                <!-- Button to rename the graph. -->
-                                <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
-                                    Rename
-                                </button>
-
-                                <!-- Input to put in new name -->
-                                <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                                    <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
-                                </form>
-                            </td></tr>
-                        {% endfor %}
-                    </table>
-                    
-
-                </div>
+                            </tr>
+                            {% endfor%}
+                            
+                            
+                        </table>
+                    </div>
                 </div>
                  
 
@@ -77,5 +74,27 @@
     <!--/.Mask-->
 
 </header>
+
+<script>
+    function loadGraph(row, graph_id)
+    {
+        let url = "/graph-load?graph_id=%i"graph_id 
+        if(request != null)
+            request.abort();
+        request = $.ajax(
+            {
+                type: "GET",
+                url: url,
+                data: {},
+                success: {
+
+                }
+            }
+        );
+        console.log("isAdmin: " + {{isAdmin}})
+    }
+
+</script>
+
 
 {% endblock %}
