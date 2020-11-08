@@ -12,5 +12,5 @@ class Graph(db.Model):
     __tablename__ = 'graphs'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     filename = db.Column(db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     graph_text = db.Column(db.String())
