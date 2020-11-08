@@ -46,7 +46,7 @@
                             <tr><td>
 
                                 <!-- Button to load the graph. -->
-                                <form method="GET" action="/graph-load?graph_id={{ graph.id }}">
+                                <form method="GET" action="{{ url_for('main.graph_load', graph_id=graph.id) }}">
                                     <button class="btn btn-success" name="graph_id" value="{{ graph.id }}">
                                         {{ graph.filename }}
                                     </button>
