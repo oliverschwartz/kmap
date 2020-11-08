@@ -37,7 +37,7 @@ def graph_add():
     # Check if a graph with this name already exists.
     g = Graph.query.filter_by(filename=filename)
     if g.first() is not None: 
-        flash("Something fucked up aye")
+        flash("This file name is already taken.")
 
     # Create a graph object and save it to db
     else: 
