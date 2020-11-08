@@ -7,16 +7,16 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 def create_app():
-    app = Flask(__name__, static_url_path="")
+    flaskapp = Flask(__name__, static_url_path="")
 
-    app.config['SECRET_KEY'] = Config.SECRET_KEY
-    app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
+    flaskapp.config['SECRET_KEY'] = Config.SECRET_KEY
+    flaskapp.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
 
-    db.init_app(app)
+    db.init_app(flaskapp)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
+    login_manager.init_app(flaskapp)
 
     from .models import User
 
@@ -27,10 +27,10 @@ def create_app():
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
+    flaskapp.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    flaskapp.register_blueprint(main_blueprint)
 
-    return app
+    return flaskapp
