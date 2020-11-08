@@ -30,6 +30,15 @@
                         <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
                         <button class="btn btn-primary">Add graph</button>
                     </form>
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="text-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+
                     <br>
                     <h3 class="title">My Graphs</h3>
                     <table class="center">

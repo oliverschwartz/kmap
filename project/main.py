@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
 from .models import Graph
@@ -33,11 +33,17 @@ def graph():
 @login_required
 def graph_add(): 
     filename = request.form['filename']
-    
-    # TODO: create a graph object and save it to db
-    g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
-    db.session.add(g)
-    db.session.commit()
+
+    # Check if a graph with this name already exists.
+    g = Graph.query.filter_by(filename=filename)
+    if g.first() is not None: 
+        flash("Something fucked up aye")
+
+    # Create a graph object and save it to db
+    else: 
+        g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
+        db.session.add(g)
+        db.session.commit()
 
     return redirect(url_for("main.index"))
 
