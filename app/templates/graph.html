@@ -208,23 +208,33 @@
                             }); 
                             dispatcher.dispatchEvent(event);
                             
-                            setTimeout(function() {
-                                $("#main-display-view").click();
-                            }, 1000);
+                            return "";
+                        },
+
+                        /* Connect a parent and a child node. */
+                        disconnect: function(a, b) { 
+
+                            // Build an event and fire it. 
+                            const event = new CustomEvent("disconnect", {
+                                bubbles: true,
+                                detail: {
+                                    a: a, 
+                                    b: b,
+                                }
+                            }); 
+                            dispatcher.dispatchEvent(event);
 
                             return "";
                         },
 
                         /********** HELP COMMANDS ************/
-                        help: function(command) {
-                            switch(command) {
-                                case "addNode":
-                                    return "\tusage: addNode \"title\" \"summary\""
-                                case "connect": 
-                                    return "\tusage: connect \"title of parent\" \"title of child\""
-                                default: 
-                                    return command + " not found"
-                            }
+                        help: function() {
+                            s = "\`add title summary\`                   -- add a node";
+                            s += "\n\`remove node_title\`                -- remove a node";
+                            s += "\n\`connect parent_title child_title\` -- connect two nodes";
+                            s += "\n\`disconnect node_title node_title\` -- disconnect two nodes";
+                            s += "\n";
+                            return s;
                         },
                     },
                     settings
