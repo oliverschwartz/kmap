@@ -163,7 +163,7 @@
                             If there's already a node with title=title, 
                             just update its summary. 
                         */
-                        addNode: function(title, summary) {
+                        add: function(title, summary) {
                            
                             // Build an event and fire it. 
                             const event = new CustomEvent("addNode", {
@@ -178,7 +178,7 @@
                             return "";
                         }, 
 
-                        removeNode: function(title) {
+                        remove: function(title) {
                            
                             // Build an event and fire it. 
                             const event = new CustomEvent("removeNode", {

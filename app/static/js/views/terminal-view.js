@@ -47,6 +47,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 "addNode #event-dispatcher": "handleAddNode",
                 "removeNode #event-dispatcher": "handleRemoveNode",
                 "connect #event-dispatcher": "handleConnect",
+                "disconnect #event-dispatcher": "handleDisconnect", 
                 "save #event-dispatcher": "handleSave",
             },
 
@@ -140,6 +141,29 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel = this.model;
                 thisView = this;
                 detail = e.originalEvent.detail; 
+                a = detail.a; 
+                b = detail.b;
+
+                // Error handling: edge already exists.
+                edges = thisModel.getEdges(); 
+                console.log(edges);
+                for (i = 0; i < edges.length; i++) {
+                    attr = edges.models[i].attributes; 
+                    if ((attr.source.id == a && attr.target.id == b) ||
+                        attr.source.id == b && attr.target.id == a) {
+                        thisModel.removeEdge(edges.models[i]);
+                        
+                        thisModel.trigger("refreshModel");
+                        
+                        // Set the focus on the parent, then toggle the focus. 
+                        thisModel.trigger("setFocusNode", a);
+                        thisModel.trigger("toggleNodeScope", a);
+                        thisModel.trigger("showAllTrigger", a);
+                        return;
+                    }
+                }
+
+                alert("disconnect: nodes must be connected in graph.");
             },
 
             // Listener: save the graph. 
