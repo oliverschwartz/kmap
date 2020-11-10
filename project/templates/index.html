@@ -18,7 +18,7 @@
                     <hr class="hr-light">
 
                     <!-- Description -->
-                    <h4 class="white-text my-4">Create and edit graphs here.</h4>
+                    <h4 class="white-text my-4">Create and edit graphs here</h4>
 
                 </div>
 
@@ -30,10 +30,14 @@
     <!--/.Mask-->
 </header>
 
-<div class='h-90'>
 
-<div class="container-fluid align-items-center justify-content-center h-100" style="width: 90%; min-height: 350px">
-    <div class="container d-lg-flex">
+<main class='h-90 background'>
+    <div class="container">
+
+    
+
+<div class="container-fluid align-items-center justify-content-center h-100" style="width: 95%; background: white;min-height: 400px; padding: 20px 0px 20px 0px">
+    <div class="container-fluid justify-content-center d-lg-flex" style="width: 100%;">
     
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -96,13 +100,13 @@
         <div class="col-3">
             <!-- Add a graph. -->
             <form class='pull-left' action="/graph-add" method="POST">
-                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Create a new graph" aria-label="Name your graph" >
+                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
                 <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
             </form>
         </div>
     </div>
 </div>
-    
 </div>
+</main>
 
 {% endblock %}

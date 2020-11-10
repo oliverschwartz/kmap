@@ -17,6 +17,11 @@ header {
   background: rgba(1, 103, 255, 0.568) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed !important;
 }
 
+.background {
+  background: rgba(1, 103, 255, 0.568);
+  padding: 0px 0px 30px 0px;
+}
+
 #intro {
   height: 100%;
   background: rgba(1, 103, 255, 0.568) no-repeat center center fixed;
