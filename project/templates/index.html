@@ -44,7 +44,7 @@
         {% endwith %}
     
         <br>
-        <div class="col-11">
+        <div class="col-9">
         <table>
             <tr> 
                 <th> Name </th>
@@ -71,13 +71,13 @@
                 </td>
                 <td>
                     <!-- Button to rename the graph. -->
-                    <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename').style.display='inline'">
+                    <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
                         Rename
                     </button>
     
                     <!-- Input to put in new name -->
                     <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                        <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                        <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
                     </form>
                 </td>
                 
@@ -93,10 +93,10 @@
             {% endfor %}
         </table>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <!-- Add a graph. -->
             <form class='pull-left' action="/graph-add" method="POST">
-                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name new graph" aria-label="Name your graph" >
+                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Create a new graph" aria-label="Name your graph" >
                 <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
             </form>
         </div>
