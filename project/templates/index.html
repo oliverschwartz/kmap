@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<header>
+<header class="short">
     <!--Mask-->
 
     <!-- Main Pane, Anonymous User -->
-    <div id="intro" class="view">
+    <div id="intro">
 
-        <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+        <div class="container-fluid d-flex align-items-center justify-content-center h-100" style="min-height: 350px">
 
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-md-12">
@@ -18,62 +18,8 @@
                     <hr class="hr-light">
 
                     <!-- Description -->
-                    <h4 class="white-text my-4">Modify and add new graphs here.</h4>
+                    <h4 class="white-text my-4">Create and edit graphs here.</h4>
 
-                    <div class="column is-4 is-offset-4">
-                        
-                        <!-- Add a graph. -->
-                        <form action="/graph-add" method="POST">
-                            <input name="filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
-                            <button class="btn btn-primary">Add graph</button>
-                        </form>
-
-                        {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <div class="text-danger">
-                                {{ messages[0] }}
-                            </div>
-                        {% endif %}
-                        {% endwith %}
-
-                        <br>
-
-
-                        <table>
-                            {% for graph in graphs %}
-                            <tr>
-                                <td>
-                                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
-                                        <!-- <input type="text" name="company" form="my_form" /> -->
-                                        <button class="btn white" name="graph_id" value="{{ graph.id }}">
-                                            {{ graph.filename }}
-                                        </button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <!-- Button to rename the graph. -->
-                                    <button class="btn btn-warning" onclick="document.getElementById('rename').style.display='inline'">
-                                        Rename
-                                    </button>
-
-                                    <!-- Input to put in new name -->
-                                    <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                                        <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
-                                    </form>
-                                </td>
-                                
-                                <td>
-                                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                                        <button class="btn red" name="graph_id" value="{{ graph.id }}">
-                                            x
-                                        </button>
-                                    </form>
-                                </td>
-                                
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
                 </div>
 
             </div>
@@ -82,29 +28,81 @@
 
     </div>
     <!--/.Mask-->
-
 </header>
 
-<!-- <script>
-    function loadGraph(row, graph_id)
-    {
-        let url = "/graph-load?graph_id=%i"graph_id 
-        if(request != null)
-            request.abort();
-        request = $.ajax(
-            {
-                type: "GET",
-                url: url,
-                data: {},
-                success: {
+<div class='h-90'>
 
-                }
-            }
-        );
-        console.log("isAdmin: " + {{isAdmin}})
-    }
-
-</script> -->
-
+<div class="container-fluid align-items-center justify-content-center h-100" style="width: 90%; min-height: 350px">
+    <div class="container d-lg-flex">
+    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="text-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+    
+        <br>
+        <div class="col-11">
+        <table>
+            <tr> 
+                <th> Name </th>
+                <th> Owner </th>
+                <th> Last Opened </th>
+                <th> &nbsp; </th>
+                <th> &nbsp; </th>
+            </tr>
+            {% for graph in graphs %}
+            <tr class='outline'>
+                <td>
+                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
+                        <button class="text-left" style= 'background: transparent;
+                        border: none !important;' name="graph_id" value="{{ graph.id }}">
+                            {{ graph.filename }}
+                        </button>
+                    </form>
+                </td>
+                <td> 
+                    Heidi Kim
+                </td>
+                <td> 
+                    10/19/20
+                </td>
+                <td>
+                    <!-- Button to rename the graph. -->
+                    <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename').style.display='inline'">
+                        Rename
+                    </button>
+    
+                    <!-- Input to put in new name -->
+                    <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                        <input style="display: none;" id="rename" name="new_filename" type="text" class="form-control" placeholder="Name your graph" aria-label="Name your graph" aria-describedby="basic-addon1">
+                    </form>
+                </td>
+                
+                <td>
+                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                        <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
+                            x
+                        </button>
+                    </form>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div class="col-2">
+            <!-- Add a graph. -->
+            <form class='pull-left' action="/graph-add" method="POST">
+                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name new graph" aria-label="Name your graph" >
+                <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
+            </form>
+        </div>
+    </div>
+</div>
+    
+</div>
 
 {% endblock %}

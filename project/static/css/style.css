@@ -6,12 +6,17 @@ header {
 
 #anon-intro {
     height: 100%;
-    background: rgba(1, 103, 255, 0.568) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed;
+    background: rgba(1, 103, 255, 0.568);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+
+.overlay{
+  background: rgba(1, 103, 255, 0.568) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed !important;
+}
+
 #intro {
   height: 100%;
   background: rgba(1, 103, 255, 0.568) no-repeat center center fixed;
@@ -19,6 +24,10 @@ header {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+header.short{
+  height: 40% !important;
 }
 
 .top-nav-collapse {
@@ -38,4 +47,28 @@ header {
 .center {
   margin-left: auto;
   margin-right: auto;
+}
+
+table {
+  width:100%;
+}
+
+table, tr {
+  border: 1px solid black;
+}
+
+td {
+  padding: 6px;
+}
+th {
+  padding: 14px;
+  text-align: left;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.container-fluid{
+  padding: 10px; 
 }
