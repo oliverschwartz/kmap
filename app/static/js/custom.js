@@ -19,10 +19,6 @@ require.config({
     var terminalView = new KMap.TerminalView({model: graphModel}); 
   
     var handleDataFun = function (data) {
-      console.log(data)
-
-      database.ref("some-graph-id").once('value').then(function(snapshot) {
-        console.log(data)
 
         // add the data to the graph model
         graphModel.addJsonNodesToGraph(data);
@@ -52,8 +48,6 @@ require.config({
         var topoSortList = graphModel.getTopoSort();
         graphView.centerForNode(graphModel.getNode(topoSortList[topoSortList.length -1]));
     
-      })
-
     };
 
 
@@ -68,22 +62,5 @@ require.config({
             }
         );
     });
-
-    // fetch some graph data
-    // obj = [
-    //     {
-    //         "dependencies": [],
-    //         "summary": "Machine learning (ML) is the study of computer algorithms that improve automatically through experience.",
-    //         "id": "Machine Learning",
-    //         "title": "Machine Learning"
-    //     },
-    //     {
-    //         "dependencies": [],
-    //         "summary": "Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem with stg Bayes' theorem with strong (naïve) independence assumptions between the features. They are among the simplest Bayesian network models.",
-    //         "id": "Naive Bayes",
-    //         "title": "Naive Bayes"
-    //     }
-    // ]
-    // handleDataFun(obj);
   
   });
