@@ -2,7 +2,7 @@
 
 ## Setup
 From the top level directory, run:
-- `export FLASK_APP=project`
+- `export FLASK_APP=app`
 - `export FLASK_DEBUG=1`
 - `rm project/db.sqlite`
 
