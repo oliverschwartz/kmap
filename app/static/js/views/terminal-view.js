@@ -146,7 +146,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
                 // Error handling: edge already exists.
                 edges = thisModel.getEdges(); 
-                console.log(edges);
                 for (i = 0; i < edges.length; i++) {
                     attr = edges.models[i].attributes; 
                     if ((attr.source.id == a && attr.target.id == b) ||
@@ -168,17 +167,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
             // Listener: save the graph. 
             handleSave: function(e) {
-                console.log("handling save")
                 obj = []
 
                 thisModel = this.model; 
                 nodes = thisModel.getNodes(); 
-                console.log(nodes.models);
                 nodes.models.forEach(function(node) {
-                    console.log(node.attributes);
 
                     getDeps = function(dependencies) {
-                        console.log("dependencies: ", dependencies);
                         if (dependencies.length = 0) {
                             return []; 
                         } else {
@@ -202,7 +197,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 });
 
                 var s = JSON.stringify(obj); 
-                console.log(s);
                 $.post(
                     "/graph-save", 
                     {
@@ -210,7 +204,6 @@ define(["backbone", "underscore"], function (Backbone, _) {
                         "graph_id": Number($("#graph_id").text())
                     }, 
                     function(data, status) {
-                        console.log(status); 
                     }
                 )
             }

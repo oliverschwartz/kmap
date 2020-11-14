@@ -32,7 +32,6 @@ require.config({
         terminalView.render(); 
     
         // insert them into the html
-        console.log(graphListView.$el);
         $("body").prepend(graphListView.$el);
         $("#graph-view-wrapper").append(graphView.$el);
         $("#terminal-view-wrapper").append(terminalView.$el);
@@ -56,7 +55,6 @@ require.config({
 
         $.post('/graph-content', {'graph_id': graph_id}, 
             function(data, status) {
-                console.log(status);
                 obj = JSON.parse(data)
                 handleDataFun(obj);
             }

@@ -153,7 +153,8 @@
                         if (e.which == 96) {
                             return false;
                         }
-                    }
+                    }, 
+                    checkArity: false,
                 };
                 $("#terminal").terminal(
                     {
@@ -178,7 +179,14 @@
                             return "";
                         }, 
 
-                        remove: function(title) {
+                        remove: function(...args) {
+
+                            console.log(args); 
+                            if (args.length != 1) {
+                                return "Incorrect usage"
+                            }
+
+                            console.log("in remove")
                            
                             // Build an event and fire it. 
                             const event = new CustomEvent("removeNode", {
