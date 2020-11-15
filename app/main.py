@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
@@ -42,7 +43,7 @@ def graph_add():
 
     # Create a graph object and save it to db
     else: 
-        g = Graph(filename=filename, user_id=current_user.id, graph_text='[]')
+        g = Graph(filename=filename, user_id=current_user.id, graph_text='[]', last_opened=datetime.today())
         db.session.add(g)
         db.session.commit()
 
@@ -56,14 +57,18 @@ def graph_load():
     if not current_user.is_authenticated: 
         return redirect(url_for("auth.login"))
 
-
     graph_id = request.args.get('graph_id')
 
-    # Retrieve graph object from database. 
+    # Retrieve graph object from database.
     g = Graph.query.filter_by(id=graph_id)
     if g.first() is None: 
         print("Could not retrieve such graph.")
         return redirect(url_for("main.index"))
+
+    # Update access time. 
+    g.first().last_opened = datetime.today()
+    db.session.commit()
+
     return render_template('graph.html', graph_id=graph_id)
 
 
