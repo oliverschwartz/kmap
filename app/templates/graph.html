@@ -122,15 +122,6 @@
                 <button data-toggle="modal" data-target="#manualModal">
                     Manual
                 </button>
-
-                <!-- TODO: do some event listener that saves this graph to JSON file -->
-                <button onclick="
-                    var dispatcher = document.getElementById('event-dispatcher');
-                    const saveEvent = new CustomEvent('save', {
-                        bubbles: true,
-                    }); 
-                    dispatcher.dispatchEvent(saveEvent); 
-                ">Save Graph</button>
             </div>
             
             <!-- Placeholder element. We attach dispatched events to this. -->
