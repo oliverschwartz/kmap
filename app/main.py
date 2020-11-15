@@ -36,7 +36,7 @@ def graph_add():
     filename = request.form['filename']
 
     # Check if a graph with this name already exists.
-    g = Graph.query.filter_by(filename=filename)
+    g = Graph.query.filter_by(filename=filename, user_id=current_user.id)
     if g.first() is not None: 
         flash("This file name is already taken.")
 
