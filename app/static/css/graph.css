@@ -241,3 +241,13 @@ g.concept-g.scoped-circle-g > circle, g.concept-g.scoped-circle-g .dep-circle, g
         opacity: 0;
     }
 }
+
+.code_font {
+    font-family: monospace;
+    font-size: 17px;
+    letter-spacing: .1em;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
