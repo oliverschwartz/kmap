@@ -68,10 +68,10 @@
                     </form>
                 </td>
                 <td> 
-                    Heidi Kim
+                    {{ current_user.name }}
                 </td>
                 <td> 
-                    10/19/20
+                    {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
                 </td>
                 <td>
                     <!-- Button to rename the graph. -->

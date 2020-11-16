@@ -155,14 +155,19 @@
                             If there's already a node with title=title, 
                             just update its summary. 
                         */
-                        add: function(title, summary) {
+                        add: function(...args) {
+
+                            // Error checking.
+                            if (args.length != 2) {
+                                return "\tIncorrect usage\n\t" + "Usage:\t\tadd \"node title\" \"node summary\""
+                            }
                            
                             // Build an event and fire it. 
                             const event = new CustomEvent("addNode", {
                                 bubbles: true,
                                 detail: {
-                                    title: title,
-                                    summary: summary,
+                                    title: args[0],
+                                    summary: args[1],
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
@@ -172,18 +177,16 @@
 
                         remove: function(...args) {
 
-                            console.log(args); 
+                            // Error checking.
                             if (args.length != 1) {
-                                return "Incorrect usage"
+                                return "\tIncorrect usage\n\t" + "Usage:\t\tremove \"node title\""
                             }
 
-                            console.log("in remove")
-                           
                             // Build an event and fire it. 
                             const event = new CustomEvent("removeNode", {
                                 bubbles: true,
                                 detail: {
-                                    title: title,
+                                    title: args[0]
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
@@ -195,14 +198,19 @@
                         },
 
                         /* Connect a parent and a child node. */
-                        connect: function(parent, child) { 
+                        connect: function(...args) { 
+
+                            // Error checking.
+                            if (args.length != 2) {
+                                return "\tIncorrect usage\n\t" + "Usage:\t\tconnect \"first title\" \"second title\""
+                            }
 
                             // Build an event and fire it. 
                             const event = new CustomEvent("connect", {
                                 bubbles: true,
                                 detail: {
-                                    parent: parent, 
-                                    child: child,
+                                    parent: args[0], 
+                                    child: args[1],
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
@@ -211,14 +219,19 @@
                         },
 
                         /* Connect a parent and a child node. */
-                        disconnect: function(a, b) { 
+                        disconnect: function(...args) { 
+
+                            // Error checking.
+                            if (args.length != 2) {
+                                return "\tIncorrect usage\n\t" + "Usage:\t\tdisconnect \"first title\" \"second title\""
+                            }
 
                             // Build an event and fire it. 
                             const event = new CustomEvent("disconnect", {
                                 bubbles: true,
                                 detail: {
-                                    a: a, 
-                                    b: b,
+                                    a: args[0], 
+                                    b: args[1],
                                 }
                             }); 
                             dispatcher.dispatchEvent(event);
@@ -304,18 +317,18 @@
         <!-- AUTOSAVE -->
         <script>
 
-            $(document).ready(function() {
-                autosave = function() {
-                    console.log("autosave!");
-                    var dispatcher = document.getElementById('event-dispatcher');
-                    const saveEvent = new CustomEvent('save', {
-                        bubbles: true,
-                    }); 
-                    dispatcher.dispatchEvent(saveEvent);
-                }
+            // $(document).ready(function() {
+            //     autosave = function() {
+            //         console.log("autosave!");
+            //         var dispatcher = document.getElementById('event-dispatcher');
+            //         const saveEvent = new CustomEvent('save', {
+            //             bubbles: true,
+            //         }); 
+            //         dispatcher.dispatchEvent(saveEvent);
+            //     }
 
-                setInterval(function(){ autosave(); }, 1000);
-            });
+            //     setInterval(function(){ autosave(); }, 1000);
+            // });
         
         </script>
 
