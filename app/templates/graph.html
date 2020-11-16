@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Study Graph</title>
+        <!-- SG icon -->
+        <link rel="icon" href="img/graph-favicon.png" type="image/x-icon">
+
         <!-- <script type="text/javascript" src="{{ url_for ('static', filename='js/main.js') }}"></script> -->
         <link rel="stylesheet" href="{{ url_for ('static', filename='css/demo.css') }}" />
         <link rel="stylesheet" href="{{ url_for ('static', filename='css/graph.css') }}" />
@@ -34,10 +40,10 @@
         </script>
 
         <style>
-            .m-progress-bar {
-                min-height: 1em;
-                background: #c12d2d;
-                width: 5%;
+            .move-left {
+                width: auto;
+                box-shadow: none;
+                /* float:left !important; */
             }
         </style>
     </head>
@@ -87,32 +93,37 @@
                     <div class="modal-header">
                         <h4 class="modal-title step-1" data-step="1">Welcome!</h4>
                         <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
-                        <h4 class="modal-title step-3" data-step="2">One Last Thing</h4>
+                        <h4 class="modal-title step-3" data-step="2">A Note on Saving Your Work</h4>
 
                     </div>
                     <div class="modal-body step-1" data-step="1">
-                        Hit the tilde key to call the Command Line Interface (CLI) and begin building your graph. <br><br>
-                        Hint: your tilde key (`) is in the top left corner of your keyboard, just under esc. 
+                        A few things to start off with: <br>
+                        - You'll be using the Command Line Interface (CLI) to build and update your graph. <br>
+                        - You can call the CLI with the tilde key. <br> 
+                        - Once your graph has a few nodes, you can use the concept list on the left to scroll and search through them. 
+                        <br> <br> Hint: the tilde key (`) is in the top left corner of your keyboard, just under esc. 
                     </div>
                     <div class="modal-body step-2" data-step="2">
-                        The CLI lets you add nodes with different topics and descriptions. 
+                        The CLI lets you add nodes with unique titles and descriptions. 
                         For any node you add, you can edit its content, link it to another node, or remove it from the graph if you don't want it there anymore. <br><br>
-                        Type "help" and hit "Enter" in the CLI to see how these commands work. 
+                        After you call the CLI with the tilde key, type "help" and hit "Return" to see how to get started with commands. 
                     </div>
                     <div class="modal-body step-3" data-step="3">
-                        Don't worry about saving your work. Our Auto-Save feature will take care of it, so that you can focus on learning your material. <br> <br> 
-                        Now that you have all the tools to start, let's begin! 
+                        Don't worry about it! Our Auto-Save feature will take care of saving any graph you create, so that you can focus on learning your material. <br> <br> 
+                        Now that you have all the tools to begin, hit the tilde key and run "help" to get started! 
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                        <!-- <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-1', 2)">Continue</button> -->
+                        <!-- <div class="form-check move-left">
+                            <input type="checkbox" class="form-check-input move-left" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Don't show again</label>
+                        </div> -->
 
                         <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 1)">Back</button>
                         <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">Continue</button>
                         <button type="button" class="btn btn-primary step step-3" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">Back</button>
                         <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">Continue</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
+                        
                     </div>
                 </div>
             </div>
