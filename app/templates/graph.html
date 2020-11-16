@@ -317,18 +317,18 @@
         <!-- AUTOSAVE -->
         <script>
 
-            // $(document).ready(function() {
-            //     autosave = function() {
-            //         console.log("autosave!");
-            //         var dispatcher = document.getElementById('event-dispatcher');
-            //         const saveEvent = new CustomEvent('save', {
-            //             bubbles: true,
-            //         }); 
-            //         dispatcher.dispatchEvent(saveEvent);
-            //     }
+            $(document).ready(function() {
+                autosave = function() {
+                    console.log("autosave!");
+                    var dispatcher = document.getElementById('event-dispatcher');
+                    const saveEvent = new CustomEvent('save', {
+                        bubbles: true,
+                    }); 
+                    dispatcher.dispatchEvent(saveEvent);
+                }
 
-            //     setInterval(function(){ autosave(); }, 1000);
-            // });
+                setInterval(function(){ autosave(); }, 1000);
+            });
         
         </script>
 
