@@ -15,7 +15,7 @@ def index():
         return render_template('index-anon.html')
     
     # Landing page for signed-in user
-    graphs = Graph.query.filter_by(user_id=current_user.id)
+    graphs = Graph.query.filter_by(user_id=current_user.id).order_by(Graph.filename)
     return render_template('index.html', name=current_user.name, graphs=graphs)
 
 @main.route('/login')
