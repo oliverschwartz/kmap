@@ -22,14 +22,6 @@
         <script src="{{ url_for ('static', filename='js/lib/jquery.mousewheel.min.js') }}"></script>
         <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
     
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
-
         <script>
             jQuery(document).ready(function($) {
                 $('#introModal').modal('show');
@@ -41,6 +33,13 @@
             });
         </script>
 
+        <style>
+            .m-progress-bar {
+                min-height: 1em;
+                background: #c12d2d;
+                width: 5%;
+            }
+        </style>
     </head>
 
 
@@ -50,25 +49,6 @@
         <!-- This is so we can fetch the ID using JQuery. -->
         <p style="display: none;" id="graph_id">{{ graph_id }}</p>
         
-
-        <!-- Intro Modal -->
-        <div id="introModal" class="modal fade">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="introModalLabel">Welcome to Study Graph! </h5>
-                <button class="close btn-primary" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    Create interactive mind maps to study, save and share! <br>
-                    Hit the tilde key to get started with the Command Line Interface.  
-                </div>
-            </div>
-            </div>
-        </div>
-
         <!-- Manual Modal -->
         <div id="manualModal" class="modal fade">
             <div class="modal-dialog" role="document">
@@ -97,6 +77,44 @@
                     - usage: help 
                 </div>
             </div>
+            </div>
+        </div>
+
+        <!-- Multi-step Intro Modal -->
+        <div class="modal multi-step" id="introModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title step-1" data-step="1">Welcome!</h4>
+                        <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
+                        <h4 class="modal-title step-3" data-step="2">One Last Thing</h4>
+
+                    </div>
+                    <div class="modal-body step-1" data-step="1">
+                        Hit the tilde key to call the Command Line Interface (CLI) and begin building your graph. <br><br>
+                        Hint: your tilde key (`) is in the top left corner of your keyboard, just under esc. 
+                    </div>
+                    <div class="modal-body step-2" data-step="2">
+                        The CLI lets you add nodes with different topics and descriptions. 
+                        For any node you add, you can edit its content, link it to another node, or remove it from the graph if you don't want it there anymore. <br><br>
+                        Type "help" and hit "Enter" in the CLI to see how these commands work. 
+                    </div>
+                    <div class="modal-body step-3" data-step="3">
+                        Don't worry about saving your work. Our Auto-Save feature will take care of it, so that you can focus on learning your material. <br> <br> 
+                        Now that you have all the tools to start, let's begin! 
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                        <!-- <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-1', 2)">Continue</button> -->
+
+                        <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 1)">Back</button>
+                        <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">Continue</button>
+                        <button type="button" class="btn btn-primary step step-3" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">Back</button>
+                        <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">Continue</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -299,6 +317,13 @@
         >
             console.log('hey');
         </script>
+        <script>
+            sendEvent = function(sel, step) {
+                var sel_event = new CustomEvent('next.m.' + step, {detail: {step: step}});
+                window.dispatchEvent(sel_event);
+            }
+        </script>
+
 
         <script>
             /* TODO: 
@@ -317,7 +342,7 @@
                 if (e.which == 96) {
                     $('#terminal').slideToggle('fast')
                     term1.scrollTop = term1.scrollHeight;
-                    $('#terminal').focus();
+                    $('#terminal').focus(true);
                 }
             });
         </script>
