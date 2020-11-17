@@ -983,8 +983,12 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
     centerForNode:function (d) {
       var thisView = this;
 
-      if (thisView.state.isTransitioning) return false;
-      else thisView.state.isTransitioning = true;
+    // THIS CODE REALLY DOESNT DO ANYTHING AND CAUSES THE CONNECT BUG
+    //   if (thisView.state.isTransitioning) {
+    //       console.log("state is transitioning")
+    //     return false;
+    //   }
+    //   else thisView.state.isTransitioning = true;
 
       if (!thisView.isNodeVisible(d)){
         if (thisView.scopeNode) {
@@ -1011,7 +1015,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
                   nextX = wx/2 - d.get("x")*curScale;
               dzoom.translate([nextX, nextY]);
               dzoom.scale(curScale);
-              thisView.state.isTransitioning = false;
+            //   thisView.state.isTransitioning = false;
               return "translate(" + nextX + "," + nextY + ") scale(" + curScale + ")";
             });
       return translateTrans;
