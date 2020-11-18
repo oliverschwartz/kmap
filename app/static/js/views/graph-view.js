@@ -1163,6 +1163,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
     /**
      * Add visual mouse over properties to the explore nodes
      */
+
+     /*
+        MOUSEOVER: display summary of node
+     */
     circleMouseOver: function (d, nodeEl) {
       var thisView = this,
           consts = pvt.consts,
@@ -1183,7 +1187,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
 
       // show summary text
       if (thisView.settings.showNodeSummary) {
-        thisView.showNodeSummary(d);
+        // thisView.showNodeSummary(d);
       }
 
       // show/emphasize connecting edges
@@ -1226,7 +1230,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         return;
       }
 
-      thisView.hideSummary();
+    //   thisView.hideSummary();
 
       var d3node = d3.select(nodeEl),
           summId = pvt.getSummaryIdForDivWrap.call(thisView, d3node),
@@ -1272,6 +1276,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       var thisView = this;
       thisView.preCircleMouseUp();
       thisView.state.circleMouseUp = true;
+
+        // Show the summary on click
+        thisView.showNodeSummary(d);
+
 
       if (thisView.state.justDragged || thisView.state.iconClicked) {
         return false;

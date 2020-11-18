@@ -125,3 +125,7 @@ def graph_save():
 
     # This should not change the rendered view. 
     return "Ok"
+
+@main.route('/markdown', methods=['GET'])
+def markdown(): 
+    return render_template('markdown.html')
