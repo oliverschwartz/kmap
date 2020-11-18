@@ -21,13 +21,30 @@
 
     <textarea></textarea>
     <script>
+        // Get the URL parameters (graph id and node id)
+        const urlParams = new URLSearchParams(window.location.search);
+        const graphID = urlParams.get("graph-id"); 
+        const nodeID = urlParams.get("node-id"); 
+        const saveURL = "/node-save?" + "graph-id=" + graphID + "&node-id=" + nodeID;
+
+
         height = (window.innerHeight - 200).toString() + "px";
         var easyMDE = new EasyMDE({maxHeight: height});
+
+        save = function() {
+            
+            $.post(saveURL, easyMDE.value(), function() {
+                console.log("success!"); 
+            }); 
+        }
     </script>
 
     <div class="container">
-        <button class="btn btn-primary" style="height: 50px;">Save</button>
+        <button class="btn btn-primary" style="height: 50px;" onclick="save();">Save</button>
     </div>
 
 </body>
+
+<!-- jQuery -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 </html> 

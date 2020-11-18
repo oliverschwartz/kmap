@@ -126,6 +126,14 @@ def graph_save():
     # This should not change the rendered view. 
     return "Ok"
 
+
+# Load a markdown editor for a particular node. 
 @main.route('/markdown', methods=['GET'])
 def markdown(): 
     return render_template('markdown.html')
+
+
+@main.route('/node-save', methods=['POST'])
+def node_save(): 
+    print('In node_save')
+    return 'Ok'
