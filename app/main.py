@@ -127,10 +127,11 @@ def graph_save():
     # This should not change the rendered view. 
     return "Ok"
 
-### TODO: make this authenticated
 ''' Load a markdown editor for a particular node. '''
 @main.route('/markdown', methods=['GET'])
-def markdown(): 
+def markdown():    
+    if not current_user.is_authenticated: 
+        return redirect(url_for("auth.login")) 
     return render_template('markdown.html')
 
 
