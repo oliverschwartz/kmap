@@ -1,4 +1,5 @@
 from datetime import datetime
+from urllib import parse
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
@@ -135,5 +136,13 @@ def markdown():
 
 @main.route('/node-save', methods=['POST'])
 def node_save(): 
-    print('In node_save')
+
+    # Retrieve the graph id, node title, content from the request. 
+    graph_id = request.args.get('graph_id')
+    node_id = parse.unquote(request.args.get('node_id'))
+    markdown_text = request.form['markdown_text']
+
+    # If this node doesn't exist in the database, create it. 
+
+    # Otherwise, update the existing node. 
     return 'Ok'

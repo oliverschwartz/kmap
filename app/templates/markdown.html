@@ -21,20 +21,24 @@
 
     <textarea></textarea>
     <script>
+        
         // Get the URL parameters (graph id and node id)
         const urlParams = new URLSearchParams(window.location.search);
-        const graphID = urlParams.get("graph-id"); 
-        const nodeID = urlParams.get("node-id"); 
-        const saveURL = "/node-save?" + "graph-id=" + graphID + "&node-id=" + nodeID;
+        const graphID = urlParams.get("graph_id"); 
+        const nodeID = urlParams.get("node_id"); 
+        const saveURL = "/node-save?" + "graph_id=" + graphID + "&node_id=" + nodeID;
 
 
+        // Create the markdown editor. 
         height = (window.innerHeight - 200).toString() + "px";
         var easyMDE = new EasyMDE({maxHeight: height});
 
+        // On 'save', make a POST to the backend to save this content. 
         save = function() {
-            
-            $.post(saveURL, easyMDE.value(), function() {
-                console.log("success!"); 
+            $.post(saveURL, 
+            {"markdown_text": easyMDE.value()}, 
+            function() {
+                console.log("save(): success"); 
             }); 
         }
     </script>
