@@ -16,6 +16,7 @@
     <!-- For markdown editor -->
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 </head>
 <body>
 
@@ -32,6 +33,13 @@
         // Create the markdown editor. 
         height = (window.innerHeight - 200).toString() + "px";
         var easyMDE = new EasyMDE({maxHeight: height});
+       
+        // Load the stuff from the database. 
+        $.post('/node-load', {'graph_id': graphID, 'node_id': nodeID}, 
+            function(data, status) {
+                easyMDE.value(data); 
+            }
+        );
 
         // On 'save', make a POST to the backend to save this content. 
         save = function() {
@@ -50,5 +58,4 @@
 </body>
 
 <!-- jQuery -->
-<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 </html> 

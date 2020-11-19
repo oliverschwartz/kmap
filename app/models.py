@@ -16,3 +16,10 @@ class Graph(db.Model):
     last_opened = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     graph_text = db.Column(db.String())
+
+class Node(db.Model): 
+    __tablename__ = 'nodes'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    graph_id = db.Column(db.Integer, db.ForeignKey('graphs.id'))
+    node_title = db.Column(db.String())
+    content = db.Column(db.String()) 

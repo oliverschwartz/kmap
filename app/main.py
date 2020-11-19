@@ -3,7 +3,7 @@ from urllib import parse
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
-from .models import Graph
+from .models import Graph, Node
 
 
 main = Blueprint('main', __name__)
@@ -31,7 +31,7 @@ def signup():
 def graph():
     return render_template('graph.html')
 
-# 'add-graph': endpoint for creating new graph files & adding them to the DB. 
+''' 'add-graph': endpoint for creating new graph files & adding them to the DB. '''
 @main.route('/graph-add', methods=['POST'])
 @login_required
 def graph_add(): 
@@ -51,7 +51,7 @@ def graph_add():
     return redirect(url_for("main.index"))
 
 
-# 'graph-load': load a specific graph from the index page. 
+''' 'graph-load': load a specific graph from the index page. '''
 @main.route('/graph-load', methods=['GET'])
 def graph_load(): 
 
@@ -73,7 +73,7 @@ def graph_load():
     return render_template('graph.html', graph_id=graph_id)
 
 
-# 'graph-delete': delete the specified graph from the database. 
+''' 'graph-delete': delete the specified graph from the database. '''
 @main.route('/graph-delete', methods=['GET'])
 @login_required
 def graph_delete(): 
@@ -87,7 +87,7 @@ def graph_delete():
     return redirect(url_for("main.index"))
 
 
-# 'graph-rename': rename the specified graph. 
+''' 'graph-rename': rename the specified graph. '''
 @main.route('/graph-rename', methods=['POST'])
 @login_required
 def graph_rename(): 
@@ -103,7 +103,7 @@ def graph_rename():
     return redirect(url_for("main.index"))
 
 
-# 'graph-content': Retrieve the encoded graph from the database. 
+''' 'graph-content': Retrieve the encoded graph from the database. '''
 @main.route('/graph-content', methods=['POST'])
 @login_required
 def graph_content():
@@ -112,7 +112,7 @@ def graph_content():
     return g.graph_text
 
 
-# 'graph-save': save a graph to the DB. Called from Javascript (terminal-view.js).
+''' 'graph-save': save a graph to the DB. Called from Javascript (terminal-view.js).'''
 @main.route('/graph-save', methods=['POST'])
 @login_required
 def graph_save(): 
@@ -127,22 +127,40 @@ def graph_save():
     # This should not change the rendered view. 
     return "Ok"
 
-
-# Load a markdown editor for a particular node. 
+### TODO: make this authenticated
+''' Load a markdown editor for a particular node. '''
 @main.route('/markdown', methods=['GET'])
 def markdown(): 
     return render_template('markdown.html')
 
 
+''' Save a node's markdown editor content to the database. '''
 @main.route('/node-save', methods=['POST'])
 def node_save(): 
 
     # Retrieve the graph id, node title, content from the request. 
     graph_id = request.args.get('graph_id')
-    node_id = parse.unquote(request.args.get('node_id'))
+    node_title = parse.unquote(request.args.get('node_id'))
     markdown_text = request.form['markdown_text']
 
     # If this node doesn't exist in the database, create it. 
-
+    n = Node.query.filter_by(graph_id=graph_id, node_title=node_title)
+    if n.first() is None: 
+        n = Node(graph_id=graph_id, node_title=node_title, content=markdown_text)
+        db.session.add(n)
+    
     # Otherwise, update the existing node. 
+    else: 
+        n.first().content = markdown_text
+    
+    db.session.commit()
     return 'Ok'
+
+
+''' 'node-load': Retrieve the content of a node from the database. '''
+@main.route('/node-load', methods=['POST'])
+def node_load():
+    graph_id = request.form['graph_id']
+    node_title = request.form['node_id']
+    n = Node.query.filter_by(graph_id=graph_id, node_title=node_title)[0]
+    return n.content 
