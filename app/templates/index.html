@@ -5,9 +5,8 @@
     <!--Mask-->
 
     <!-- Main Pane, Anonymous User -->
-    <div>
-
-        <div class="container-fluid d-flex align-items-center justify-content-center h-100" style="min-height: 350px">
+    <div class=container>
+        <div class="container-fluid d-flex justify-content-center h-100 margin-bottom" style="height: 50%; padding-top: 50px;">
 
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-md-12">
@@ -19,7 +18,7 @@
 
                     <!-- Description -->
                     <h4 class="white-text my-4">Create and edit graphs here</h4>
-
+                    
                 </div>
 
             </div>
@@ -31,26 +30,43 @@
 </header>
 
 
-<div class='background' style='height:60%'>
-    <div class="container-fluid" style='width:90%'>
-
-        <div class="container-fluid align-items-center justify-content-center w-100" style="background: white;min-height: 450px; padding: 20px 0px 20px 0px">
-            <div class="container-fluid justify-content-center d-lg-flex w-100">
-            
-                {% with messages = get_flashed_messages() %}
+<div class='background' style='height:100%'>
+    <br> 
+    <div class="container" style='width:90%'>
+        
+        <div class="container justify-content-center next" style='width:90%'>
+            <div class="text-danger justify-content-center">
+            {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <div class="text-danger">
+                    
                         {{ messages[0] }}
-                    </div>
+                    
                 {% endif %}
                 {% endwith %}
-            
+            </div>
+
+
+            <!-- Add a graph. -->
+            <form id='graphAdd' class='pull-left w-100' action="/graph-add" method="POST">
+                
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                        <div id='graphName' style="width: 65%; overflow: hidden">
+                            <input name='filename' class="center-block graphInput" type="text" placeholder='New Graph' class="form-control" aria-label="Name your graph"/>
+                        </div>
+                        <button id=btnAdd class="btn btn-primary btn-md center-block" Style="width: 20%;"> Add</button>
+                     </div>
+                </div>
+                
+
+            </form> 
+            <br>
+        </div>
+        
+
+        <div class="container-fluid align-items-center w-10" style="background: white;min-height: 100px; padding: 20px 0px 20px 0px; border-radius:6px;">
+            <div class="container-fluid d-lg-flex w-100">
                 <br>
-                <!-- Add a graph. -->
-                <!-- <form class='pull-left' action="/graph-add" method="POST">
-                    <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
-                    <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
-                </form> -->
                 <table>
                     <colgroup>
                         <col span="1" style="width: 70%;">
