@@ -47,12 +47,22 @@
             
                 <br>
                 <!-- Add a graph. -->
-                <form class='pull-left' action="/graph-add" method="POST">
+                <!-- <form class='pull-left' action="/graph-add" method="POST">
                     <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
                     <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
-                </form>
-                <!-- <div class="col-9 scroll"> -->
-                <table class=''>
+                </form> -->
+                <table>
+                    <colgroup>
+                        <col span="1" style="width: 70%;">
+                        <col span="2" style="width: 10%;">
+                        <col span="3" style="width: 20%;">
+                        <col span="4" style="width: 0%;">
+                        <col span="5" style="width: 0%;">
+                    </colgroup>
+                    
+                    <tbody>
+
+                    
                     <tr> 
                         <th> Name </th>
                         <th> Owner </th>
@@ -98,11 +108,9 @@
                         
                     </tr>
                     {% endfor %}
+                    </tbody>
                 </table>
-                <!-- </div> -->
-                <!-- <div class="col-3"> -->
                     
-                <!-- </div> -->
             </div>
         </div>
     </div>

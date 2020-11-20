@@ -57,12 +57,11 @@ header.short{
 
 table, tr {
   border: 1px solid black;
-  width:100%;
 }
 
 td {
   padding: 5px;
-  width:100%;
+  /* width:100%; */
 }
 th {
   padding: 5px;
