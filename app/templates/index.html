@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<header class="short">
+<header class="short background">
     <!--Mask-->
 
     <!-- Main Pane, Anonymous User -->
-    <div id="intro">
+    <div>
 
         <div class="container-fluid d-flex align-items-center justify-content-center h-100" style="min-height: 350px">
 
@@ -31,82 +31,80 @@
 </header>
 
 
-<main class='h-90 background'>
+<div class='h-90 background'>
     <div class="container">
 
-    
-
-<div class="container-fluid align-items-center justify-content-center h-100" style="width: 95%; background: white;min-height: 400px; padding: 20px 0px 20px 0px">
-    <div class="container-fluid justify-content-center d-lg-flex" style="width: 100%;">
-    
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="text-danger">
-                {{ messages[0] }}
+        <div class="container-fluid align-items-center justify-content-center h-100" style="width: 95%; background: white;min-height: 400px; padding: 20px 0px 20px 0px">
+            <div class="container-fluid justify-content-center d-lg-flex" style="width: 100%;">
+            
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="text-danger">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+                {% endwith %}
+            
+                <br>
+                <div class="col-9 scroll">
+                <table class='scroll'>
+                    <tr> 
+                        <th> Name </th>
+                        <th> Owner </th>
+                        <th> Last Opened </th>
+                        <th> &nbsp; </th>
+                        <th> &nbsp; </th>
+                    </tr>
+                    {% for graph in graphs %}
+                    <tr class='outline'>
+                        <td>
+                            <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
+                                <button class="text-left" style= 'background: transparent;
+                                border: none !important;' name="graph_id" value="{{ graph.id }}">
+                                    {{ graph.filename }}
+                                </button>
+                            </form>
+                        </td>
+                        <td> 
+                            {{ current_user.name }}
+                        </td>
+                        <td> 
+                            {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
+                        </td>
+                        <td>
+                            <!-- Button to rename the graph. -->
+                            <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
+                                Rename
+                            </button>
+            
+                            <!-- Input to put in new name -->
+                            <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                                <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
+                            </form>
+                        </td>
+                        
+                        <td>
+                            <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                                <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
+                                    x
+                                </button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </table>
+                </div>
+                <div class="col-3">
+                    <!-- Add a graph. -->
+                    <form class='pull-left' action="/graph-add" method="POST">
+                        <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
+                        <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
+                    </form>
+                </div>
             </div>
-        {% endif %}
-        {% endwith %}
-    
-        <br>
-        <div class="col-9">
-        <table>
-            <tr> 
-                <th> Name </th>
-                <th> Owner </th>
-                <th> Last Opened </th>
-                <th> &nbsp; </th>
-                <th> &nbsp; </th>
-            </tr>
-            {% for graph in graphs %}
-            <tr class='outline'>
-                <td>
-                    <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
-                        <button class="text-left" style= 'background: transparent;
-                        border: none !important;' name="graph_id" value="{{ graph.id }}">
-                            {{ graph.filename }}
-                        </button>
-                    </form>
-                </td>
-                <td> 
-                    {{ current_user.name }}
-                </td>
-                <td> 
-                    {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
-                </td>
-                <td>
-                    <!-- Button to rename the graph. -->
-                    <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
-                        Rename
-                    </button>
-    
-                    <!-- Input to put in new name -->
-                    <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                        <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
-                    </form>
-                </td>
-                
-                <td>
-                    <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                        <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
-                            x
-                        </button>
-                    </form>
-                </td>
-                
-            </tr>
-            {% endfor %}
-        </table>
-        </div>
-        <div class="col-3">
-            <!-- Add a graph. -->
-            <form class='pull-left' action="/graph-add" method="POST">
-                <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
-                <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
-            </form>
         </div>
     </div>
 </div>
-</div>
-</main>
 
 {% endblock %}

@@ -19,7 +19,8 @@ header {
 
 .background {
   background: rgba(1, 103, 255, 0.568);
-  padding: 0px 0px 30px 0px;
+  height:80%;
+  /* padding: 0px 0px 30px 0px; */
 }
 
 #intro {
@@ -76,4 +77,16 @@ th {
 
 .container-fluid{
   padding: 10px; 
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow:hidden;
+}
+
+.scroll {
+  overflow-y:auto;
 }
