@@ -12,7 +12,6 @@ main = Blueprint('main', __name__)
 def index():
     # Landing page for anonymous user
     if not current_user.is_authenticated:  
-        print("index: current user not authenticated")
         return render_template('index-anon.html')
     
     # Landing page for signed-in user
@@ -93,7 +92,6 @@ def graph_delete():
 def graph_rename(): 
     graph_id = request.args.get('graph_id')
     new_filename = request.form['new_filename']
-    print(new_filename)
 
     # Retrive the graph object and rename it. 
     g = Graph.query.filter_by(id=graph_id)[0]
