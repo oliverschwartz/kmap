@@ -55,19 +55,17 @@ header.short{
   margin-right: auto;
 }
 
-table {
+table, tr {
+  border: 1px solid black;
   width:100%;
 }
 
-table, tr {
-  border: 1px solid black;
-}
-
 td {
-  padding: 6px;
+  padding: 5px;
+  width:100%;
 }
 th {
-  padding: 6px;
+  padding: 5px;
   text-align: left;
 }
 
@@ -80,13 +78,16 @@ th {
 }
 
 footer{
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
   overflow:hidden;
 }
 
-.scroll {
-  overflow-y:auto;
+table{
+  overflow-y:scroll; 
+  height:400px; 
+  display:block;  
+  width:95%;
 }

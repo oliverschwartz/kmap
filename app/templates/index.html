@@ -31,11 +31,11 @@
 </header>
 
 
-<div class='h-90 background'>
-    <div class="container">
+<div class='background' style='height:60%'>
+    <div class="container-fluid" style='width:90%'>
 
-        <div class="container-fluid align-items-center justify-content-center h-100" style="width: 95%; background: white;min-height: 400px; padding: 20px 0px 20px 0px">
-            <div class="container-fluid justify-content-center d-lg-flex" style="width: 100%;">
+        <div class="container-fluid align-items-center justify-content-center w-100" style="background: white;min-height: 450px; padding: 20px 0px 20px 0px">
+            <div class="container-fluid justify-content-center d-lg-flex w-100">
             
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -46,8 +46,13 @@
                 {% endwith %}
             
                 <br>
-                <div class="col-9 scroll">
-                <table class='scroll'>
+                <!-- Add a graph. -->
+                <form class='pull-left' action="/graph-add" method="POST">
+                    <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
+                    <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
+                </form>
+                <!-- <div class="col-9 scroll"> -->
+                <table class=''>
                     <tr> 
                         <th> Name </th>
                         <th> Owner </th>
@@ -94,14 +99,10 @@
                     </tr>
                     {% endfor %}
                 </table>
-                </div>
-                <div class="col-3">
-                    <!-- Add a graph. -->
-                    <form class='pull-left' action="/graph-add" method="POST">
-                        <input name="filename" type="text" style='display:inline-block;' class="form-control" placeholder="Name a new graph" aria-label="Name your graph" >
-                        <button style='display:inline-block;'class="btn btn-sm btn-primary">Add</button>                            
-                    </form>
-                </div>
+                <!-- </div> -->
+                <!-- <div class="col-3"> -->
+                    
+                <!-- </div> -->
             </div>
         </div>
     </div>
