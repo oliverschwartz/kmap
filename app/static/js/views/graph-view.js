@@ -1203,7 +1203,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
 
       // show summary text
       if (thisView.settings.showNodeSummary) {
-        // thisView.showNodeSummary(d);
+        thisView.showNodeSummary(d);
       }
 
       // show/emphasize connecting edges
