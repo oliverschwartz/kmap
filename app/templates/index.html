@@ -89,7 +89,7 @@
                     {% for graph in graphs %}
                     <tr class='outline'>
                         <td>
-                            <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form">
+                            <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
                                 <button class="text-left" style= 'background: transparent;
                                 border: none !important;' name="graph_id" value="{{ graph.id }}">
                                     {{ graph.filename }}
