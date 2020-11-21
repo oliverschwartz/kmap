@@ -251,3 +251,14 @@ g.concept-g.scoped-circle-g > circle, g.concept-g.scoped-circle-g .dep-circle, g
     white-space: nowrap;
   }
   
+.transparent {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    line-height:0;
+    padding: 0px 0px;
+    padding-left:1px;
+}

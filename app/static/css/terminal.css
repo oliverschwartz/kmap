@@ -9,7 +9,7 @@
 #terminal-window {
     max-height: inherit;
     width: 100%; 
-    background-color: lightblue;
+    background-color: rgb(194, 232, 255);
 }
 
 /* Some fun: a blinking cursor. */
@@ -29,7 +29,7 @@ body {
     bottom:0;
     width:100%;
     background-color: rgb(194, 232, 255);
-    border-top:solid blue 5px;
+    border-top:solid rgba(1, 103, 255, 0.568) 5px;
 }
 .terminal {
     --color: rgba(10, 23, 82, 0.99);

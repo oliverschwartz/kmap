@@ -9,18 +9,18 @@
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- For markdown editor -->
     <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <!-- For markdown modal -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- For markdown modal -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
         jQuery(document).ready(function($) {
@@ -30,19 +30,33 @@
 
 </head>
 <body>
+    <style> 
+    .transparent {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        line-height:0;
+        padding: 0px 0px;
+        padding-left:1px;
+    }
+    </style>
 
-    <!-- Multi-step Markdown Modal -->
+
+    <!-- Markdown Modal -->
     <div class="modal multi-step" id="markdownModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title step-1" data-step="1">Welcome!</h4>
-                    <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
-                    <h4 class="modal-title step-3" data-step="2">A Note on Saving Your Work</h4>
+                    <h4 class="modal-title step-1" data-step="1">Meet the Markdown Modal!</h4>
+                    <!-- <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
+                    <h4 class="modal-title step-3" data-step="2">A Note on Saving Your Work</h4> -->
 
                 </div>
                 <div class="modal-body step-1" data-step="1">
-                    A few things to start off with: <br><br>
+                    You can use this tool to keep extra information about each node. <br><br>
                     - You'll be using the <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">Command Line Interface</span> (<span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span>) to build and update your graph. <br>
                     - You can call the <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span> with the <span class = font-weight-bold>tilde</span> key. <br> 
                     - Once your graph has a few nodes, you can use the concept list on the left to scroll and search through them. 

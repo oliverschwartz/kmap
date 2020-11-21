@@ -8,7 +8,9 @@
         <!-- SG icon -->
         <link rel="icon" href="img/graph-favicon.png" type="image/x-icon">
 
-        <!-- <script type="text/javascript" src="{{ url_for ('static', filename='js/main.js') }}"></script> -->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
         <link rel="stylesheet" href="{{ url_for ('static', filename='css/demo.css') }}" />
         <link rel="stylesheet" href="{{ url_for ('static', filename='css/graph.css') }}" />
         <link rel="stylesheet" href="{{ url_for ('static', filename='css/list.css') }}" />
@@ -90,11 +92,15 @@
         <div class="modal multi-step" id="introModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header align-items-center">
                         <h4 class="modal-title step-1" data-step="1">Welcome!</h4>
                         <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
                         <h4 class="modal-title step-3" data-step="2">A Note on Saving Your Work</h4>
-
+                        <button type="button" class="transparent" data-dismiss="modal">
+                            <span style="font-size: 1.75em; color: Tomato;">
+                                <i class="far fa-window-close"></i>
+                            </span>
+                        </button>
                     </div>
                     <div class="modal-body step-1" data-step="1">
                         A few things to start off with: <br><br>
@@ -113,16 +119,26 @@
                         Now that you have all the tools to begin, hit the <span class = font-weight-bold>tilde</span> key and run <span class = 'code_font' style="color: red">help</span> to get started! 
                     </div>
                     <div class="modal-footer">
-                        <!-- <div class="form-check move-left">
-                            <input type="checkbox" class="form-check-input move-left" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Don't show again</label>
-                        </div> -->
-
-                        <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 1)">Back</button>
-                        <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">Continue</button>
-                        <button type="button" class="btn btn-primary step step-3" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">Back</button>
-                        <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">Continue</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="transparent step step-2 mr-auto" data-step="2" onclick="sendEvent('#demo-modal-3', 1)" style="float: left !important;">
+                            <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </span>
+                        </button>
+                        <button type="button" class="transparent step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">
+                            <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </span>                        </button>
+                        <button type="button" class="transparent step step-3 mr-auto" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">
+                            <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </span>
+                        </button>
+                        <button type="button" class="transparent step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">
+                            <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </span>
+                        </button>
+                        
                         
                     </div>
                 </div>
