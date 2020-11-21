@@ -29,18 +29,6 @@
         const nodeID = urlParams.get("node_id"); 
         const saveURL = "/node-save?" + "graph_id=" + graphID + "&node_id=" + nodeID;
 
-
-        // Create the markdown editor. 
-        height = (window.innerHeight - 200).toString() + "px";
-        var easyMDE = new EasyMDE({maxHeight: height});
-       
-        // Load the stuff from the database. 
-        $.post('/node-load', {'graph_id': graphID, 'node_id': nodeID}, 
-            function(data, status) {
-                easyMDE.value(data); 
-            }
-        );
-
         // On 'save', make a POST to the backend to save this content. 
         save = function() {
             $.post(saveURL, 
@@ -49,12 +37,33 @@
                 console.log("save(): success"); 
             }); 
         }
+
+        // Create the markdown editor. 
+        var easyMDE = new EasyMDE({
+            autoDownloadFontAwesome: true,
+            tabSize: 4,
+            toolbar: [
+                "bold", "italic", "strikethrough", "heading", "|",
+                "quote", "code", "unordered-list", "ordered-list", "|", 
+                "link", "image", "table", "|",
+                "preview", "side-by-side", "|",
+                "guide", 
+                {name: "save", 
+                action: (editor) => {
+                    save();
+                },
+                className: "fas fa-save", 
+                title: "Custom Save button"},
+            ]
+        });
+       
+        // Load the stuff from the database. 
+        $.post('/node-load', {'graph_id': graphID, 'node_id': nodeID}, 
+            function(data, status) {
+                easyMDE.value(data); 
+            }
+        );
     </script>
-
-    <div class="container">
-        <button class="btn btn-primary" style="height: 50px;" onclick="save();">Save</button>
-    </div>
-
 </body>
 
 <!-- jQuery -->
