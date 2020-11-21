@@ -841,17 +841,17 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         url = "/markdown?" + "graph_id=" + $("#graph_id").text() 
             + "&node_id=" + encodeURIComponent(d.get("title"));
         console.log(url);
-
         // Add the list icon to the node, and hyperlink it. 
         d3this.append("svg:a")
             .attr("xlink:href", url)
         .append("image")
             .attr("xlink:href", "img/list-icon.png")
+            
             .attr("x", -8)
             .attr("y", 20)
             .attr("width", 16)
             .attr("height", 16);
-
+        console.log('append');
       });
 
       newGs.transition()

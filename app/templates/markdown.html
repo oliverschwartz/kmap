@@ -49,44 +49,53 @@
     <div class="modal multi-step" id="markdownModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title step-1" data-step="1">Meet the Markdown Modal!</h4>
-                    <!-- <h4 class="modal-title step-2" data-step="2">Graph Building 101</h4>
-                    <h4 class="modal-title step-3" data-step="2">A Note on Saving Your Work</h4> -->
-
+                <div class="modal-header align-items-center">
+                    <h4 class="modal-title step-1" data-step="1">Meet the Markdown Editor!</h4>
+                    <h4 class="modal-title step-2" data-step="2">An Overview of Markdown Editing</h4>
+                    <h4 class="modal-title step-3" data-step="2">Another Note on Saving Your Work</h4>
+                    <button type="button" class="transparent" data-dismiss="modal">
+                        <span style="font-size: 1.75em; color: Tomato;">
+                            <i class="far fa-window-close"></i>
+                        </span>
+                    </button>
                 </div>
                 <div class="modal-body step-1" data-step="1">
-                    You can use this tool to keep extra information about each node. <br><br>
-                    - You'll be using the <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">Command Line Interface</span> (<span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span>) to build and update your graph. <br>
-                    - You can call the <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span> with the <span class = font-weight-bold>tilde</span> key. <br> 
-                    - Once your graph has a few nodes, you can use the concept list on the left to scroll and search through them. 
-                    <br> <br> Hint: the <span class = font-weight-bold>tilde</span> key (`) is in the top left corner of your keyboard, just under esc. 
+                    Use this tool to keep extra information about each node. Add notes, images, links or any other useful material for you to refer back to. 
                 </div>
                 <div class="modal-body step-2" data-step="2">
-                    The <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span> lets you add nodes with unique titles and descriptions. 
-                    For any node you add, you can edit its content, link it to another node, or remove it from the graph if you don't want it there anymore. <br><br>
-                    After you call the <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">CLI</span> with the <span class = font-weight-bold>tilde</span> key, type <span class = 'code_font' style="color: red">help</span> and hit "Return" to see how to get started with commands. 
                 </div>
                 <div class="modal-body step-3" data-step="3">
-                    Don't worry about it! Our <span class = font-weight-bold style="color: rgba(59, 116, 26, 0.973)">Auto-Save</span> feature will take care of saving any graph you create, so that you can focus on learning your material. <br> <br> 
-                    Now that you have all the tools to begin, hit the <span class = font-weight-bold>tilde</span> key and run <span class = 'code_font' style="color: red">help</span> to get started! 
+                    Unlike on the main <span class = font-weight-bold>Graph Building</span> page you just left, you'll need to manually save your markdown. 
+                    <br><br>
+                    When you're ready, hit the <i class="fas fa-save"></i> button at the right end of the toolbar. 
                 </div>
                 <div class="modal-footer">
-                    <!-- <div class="form-check move-left">
-                        <input type="checkbox" class="form-check-input move-left" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Don't show again</label>
-                    </div> -->
-
-                    <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 1)">Back</button>
-                    <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">Continue</button>
-                    <button type="button" class="btn btn-primary step step-3" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">Back</button>
-                    <button type="button" class="btn btn-primary step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">Continue</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="transparent step step-2 mr-auto" data-step="2" onclick="sendEvent('#demo-modal-3', 1)" style="float: left !important;">
+                        <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </span>
+                    </button>
+                    <button type="button" class="transparent step step-1" data-step="1" onclick="sendEvent('#demo-modal-3', 2)">
+                        <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </span>                        </button>
+                    <button type="button" class="transparent step step-3 mr-auto" data-step="3" onclick="sendEvent('#demo-modal-3', 2)">
+                        <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </span>
+                    </button>
+                    <button type="button" class="transparent step step-2" data-step="2" onclick="sendEvent('#demo-modal-3', 3)">
+                        <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </span>
+                    </button>
+                    
                     
                 </div>
             </div>
         </div>
     </div>
+    
 
 
     <textarea></textarea>
