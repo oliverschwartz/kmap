@@ -65,67 +65,70 @@
         
 
         <div class="container-fluid align-items-center w-10" style="background: white;min-height: 100px; padding: 20px 0px 20px 0px; border-radius:6px;">
-            <div class="container-fluid d-lg-flex w-100">
+            <div class="container-fluid align-items-center d-lg-flex w-100">
                 <br>
-                <table>
-                    <colgroup>
-                        <col span="1" style="width: 70%;">
-                        <col span="2" style="width: 10%;">
-                        <col span="3" style="width: 20%;">
-                        <col span="4" style="width: 0%;">
-                        <col span="5" style="width: 0%;">
-                    </colgroup>
-                    
-                    <tbody>
-
-                    
-                    <tr> 
-                        <th> Name </th>
-                        <th> Owner </th>
-                        <th> Last Opened </th>
-                        <th> &nbsp; </th>
-                        <th> &nbsp; </th>
-                    </tr>
-                    {% for graph in graphs %}
-                    <tr class='outline'>
-                        <td>
-                            <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
-                                <button class="text-left" style= 'background: transparent;
-                                border: none !important;' name="graph_id" value="{{ graph.id }}">
-                                    {{ graph.filename }}
-                                </button>
-                            </form>
-                        </td>
-                        <td> 
-                            {{ current_user.name }}
-                        </td>
-                        <td> 
-                            {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
-                        </td>
-                        <td>
-                            <!-- Button to rename the graph. -->
-                            <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
-                                Rename
-                            </button>
-            
-                            <!-- Input to put in new name -->
-                            <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                                <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
-                            </form>
-                        </td>
+                <div class=col>
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 70%;">
+                            <col span="2" style="width: 10%;">
+                            <col span="3" style="width: 20%;">
+                            <col span="4" style="width: 0%;">
+                            <col span="5" style="width: 0%;">
+                        </colgroup>
                         
-                        <td>
-                            <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                                <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
-                                    x
-                                </button>
-                            </form>
-                        </td>
+                        <tbody>
+    
                         
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        <tr> 
+                            <th> Name </th>
+                            <th> Owner </th>
+                            <th> Last Opened </th>
+                            <th> &nbsp; </th>
+                            <th> &nbsp; </th>
+                        </tr>
+                        {% for graph in graphs %}
+                        <tr class='outline'>
+                            <td>
+                                <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
+                                    <button class="text-left" style= 'background: transparent;
+                                    border: none !important;' name="graph_id" value="{{ graph.id }}">
+                                        {{ graph.filename }}
+                                    </button>
+                                </form>
+                            </td>
+                            <td> 
+                                {{ current_user.name }}
+                            </td>
+                            <td> 
+                                {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
+                            </td>
+                            <td>
+                                <!-- Button to rename the graph. -->
+                                <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
+                                    Rename
+                                </button>
+                
+                                <!-- Input to put in new name -->
+                                <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                                    <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
+                                </form>
+                            </td>
+                            
+                            <td>
+                                <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                                    <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
+                                        x
+                                    </button>
+                                </form>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
                     
             </div>
         </div>
