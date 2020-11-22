@@ -14,12 +14,12 @@ class Graph(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     filename = db.Column(db.String(50))
     last_opened = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     graph_text = db.Column(db.String())
 
 class Node(db.Model): 
     __tablename__ = 'nodes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    graph_id = db.Column(db.Integer, db.ForeignKey('graphs.id'))
+    graph_id = db.Column(db.Integer, db.ForeignKey('graphs.id', ondelete='CASCADE'))
     node_title = db.Column(db.String())
     content = db.Column(db.String()) 
