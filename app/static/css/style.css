@@ -118,13 +118,13 @@ footer{
 }
 .hcell {
   display: table-cell;
-  padding: .1em .8em .3em; /* top | horizontal | bottom */
+  padding: .1em .9em .3em; /* top | horizontal | bottom */
   border-bottom: 1.5px solid rgb(230, 230, 230);
 }
 
 .tcell {
   display: table-cell;
-  padding: .1em .8em .1em; /* top | horizontal | bottom */
+  padding: .1em .9em .1em; /* top | horizontal | bottom */
   border-bottom: 1.5px solid rgb(230, 230, 230);
 }
 .tr:hover {

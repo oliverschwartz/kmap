@@ -3,7 +3,6 @@
 {% block content %}
 <!-- <link href="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" /> -->
 
-
 <header class="short background">
     <!--Mask-->
 
@@ -94,20 +93,24 @@
                             <input type="hidden" name="graph_id" value="{{ graph.id }}" />
                         </form>
                             
-                        <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                        <form id='deleteGraph' method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                            <input type='hidden' name='graph_id' value="{{ graph.id }}" />
+                        </form>
+                        <!-- <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();"> -->
+                        <a class='tr' href="javascript:{}" >
                             <!-- Name -->
-                            <div class='tcell' >
+                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
                                 {{ graph.filename }}
                             </div>
                             <!-- Owner -->
-                            <div class='tcell'>
+                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
                                 {{ current_user.name }}
                             </div>
                             <!-- Last Opened -->
-                            <div class='tcell'>
+                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
                                  {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
                             </div>
-                            <div class='tcell'>
+                            <div class='tcell' onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
                                 <!-- Button to rename the graph. -->
                                 <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
                                     Rename
@@ -118,12 +121,11 @@
                                     <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
                                 </form>
                             </div>
+                            
                             <div class='tcell'>
-                                <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                                    <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
-                                        x
-                                    </button>
-                                </form>
+                                <button onclick="document.getElementById('deleteGraph').submit();" class="btn btn-sm red white-text" name="graph_id" value="{{ graph.id }}">
+                                    Delete
+                                </button>
                             </div>
                         </a>
                         {% endfor %}
