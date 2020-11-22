@@ -49,6 +49,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 "connect #event-dispatcher": "handleConnect",
                 "disconnect #event-dispatcher": "handleDisconnect", 
                 "editSummary #event-dispatcher": "handleEditSummary", 
+                "editTitle #event-dispatcher": "handleEditTitle", 
                 "save #event-dispatcher": "handleSave",
             },
 
@@ -64,6 +65,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 node = thisModel.getNode(title);
                 if (node != undefined) {
                     alert("add: node already exists - did you mean `edit`?.");
+                    return;
                 } 
                     
                 // TODO: should we specific a node id? 
@@ -90,12 +92,45 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 node = thisModel.getNode(title);
                 if (node == undefined) {
                     alert("edit: node must be present in graph");
+                    return;
                 } 
                
                 // Update the summary.
-                console.log("updated the summary!")
                 node.attributes.summary = summary;
                 thisModel.trigger("refreshModel"); 
+            },            
+            
+            // Listener: edit the summary of a node. 
+            handleEditTitle: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+                oldTitle = detail.oldTitle; 
+                newTitle = detail.newTitle;                
+                
+                // Ensure such a node exists. 
+                console.log(thisModel.getNodes());
+                node = thisModel.getNode(oldTitle);
+                if (node == undefined) {
+                    alert("edit: node must be present in graph");
+                    return;
+                } 
+
+                // Ensure there isn't a node with newTitle.
+                if (thisModel.getNode(newTitle) != undefined) {
+                    alert("edit: that title is already taken")
+                    return;
+                } 
+               
+                // Update the summary.
+                console.log(node.attributes);
+                node.attributes.title = newTitle; 
+                node.attributes.id = newTitle; 
+                node.id = newTitle; 
+
+                setTimeout(
+                    function (){thisModel.trigger("refreshModel")}, 2000
+                );
             }, 
 
             // Listener: remove a node. 
@@ -110,6 +145,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     thisModel.removeNode(node);
                 } else {                        
                     alert("remove: node must be present in graph.");
+                    return;
                 }
                 
                 thisModel.trigger("refreshModel");
@@ -185,6 +221,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 }
 
                 alert("disconnect: nodes must be connected in graph.");
+                return;
             },
 
             // Listener: save the graph. 

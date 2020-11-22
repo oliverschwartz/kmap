@@ -209,7 +209,7 @@
                         edit: function(...args) {
 
                             // Error checking.
-                            msg = "\tIncorrect usage\n\t" + "Usage:\t\tedit -ts \"node title\" \"summary/title\"";
+                            msg = "\tIncorrect usage\n\t" + "Usage:\t\tedit -ts \"node title\" \"new summary/new title\"";
                             msg += "\n\t" + "Flags (you must specify one):";
                             msg += "\n\t\t" + "-s\t\tedit the summary of the node";
                             msg += "\n\t\t" + "-t\t\tedit the title of the node";
@@ -235,10 +235,18 @@
                             else if (args[0] == "-t") {
                                 
                                 // Broadcast an event to change the graph node. 
+                                // const event = new CustomEvent("editTitle", {
+                                //     bubbles: true,
+                                //     detail: {
+                                //         oldTitle: args[1], 
+                                //         newTitle: args[2],
+                                //     }
+                                // }); 
+                                // dispatcher.dispatchEvent(event);
 
-                                // Make a POST request to change this node's markdown database entry.
+                                // // Make a POST request to change this node's markdown database entry.
 
-                                return "";
+                                return "Not implemented yet";
                             } 
                             
                             else {
