@@ -846,7 +846,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr("xlink:href", url)
         .append("image")
             .attr("xlink:href", "img/list-icon.png")
-            
+            // .attr("target","_blank")
             .attr("x", -8)
             .attr("y", 20)
             .attr("width", 16)
