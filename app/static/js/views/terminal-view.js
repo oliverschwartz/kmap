@@ -48,6 +48,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 "removeNode #event-dispatcher": "handleRemoveNode",
                 "connect #event-dispatcher": "handleConnect",
                 "disconnect #event-dispatcher": "handleDisconnect", 
+                "editSummary #event-dispatcher": "handleEditSummary", 
                 "save #event-dispatcher": "handleSave",
             },
 
@@ -57,13 +58,13 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisView = this;
                 detail = e.originalEvent.detail; 
                 title = detail.title; 
-                summary = detail.summary; 
-
-                // Check if this node already exists. 
-                if (thisModel.getNode(title) != undefined) {
-                    thisModel.getNode(title).attributes.summary = summary;
-                    return;
-                }
+                summary = detail.summary;                
+                
+                // Ensure such a node exists. 
+                node = thisModel.getNode(title);
+                if (node != undefined) {
+                    alert("add: node already exists - did you mean `edit`?.");
+                } 
                     
                 // TODO: should we specific a node id? 
                 thisModel.addNode({
@@ -76,6 +77,27 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel.trigger("refreshModel");
             },
 
+
+            // Listener: edit the summary of a node. 
+            handleEditSummary: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+                title = detail.title; 
+                summary = detail.summary;                
+                
+                // Ensure such a node exists. 
+                node = thisModel.getNode(title);
+                if (node == undefined) {
+                    alert("edit: node must be present in graph");
+                } 
+               
+                // Update the summary.
+                console.log("updated the summary!")
+                node.attributes.summary = summary;
+                thisModel.trigger("refreshModel"); 
+            }, 
+
             // Listener: remove a node. 
             handleRemoveNode: function(e) {
                 thisModel = this.model;
@@ -87,7 +109,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 if (node != undefined) {
                     thisModel.removeNode(node);
                 } else {                        
-                    alert("removeNode: node must be present in graph.");
+                    alert("remove: node must be present in graph.");
                 }
                 
                 thisModel.trigger("refreshModel");

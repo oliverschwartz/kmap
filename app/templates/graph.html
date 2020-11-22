@@ -204,6 +204,50 @@
                             return "";
                         }, 
 
+
+                        
+                        edit: function(...args) {
+
+                            // Error checking.
+                            msg = "\tIncorrect usage\n\t" + "Usage:\t\tedit -ts \"node title\" \"summary/title\"";
+                            msg += "\n\t" + "Flags (you must specify one):";
+                            msg += "\n\t\t" + "-s\t\tedit the summary of the node";
+                            msg += "\n\t\t" + "-t\t\tedit the title of the node";
+                            if (args.length != 3) {
+                                return msg;
+                            } 
+
+                            // Edit the summary.
+                            if (args[0] == "-s") {
+                                
+                                // Build an event and fire it. 
+                                const event = new CustomEvent("editSummary", {
+                                    bubbles: true,
+                                    detail: {
+                                        title: args[1], 
+                                        summary: args[2],
+                                    }
+                                }); 
+                                dispatcher.dispatchEvent(event);
+                            } 
+
+                            // Edit the title. 
+                            else if (args[0] == "-t") {
+                                
+                                // Broadcast an event to change the graph node. 
+
+                                // Make a POST request to change this node's markdown database entry.
+
+                                return "";
+                            } 
+                            
+                            else {
+                                return msg;
+                            }
+
+
+                        }, 
+
                         remove: function(...args) {
 
                             // Error checking.
