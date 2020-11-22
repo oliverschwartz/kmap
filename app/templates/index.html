@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- <link href="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" /> -->
+
+
 <header class="short background">
     <!--Mask-->
 
@@ -52,7 +55,7 @@
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-sm-12 d-flex align-items-center justify-content-center">
                         <div id='graphName' style="width: 65%; overflow: hidden">
-                            <input name='filename' class="center-block graphInput" type="text" placeholder='New Graph' class="form-control" aria-label="Name your graph"/>
+                            <input name='filename' class="center-block graphInput" type="text" placeholder='New Graph' class="form-control" aria-label="Name your graph" style='padding-left:8px;'/>
                         </div>
                         <button id=btnAdd class="btn btn-primary btn-md center-block" Style="width: 20%;"> Add</button>
                      </div>
@@ -66,41 +69,45 @@
         <div class="container-fluid align-items-center w-10 justify-content-center" style="background: white; min-height: 500px; padding: 20px 0px 20px 0px; border-radius:6px;">
             <div class="container-fluid justify-content-center align-items-center d-lg-flex w-100" style="padding:0px 0px;">
                 <div class="col justify-content-center align-items-center">
-                    <table>
-                        <colgroup>
-                            <col span="1" style="width: 70%;">
-                            <col span="2" style="width: 10%;">
-                            <col span="3" style="width: 20%;">
-                            <col span="4" style="width: 0%;">
-                            <col span="5" style="width: 0%;">
-                        </colgroup>
-                        
-                        <tbody>
-                        
-                        <tr> 
-                            <th> Name </th>
-                            <th> Owner </th>
-                            <th> Last Opened </th>
-                            <th> &nbsp; </th>
-                            <th> &nbsp; </th>
-                        </tr>
+                    <div class="table">
+                        <!-- Header Row -->
+                        <div class="hr">
+                          <div class="cell1 w-50">
+                            Name
+                          </div>
+                          <div class="hcell">
+                            Owner
+                          </div>
+                          <div class="hcell">
+                            Last Opened
+                          </div>
+                          <div class="hcell">
+                            &nbsp;
+                          </div>
+                          <div class="hcell">
+                            &nbsp;
+                          </div>
+                        </div>
+                        <!-- Graph Rows -->
                         {% for graph in graphs %}
-                        <tr class='outline'>
-                            <td>
-                                <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
-                                    <button class="text-left" style= 'background: transparent;
-                                    border: none !important;' name="graph_id" value="{{ graph.id }}">
-                                        {{ graph.filename }}
-                                    </button>
-                                </form>
-                            </td>
-                            <td> 
+                        <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
+                            <input type="hidden" name="graph_id" value="{{ graph.id }}" />
+                        </form>
+                            
+                        <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                            <!-- Name -->
+                            <div class='tcell' >
+                                {{ graph.filename }}
+                            </div>
+                            <!-- Owner -->
+                            <div class='tcell'>
                                 {{ current_user.name }}
-                            </td>
-                            <td> 
-                                {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
-                            </td>
-                            <td>
+                            </div>
+                            <!-- Last Opened -->
+                            <div class='tcell'>
+                                 {{ graph.last_opened.strftime("%Y-%m-%d %H:%M") }}
+                            </div>
+                            <div class='tcell'>
                                 <!-- Button to rename the graph. -->
                                 <button class="btn btn-sm btn-outline-warning" onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
                                     Rename
@@ -110,23 +117,20 @@
                                 <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
                                     <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
                                 </form>
-                            </td>
-                            
-                            <td>
+                            </div>
+                            <div class='tcell'>
                                 <form method="GET" action="/graph-delete?graph_id={{ graph.id }}">
                                     <button class="btn btn-sm red" name="graph_id" value="{{ graph.id }}">
                                         x
                                     </button>
                                 </form>
-                            </td>
-                            
-                        </tr>
+                            </div>
+                        </a>
                         {% endfor %}
-                        </tbody>
-                    </table>
+                        
+                    </div>
                 </div>
                 
-                    
             </div>
         </div>
         

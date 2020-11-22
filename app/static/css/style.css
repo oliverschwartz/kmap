@@ -55,19 +55,6 @@ header.short{
   margin-right: auto;
 }
 
-table, tr {
-  border: 1px solid black;
-}
-
-td {
-  padding: 5px;
-
-}
-th {
-  padding: 5px;
-  text-align: left;
-}
-
 .text-left {
   text-align: left !important;
 }
@@ -82,14 +69,6 @@ footer{
   bottom: 0;
   width: 100%;
   overflow:hidden;
-}
-
-table{
-  overflow-y:scroll; 
-  max-height:500px; 
-  display:block;  
-  width:100%;
-  border-radius:6px;
 }
 
 .next {
@@ -119,4 +98,38 @@ table{
   width: 100%; 
   border-width: 1px; 
   border-radius:4px;
+}
+
+.table {
+  display: table;
+}
+.tr {
+  display: table-row;
+}
+.hr {
+  display: table-row;
+  padding: .1em 0em .1em; /* top | horizontal | bottom */
+}
+.cell1 {
+  display: table-cell;
+  padding: .1em .3em .3em; /* top | horizontal | bottom */
+  border-bottom: 1.5px solid rgb(230, 230, 230);
+
+}
+.hcell {
+  display: table-cell;
+  padding: .1em .8em .3em; /* top | horizontal | bottom */
+  border-bottom: 1.5px solid rgb(230, 230, 230);
+}
+
+.tcell {
+  display: table-cell;
+  padding: .1em .8em .1em; /* top | horizontal | bottom */
+  border-bottom: 1.5px solid rgb(230, 230, 230);
+}
+.tr:hover {
+  background-color: #ececec;
+}
+.tr:focus {
+  background-color: #ececec;
 }
