@@ -161,5 +161,8 @@ def node_save():
 def node_load():
     graph_id = request.form['graph_id']
     node_title = request.form['node_id']
-    n = Node.query.filter_by(graph_id=graph_id, node_title=node_title)[0]
-    return n.content 
+    n = Node.query.filter_by(graph_id=graph_id, node_title=node_title)
+
+    # Handle case where the node isn't in the database yet. 
+    if n.first() is None: return ""
+    return n.first().content 
