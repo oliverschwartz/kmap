@@ -129,7 +129,7 @@ footer{
 }
 
 .edit {
-  padding: .1em .1em .1em !important; /* top | horizontal | bottom */
+  padding: .1em .5em .1em !important; /* top | horizontal | bottom */
 }
 
 .tr:hover {
