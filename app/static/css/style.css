@@ -86,7 +86,7 @@ footer{
 
 table{
   overflow-y:scroll; 
-  height:500px; 
+  max-height:500px; 
   display:block;  
   width:100%;
   border-radius:6px;
