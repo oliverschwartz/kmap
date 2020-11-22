@@ -118,13 +118,13 @@ footer{
 }
 .hcell {
   display: table-cell;
-  padding: .1em .9em .3em; /* top | horizontal | bottom */
+  padding: .1em .9em .7em; /* top | horizontal | bottom */
   border-bottom: 1.5px solid rgb(230, 230, 230);
 }
 
 .tcell {
   display: table-cell;
-  padding: .2em .9em .2em; /* top | horizontal | bottom */
+  padding: .7em .9em .7em; /* top | horizontal | bottom */
   border-bottom: 1.5px solid rgb(230, 230, 230);
 }
 
