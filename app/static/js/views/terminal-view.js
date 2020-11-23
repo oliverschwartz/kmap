@@ -48,6 +48,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 "removeNode #event-dispatcher": "handleRemoveNode",
                 "connect #event-dispatcher": "handleConnect",
                 "disconnect #event-dispatcher": "handleDisconnect", 
+                "editSummary #event-dispatcher": "handleEditSummary", 
+                "editTitle #event-dispatcher": "handleEditTitle", 
                 "save #event-dispatcher": "handleSave",
             },
 
@@ -57,13 +59,14 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisView = this;
                 detail = e.originalEvent.detail; 
                 title = detail.title; 
-                summary = detail.summary; 
-
-                // Check if this node already exists. 
-                if (thisModel.getNode(title) != undefined) {
-                    thisModel.getNode(title).attributes.summary = summary;
+                summary = detail.summary;                
+                
+                // Ensure such a node exists. 
+                node = thisModel.getNode(title);
+                if (node != undefined) {
+                    alert("add: node already exists - did you mean `edit`?.");
                     return;
-                }
+                } 
                     
                 // TODO: should we specific a node id? 
                 thisModel.addNode({
@@ -76,6 +79,60 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 thisModel.trigger("refreshModel");
             },
 
+
+            // Listener: edit the summary of a node. 
+            handleEditSummary: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+                title = detail.title; 
+                summary = detail.summary;                
+                
+                // Ensure such a node exists. 
+                node = thisModel.getNode(title);
+                if (node == undefined) {
+                    alert("edit: node must be present in graph");
+                    return;
+                } 
+               
+                // Update the summary.
+                node.attributes.summary = summary;
+                thisModel.trigger("refreshModel"); 
+            },            
+            
+            // Listener: edit the summary of a node. 
+            handleEditTitle: function(e) {
+                thisModel = this.model;
+                thisView = this;
+                detail = e.originalEvent.detail; 
+                oldTitle = detail.oldTitle; 
+                newTitle = detail.newTitle;                
+                
+                // Ensure such a node exists. 
+                console.log(thisModel.getNodes());
+                node = thisModel.getNode(oldTitle);
+                if (node == undefined) {
+                    alert("edit: node must be present in graph");
+                    return;
+                } 
+
+                // Ensure there isn't a node with newTitle.
+                if (thisModel.getNode(newTitle) != undefined) {
+                    alert("edit: that title is already taken")
+                    return;
+                } 
+               
+                // Update the summary.
+                console.log(node.attributes);
+                node.attributes.title = newTitle; 
+                node.attributes.id = newTitle; 
+                node.id = newTitle; 
+
+                setTimeout(
+                    function (){thisModel.trigger("refreshModel")}, 2000
+                );
+            }, 
+
             // Listener: remove a node. 
             handleRemoveNode: function(e) {
                 thisModel = this.model;
@@ -87,7 +144,8 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 if (node != undefined) {
                     thisModel.removeNode(node);
                 } else {                        
-                    alert("removeNode: node must be present in graph.");
+                    alert("remove: node must be present in graph.");
+                    return;
                 }
                 
                 thisModel.trigger("refreshModel");
@@ -163,6 +221,7 @@ define(["backbone", "underscore"], function (Backbone, _) {
                 }
 
                 alert("disconnect: nodes must be connected in graph.");
+                return;
             },
 
             // Listener: save the graph. 

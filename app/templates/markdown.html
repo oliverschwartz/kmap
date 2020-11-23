@@ -126,12 +126,23 @@
                 "link", "image", "table", "|",
                 "preview", "side-by-side", "|",
                 "guide", 
-                {name: "save", 
-                action: (editor) => {
-                    save();
+                {
+                    name: "save", 
+                    action: (editor) => {
+                        save();
+                    },
+                    className: "fas fa-save", 
+                    title: "Save"
                 },
-                className: "fas fa-save", 
-                title: "Custom Save button"},
+                {
+                    name: "home", 
+                    action: (editor) => {
+                        save();
+                        window.location.href = "/";
+                    }, 
+                    className: "fa fa-home", 
+                    title: "Home",
+                }
             ]
         });
        
