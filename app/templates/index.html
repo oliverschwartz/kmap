@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- <link href="https://stackpath.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" /> -->
 
 <header class="short background">
     <!--Mask-->
@@ -31,23 +30,34 @@
     <!--/.Mask-->
 </header>
 
+<div id="alert-modal" class="modal fade center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="alert-modal-title" class="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span style='color:red;' aria-hidden="true">&times;</span></button>
+        </div>
+        <div id="alert-modal-body" class="modal-body"></div>
+      </div>
+    </div>
+</div>
 
 <div class='background' style='height:100%'>
     <br> 
     <div class="container" style='width:90%'>
         
         <div class="container justify-content-center next" style='width:90%'>
-            <div class="text-danger justify-content-center">
+            
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    
-                        {{ messages[0] }}
-                    
+                    <script> 
+                        $('#alert-modal-title').html('Try Again!');
+                        $('#alert-modal-body').html("{{ messages[0] }}");
+                        $('#alert-modal').modal('show');
+                    </script>
                 {% endif %}
-                {% endwith %}
-            </div>
-
-
+            {% endwith %}
+            
             <!-- Add a graph. -->
             <form id='graphAdd' class='pull-left w-100' action="/graph-add" method="POST">
                 

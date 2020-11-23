@@ -151,3 +151,10 @@ footer{
 .w-15 {
   width: 15%;
 }
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%, -50%);
+}
