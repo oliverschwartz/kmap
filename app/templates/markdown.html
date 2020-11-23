@@ -109,10 +109,45 @@
 
         // On 'save', make a POST to the backend to save this content. 
         save = function() {
+            obj = document.getElementsByClassName("save")[0];
+           
+            // Change the color gradually from black -> green.
+            i = 0;
+            stopId = setInterval(function() {
+
+                // Terminate.
+                if (i > 200) clearInterval(stopId); 
+                   
+                // Change the color. 
+                if (i < 100) {
+                    r = (i / 100) * 51
+                    g = (i / 100) * 204
+                    b = (i / 100) * 51
+                    obj.style.color = "rgb("+r+","+g+","+b+")"; 
+                }
+                i++
+            }, 7)
+
             $.post(saveURL, 
             {"markdown_text": easyMDE.value()}, 
             function() {
-                console.log("save(): success"); 
+                
+                // Change the color gradually from green -> black.
+                i = 100;
+                stopId = setInterval(function() {
+
+                    // Terminate.
+                    if (i < 0) clearInterval(stopId); 
+                   
+                    // Change the color. 
+                    if (i < 100) {
+                        r = (i / 100) * 51
+                        g = (i / 100) * 204
+                        b = (i / 100) * 51
+                        obj.style.color = "rgb("+r+","+g+","+b+")"; 
+                    }
+                    i--;
+                }, 7)
             }); 
         }
 
