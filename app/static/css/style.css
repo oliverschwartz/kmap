@@ -103,6 +103,11 @@ footer{
 .table {
   display: table;
 }
+
+.overflow {
+  overflow-y:scroll;
+  max-height:500px; 
+}
 .tr {
   display: table-row;
 }
