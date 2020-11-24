@@ -42,6 +42,36 @@
     </div>
 </div>
 
+<div id="rename-modal" class="modal fade center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="rename-modal-title" class="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span style='color:red;' aria-hidden="true">&times;</span></button>
+        </div>
+        <div id="rename-modal-body" class="modal-body">
+            <form id='renameForm' method="POST" action="">
+                <input id="renameInput" name="new_filename" type="text" class="form-control" placeholder="" aria-label="Name your graph" aria-describedby="basic-addon1">
+            </form> 
+        </div>
+        <div class="modal-footer">
+            <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-danger mr-auto" onclick="$('#rename-modal').modal('hide');" >
+                <span style="font-size:1.2em; color:white; margin:0px 0px">
+                    Cancel
+                </span>
+            </button>
+            <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-primary" onclick="$(renameForm).submit();" >
+                <span style="font-size:1.2em; color:white; margin:0px 0px">
+                    Confirm
+                </span>
+            </button>
+            
+            
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class='background' style='height:100%'>
     <br> 
     <div class="container" style='width:90%'>
@@ -110,6 +140,11 @@
                             <input type='hidden' name='graph_id' value="{{ graph.id }}" />
                         </form>
 
+                        <!-- Rename Graph form -->
+                        <form id="rename+{{graph.id}}" method="POST" action="/graph-rename?graph_id={{ graph.id }}">
+                            <input type='hidden' name="new_filename" value="{{ graph.id }}" type="text" aria-label="Name your graph" aria-describedby="basic-addon1">
+                        </form>
+
                         <!-- <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();"> -->
                         <a class='tr' href="javascript:{}" >
                             <!-- Name -->
@@ -124,16 +159,11 @@
                             <div class='tcell' onclick="document.getElementById('get+{{ graph.id }}').submit();">
                                  {{ graph.last_opened.strftime("%m/%d/%y %H:%M") }}
                             </div>
-                            <div class='tcell edit' onclick="document.getElementById('rename+{{graph.id}}').style.display='inline'">
+                            <div class='tcell edit'>
                                 <!-- Button to rename the graph. -->
-                                <span style='color:rgb(255, 187, 0);' onclick="document.getElementById('rename+{{graph.id}}').style.display='inline'">
+                                <span style='color:rgb(255, 187, 0);' onclick="renameGraph('{{graph.filename}}', '{{graph.id}}')">
                                     <i class="fas fa-edit"></i>
                                 </span>
-                
-                                <!-- Input to put in new name -->
-                                <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                                    <input style="display: none;" id="rename+{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
-                                </form>
                             </div>
                             
                             <div class='tcell edit'>
@@ -152,5 +182,14 @@
         
     </div>
 </div>
+
+<script> 
+function renameGraph(graphName, graphId) {
+    $('#rename-modal-title').html("Rename");
+    $("#renameForm").attr("action", "/graph-rename?graph_id=" + graphId);
+    $('#renameInput').attr("placeholder", graphName)
+    $('#rename-modal').modal('show');
+}
+</script>
 
 {% endblock %}
