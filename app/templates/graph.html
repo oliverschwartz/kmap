@@ -68,21 +68,30 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    add <br> 
+                    <span class = 'code_font'> add title description</span> <br> 
                     - Add a node with a title and description <br> 
-                    - usage: add ["title"] ["summary"] <br> <br> 
+                    - e.g. add hello world<br><br> 
 
-                    connect <br> 
+                    <span class = 'code_font'> connect parent_title child_title</span> <br> 
                     - Connect two nodes <br> 
-                    - usage: connect ["title of parent"] ["title of child"] <br> <br> 
+                    - e.g. connect hello goodbye<br><br> 
                     
-                    remove <br> 
-                    - Remove a node <br> 
-                    - usage: remove ["title"] <br> <br> 
+                    <span class = 'code_font'> edit -s title new_description</span> <br>
+                    - Edit the summary of an existing node <br> 
+                    - e.g. edit -s hello studyGraph <br> <br> 
 
-                    help <br> 
-                    - See manual on the Command Line <br> 
-                    - usage: help 
+                    <span class = 'code_font'> remove title</span> <br>
+                    - Remove a node <br> 
+                    - e.g. remove hello <br> <br> 
+
+                    <span class = 'code_font'> help</span> <br>
+                    - Display manual on the Command Line <br> 
+                    <br> 
+
+                    <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">Note: </span> For multi-word phrases, make sure to use quotes (' '). <br> 
+                    e.g. add mitochondria 'The powerhouse of the cell' <br> 
+                    <span class = font-weight-bold style="color: rgba(0, 102, 255, 0.973)">Note: </span> To include ' in your phrases, use double quotes (" "). <br> 
+                    e.g. edit mitochondria "The cell's powerhouse"
                 </div>
             </div>
             </div>
@@ -338,6 +347,7 @@
                         help: function() {
                             s = "";
                             s += "\n\`add title summary\`                  -- add a node";
+                            s += "\n\`edit -s title summary\`              -- edit a node's description";
                             s += "\n\`remove node_title\`                  -- remove a node";
                             s += "\n\`connect parent_title child_title\`   -- connect two nodes";
                             s += "\n\`disconnect node_title node_title\`   -- disconnect two nodes";
