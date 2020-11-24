@@ -101,43 +101,43 @@
                         {% for graph in graphs %}
 
                         <!-- Fetch Graph form -->
-                        <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="my_form" target="_blank">
+                        <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="get+{{ graph.id }}" target="_blank">
                             <input type="hidden" name="graph_id" value="{{ graph.id }}" />
                         </form>
                             
                         <!-- Delete Graph form -->
-                        <form id='deleteGraph' method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                        <form id="del+{{ graph.id }}" method="GET" action="/graph-delete?graph_id={{ graph.id }}">
                             <input type='hidden' name='graph_id' value="{{ graph.id }}" />
                         </form>
 
                         <!-- <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();"> -->
                         <a class='tr' href="javascript:{}" >
                             <!-- Name -->
-                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
+                            <div class='tcell' onclick="document.getElementById('get+{{ graph.id }}').submit();">
                                 {{ graph.filename }}
                             </div>
                             <!-- Owner -->
-                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
+                            <div class='tcell' onclick="document.getElementById('get+{{ graph.id }}').submit();">
                                 {{ current_user.name }}
                             </div>
                             <!-- Last Opened -->
-                            <div class='tcell' onclick="document.getElementById('my_form').submit();">
+                            <div class='tcell' onclick="document.getElementById('get+{{ graph.id }}').submit();">
                                  {{ graph.last_opened.strftime("%m/%d/%y %H:%M") }}
                             </div>
-                            <div class='tcell edit' onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
+                            <div class='tcell edit' onclick="document.getElementById('rename+{{graph.id}}').style.display='inline'">
                                 <!-- Button to rename the graph. -->
-                                <span style='color:rgb(255, 187, 0);' onclick="document.getElementById('rename{{graph.id}}').style.display='inline'">
+                                <span style='color:rgb(255, 187, 0);' onclick="document.getElementById('rename+{{graph.id}}').style.display='inline'">
                                     <i class="fas fa-edit"></i>
                                 </span>
                 
                                 <!-- Input to put in new name -->
                                 <form method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                                    <input style="display: none;" id="rename{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
+                                    <input style="display: none;" id="rename+{{graph.id}}" name="new_filename" type="text" class="form-control" placeholder="Name" aria-label="Name your graph" aria-describedby="basic-addon1">
                                 </form>
                             </div>
                             
                             <div class='tcell edit'>
-                                <span style='color:red;' onclick="document.getElementById('deleteGraph').submit();" name="graph_id" value="{{ graph.id }}">
+                                <span style='color:red;' onclick="document.getElementById('del+{{ graph.id }}').submit();" name="graph_id" value="{{ graph.id }}">
                                     <i class="fas fa-trash-alt"></i>
                                 </span>
                             </div>
