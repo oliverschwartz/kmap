@@ -60,7 +60,7 @@ def graph_load():
     graph_id = request.args.get('graph_id')
 
     # Retrieve graph object from database.
-    g = Graph.query.filter_by(id=graph_id)
+    g = Graph.query.filter_by(id=graph_id, user_id=current_user.id)
     if g.first() is None: 
         print("Could not retrieve such graph.")
         return redirect(url_for("main.index"))
