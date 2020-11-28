@@ -30,6 +30,7 @@
     <!--/.Mask-->
 </header>
 
+<!-- Duplicate Name Modal -->
 <div id="alert-modal" class="modal fade center">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -42,6 +43,7 @@
     </div>
 </div>
 
+<!-- Rename Graph Modal -->
 <div id="rename-modal" class="modal fade center">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -65,8 +67,37 @@
                     Confirm
                 </span>
             </button>
-            
-            
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Delete Graph Modal -->
+<div id="delete-modal" class="modal fade center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="delete-modal-title" class="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span style='color:red;' aria-hidden="true">&times;</span></button>
+        </div>
+        <div id="delete-modal-body" class="modal-body">
+            <span id='delete-check'></span>
+            <!-- Delete Graph form -->
+            <form id="deleteForm" method="GET" action="">
+                <input id='deleteInput' type='hidden' name='graph_id'/>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-danger mr-auto" onclick="$('#delete-modal').modal('hide');" >
+                <span style="font-size:1.2em; color:white; margin:0px 0px">
+                    Cancel
+                </span>
+            </button>
+            <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-primary" onclick="$(deleteForm).submit();" >
+                <span style="font-size:1.2em; color:white; margin:0px 0px">
+                    Confirm
+                </span>
+            </button>
         </div>
       </div>
     </div>
@@ -90,7 +121,6 @@
             
             <!-- Add a graph. -->
             <form id='graphAdd' class='pull-left w-100' action="/graph-add" method="POST">
-                
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-sm-12 d-flex align-items-center justify-content-center">
                         <div id='graphName' style="width: 65%; overflow: hidden">
@@ -99,8 +129,6 @@
                         <button id=btnAdd class="btn btn-primary btn-md center-block" Style="width: 20%;"> Add</button>
                      </div>
                 </div>
-                
-
             </form> 
             <br>
         </div>
@@ -134,16 +162,11 @@
                         <form method="GET" action="/graph-load?graph_id={{ graph.id }}" id="get+{{ graph.id }}" target="_blank">
                             <input type="hidden" name="graph_id" value="{{ graph.id }}" />
                         </form>
-                            
-                        <!-- Delete Graph form -->
-                        <form id="del+{{ graph.id }}" method="GET" action="/graph-delete?graph_id={{ graph.id }}">
-                            <input type='hidden' name='graph_id' value="{{ graph.id }}" />
-                        </form>
 
-                        <!-- Rename Graph form -->
-                        <form id="rename+{{graph.id}}" method="POST" action="/graph-rename?graph_id={{ graph.id }}">
-                            <input type='hidden' name="new_filename" value="{{ graph.id }}" type="text" aria-label="Name your graph" aria-describedby="basic-addon1">
-                        </form>
+                        <!-- Delete Graph form -->
+                        <!-- <form id="del+{{ graph.id }}" method="GET" action="/graph-delete?graph_id={{ graph.id }}">
+                            <input type='hidden' name='graph_id' value="{{ graph.id }}" />
+                        </form> -->
 
                         <!-- <a class='tr' href="javascript:{}" onclick="document.getElementById('my_form').submit();"> -->
                         <a class='tr' href="javascript:{}" >
@@ -167,9 +190,10 @@
                             </div>
                             
                             <div class='tcell edit'>
-                                <span style='color:red;' onclick="document.getElementById('del+{{ graph.id }}').submit();" name="graph_id" value="{{ graph.id }}">
+                                <span style='color:red;' onclick="deleteGraph('{{graph.filename}}', '{{graph.id}}')">
                                     <i class="fas fa-trash-alt"></i>
                                 </span>
+                                
                             </div>
                         </a>
                         {% endfor %}
@@ -184,12 +208,22 @@
 </div>
 
 <script> 
-function renameGraph(graphName, graphId) {
-    $('#rename-modal-title').html("Rename");
-    $("#renameForm").attr("action", "/graph-rename?graph_id=" + graphId);
-    $('#renameInput').attr("placeholder", graphName)
-    $('#rename-modal').modal('show');
-}
+    function renameGraph(graphName, graphId) {
+        $('#rename-modal-title').html("Rename");
+        $("#renameForm").attr("action", "/graph-rename?graph_id=" + graphId);
+        $('#renameInput').attr("placeholder", graphName)
+        $('#rename-modal').modal('show');
+    }
+</script>
+
+<script> 
+    function deleteGraph(graphName, graphId) {
+        $('#delete-modal-title').html("Delete");
+        $('#delete-check').html("Permanently delete '" + graphName + "'?")
+        $("#deleteForm").attr("action", "/graph-delete?graph_id=" + graphId);
+        $('#deleteInput').attr("value", graphId)
+        $('#delete-modal').modal('show');
+    }
 </script>
 
 {% endblock %}
