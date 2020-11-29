@@ -14,7 +14,7 @@ header {
 }
 
 .overlay{
-  background: rgba(1, 103, 255, 0.568) url("https://miro.medium.com/max/2978/1*rmq7bd3GFjcwfXtkrBQaPQ.png")no-repeat center center fixed !important;
+  background: rgba(1, 103, 255, 0.568) url("../img/background.png")no-repeat center center fixed !important;
 }
 
 .background {
