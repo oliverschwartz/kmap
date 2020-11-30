@@ -847,10 +847,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         .append("image")
             .attr("xlink:href", "img/list-icon.png")
             // .attr("target","_blank")
-            .attr("x", -8)
-            .attr("y", 20)
-            .attr("width", 16)
-            .attr("height", 16);
+            .attr("x", -6)
+            .attr("y", 32)
+            .attr("width", 10)
+            .attr("height", 10);
         console.log('append');
       });
 
