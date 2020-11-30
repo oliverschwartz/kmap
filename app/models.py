@@ -8,6 +8,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+    editor_dont_show = db.Column(db.Boolean, default=False)
+    markdown_dont_show = db.Column(db.Boolean, default=False)
 
 class Graph(db.Model): 
     __tablename__ = 'graphs'

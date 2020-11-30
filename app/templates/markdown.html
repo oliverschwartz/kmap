@@ -46,12 +46,13 @@
 
 
     <!-- Markdown Modal -->
+    {% if not current_user.markdown_dont_show %}
     <div class="modal multi-step" id="markdownModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header align-items-center">
                     <h4 class="modal-title step-1" data-step="1">Meet the Markdown Editor!</h4>
-                    <h4 class="modal-title step-2" data-step="2">An Overview of Markdown Editing</h4>
+                    <h4 class="modal-title step-2" data-step="2">How to use the Editor</h4>
                     <h4 class="modal-title step-3" data-step="2">Another Note on Saving Your Work</h4>
                     <button type="button" class="transparent" data-dismiss="modal">
                         <span style="margin-right:7px;font-size: 1.5em; color: rgba(252, 62, 62, 0.685);">
@@ -61,14 +62,29 @@
                 </div>
                 <div class="modal-body step-1" data-step="1">
                     Use this tool to keep extra information about each node. Add notes, images, links or any other useful material for you to refer back to. 
+                    <br><br>
+                    This tool uses Markdown: Markdown is a lightweight markup language that provides an easy way to take rich and detailed notes. 
                 </div>
                 <div class="modal-body step-2" data-step="2">
+                    Use the toolbar to format your notes. You can add code snippets <i class="fa fa-code"></i>, bullet points <i class="fa fa-list-ul"></i>, tables <i class="fa fa-table"></i> and more. 
+                    <br><br>
+                    To see your rendered markdown, hit <i class="fa fa-eye"></i> for a full view, or <i class="fa fa-columns"></i> for a side-by-side view.
                 </div>
                 <div class="modal-body step-3" data-step="3">
                     Unlike on the main <span class = font-weight-bold>Graph Building</span> page you just left, you'll need to manually save your markdown. 
                     <br><br>
                     When you're ready, hit the <i class="fas fa-save"></i> button at the right end of the toolbar. 
+
+                    <br><br>
+                    <div id='markdown-dont-show-div'>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="markdown-dont-show-input" class="form-check-input" onclick="
+                        el = $('#markdown-dont-show-div')
+                        el.fadeOut(1000); 
+                        $.post('/markdown-modal'); 
+                        "><label for="markdown-dont-show-input">Never show this again</label>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="transparent step step-2 mr-auto" data-step="2" onclick="sendEvent('#demo-modal-3', 1)" style="float: left !important;">
                         <span style="font-size: 1.5em; color:rgba(1, 103, 255, 0.568);">
@@ -95,6 +111,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     
 
 

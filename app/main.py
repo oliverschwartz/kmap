@@ -3,10 +3,14 @@ from urllib import parse
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from flask_login import login_required, current_user
 from . import db
-from .models import Graph, Node
+from .models import Graph, Node, User
 
 
 main = Blueprint('main', __name__)
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''' Basic navigation methods. '''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 @main.route('/')
 def index():
@@ -25,6 +29,11 @@ def login():
 @main.route('/signup')
 def signup():
     return render_template('signup.html')
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''' Graph editor backend methods. '''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 @main.route('/graph')
 def graph():
@@ -125,6 +134,10 @@ def graph_save():
     # This should not change the rendered view. 
     return "Ok"
 
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''' Markdown editor backend methods. '''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 ''' Load a markdown editor for a particular node. '''
 @main.route('/markdown', methods=['GET'])
 def markdown():    
@@ -166,3 +179,33 @@ def node_load():
     # Handle case where the node isn't in the database yet. 
     if n.first() is None: return ""
     return n.first().content 
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''' Modal 'dont show again' backend methods. '''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+# Update the DB so the graph editor modal is never shown again. 
+@main.route('/editor-modal', methods=['POST'])
+def editor_modal(): 
+    u = User.query.filter_by(id=current_user.id)
+    if u.first() is None: 
+        print("editor_modal(): something went wrong")
+        return ""
+
+    u.first().editor_dont_show = True
+    db.session.commit()
+    return 'Ok'
+
+# Update the DB so the markdown editor modal is never shown again. 
+@main.route('/markdown-modal', methods=['POST'])
+def markdown_modal(): 
+    print('markdown modal')
+    u = User.query.filter_by(id=current_user.id)
+    if u.first() is None: 
+        print("markdown_modal(): something went wrong")
+        return ""
+
+    u.first().markdown_dont_show = True
+    db.session.commit()
+    return 'Ok'
