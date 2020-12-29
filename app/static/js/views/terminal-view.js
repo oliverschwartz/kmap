@@ -100,6 +100,9 @@ define(["backbone", "underscore"], function (Backbone, _) {
 
                 node.attributes.summary = summary;
                 thisModel.trigger("refreshModel"); 
+                // thisView.handleShowAllClick();
+                thisModel.trigger("showAllTrigger"); 
+
             },            
             
             // Listener: edit the summary of a node. 

@@ -184,6 +184,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
 
     // listen for mouse events on svg
     thisView.d3Svg.on("mouseup", function(){
+      console.log("svg mouseup");
       thisView.svgMouseUp.apply(thisView, arguments);
     });
 
@@ -589,6 +590,8 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       thisView.listenTo(thisView.model, "render", thisView.render);
       thisView.listenTo(thisView.model, "destroyNode", thisView.render);
       thisView.listenTo(thisView.model, "destroyEdge", thisView.render);
+      // thisView.listenTo(thisView.model, "showAllClick", thisView.handleShowAllClick);
+
 
       // change/set focus node
       thisView.listenTo(thisView.model, "setFocusNode", function (id) {
@@ -611,7 +614,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       });
 
       thisView.listenTo(thisView.model, "showAllTrigger", function() {
-        // console.log("dummy tester");
+        console.log("show all triggered");
         thisView.simulate(document.getElementById(thisView.getCircleGId(thisView.focusNode)), "mouseup");
 
         
@@ -688,8 +691,14 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         .each(function(d){
           console.log('updating summs')
           var d3this = d3.select(this);
-          var showNodeModal =
-          'showNodeModal( "'+ d.get("title") + '" , "'+ d.get("summary") + '" )';
+          
+          var currSummary = d.get("summary"); 
+          // Trim newlines 
+          // console.log("pre TRIM: " + currSummary);
+          currSummary = currSummary.replace(/(\r\n|\n|\r)/gm, " ");
+          // console.log("currSum: " + currSummary);
+          var showNodeModalString = 'showNodeModal( "'+ d.get("title") + '" , "'+ currSummary + '" )';
+          
           d3this.append("svg:a")
               .attr("xlink:href", '#')
               .attr('data-toggle', 'modal')
@@ -699,7 +708,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
               .attr("y", 20)
               .attr("width", 11)
               .attr("height", 11)
-              .attr('onclick', showNodeModal)
+              .attr('onclick', showNodeModalString)
               .attr('data-toggle', 'modal')
               .attr('data-target', '#node-edit-modal');
         });
@@ -881,7 +890,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         .attr("r", consts.nodeRadius);
 
       newGs.each(function(d){
-        console.log('new')
+        // console.log('new')
         var d3this = d3.select(this);
         thisView.insertTitleLinebreaks(d3this, d.get("title"), null, consts.reduceNodeTitleLength);
         if (d3this.selectAll("tspan")[0].length > consts.reduceNodeTitleLength) {
@@ -903,8 +912,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr("width", 10)
             .attr("height", 10);
 
-        var showNodeModal =
-        'showNodeModal( "'+ d.get("title") + '" , "'+ d.get("summary") + '" )';
+        var currSummary = d.get("summary"); 
+        // Trim newlines 
+        currSummary = currSummary.replace(/(\r\n|\n|\r)/gm, " ");
+        var showNodeModalString = 'showNodeModal( "'+ d.get("title") + '" , "'+ currSummary + '" )';
         d3this.append("svg:a")
             .attr("xlink:href", '#')
             .attr('data-toggle', 'modal')
@@ -914,7 +925,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr("y", 20)
             .attr("width", 11)
             .attr("height", 11)
-            .attr('onclick', showNodeModal)
+            .attr('onclick', showNodeModalString)
             .attr('data-toggle', 'modal')
             .attr('data-target', '#node-edit-modal');
       });
@@ -1443,6 +1454,8 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
 
       if (thisView.scopeNode && !state.circleMouseUp && !state.pathMouseUp && !state.justDragged && !state.iconClicked) {
         thisView.handleShowAllClick();
+        thisView.nullScopeNode();
+
       }
 
       // reset the states
