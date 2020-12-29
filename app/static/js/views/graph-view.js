@@ -28,20 +28,10 @@
  * + use handleNewPaths and handleNewCircles to attach listeners during calls to render
  */
 
-function showNodeModal(nodeId, nodeSummary) {
-  console.log('OUTER FCN');
-  // console.log(thisView);
-  var dispatcher = this.document.getElementById("event-dispatcher");
-  console.log(nodeId);
-  console.log(nodeSummary);
-
-  console.log(this.document.getElementById('node-edit-modal-title'));
-  $('#node-edit-title').html(nodeId)
-  // $("#node-edit-form").attr("action", "/graph-rename?graph_id=" + graphId);
-  $('#node-edit-input').attr("placeholder", nodeSummary)
-  // $('#node-edit-modal').modal('show');
-
-  // Build an event and fire it. 
+// function editNodeSummary(nodeId) {
+//   // Build an event and fire it. 
+//   console.log("in edit Node Sum")
+//   $()
 //   const event = new CustomEvent("editSummary", {
 //     bubbles: true,
 //     detail: {
@@ -49,8 +39,22 @@ function showNodeModal(nodeId, nodeSummary) {
 //         summary: 'CHANGED',
 //     }
 //   }); 
-  // dispatcher.dispatchEvent(event);
+//   var dispatcher = this.document.getElementById("event-dispatcher");
+//   dispatcher.dispatchEvent(event);
+//   return false;
+// }
+
+function showNodeModal(nodeId, nodeSummary) {
+  console.log('OUTER FCN');
+  // console.log(thisView);
+  console.log(nodeId);
+  console.log(nodeSummary);
+  $('#node-edit-input').attr("placeholder", nodeSummary);
+
+  console.log(this.document.getElementById('node-edit-modal-title'));
+  $('#node-edit-title').html(nodeId);
 }
+
 
 /*global define/*/
 define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d3, _, dagre, $) {
@@ -678,8 +682,29 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         thisView = this;
         console.log("refreshing view");
         thisView.isRendered = false;
+
+        // update existing nodes' summaries (eg if updated via CLI)
+        thisView.gCircles = thisView.gCircles
+        .each(function(d){
+          console.log('updating summs')
+          var d3this = d3.select(this);
+          var showNodeModal =
+          'showNodeModal( "'+ d.get("title") + '" , "'+ d.get("summary") + '" )';
+          d3this.append("svg:a")
+              .attr("xlink:href", '#')
+              .attr('data-toggle', 'modal')
+          .append("image")
+              .attr("xlink:href", "img/pencil-icon.png")
+              .attr("x", 0)
+              .attr("y", 20)
+              .attr("width", 11)
+              .attr("height", 11)
+              .attr('onclick', showNodeModal)
+              .attr('data-toggle', 'modal')
+              .attr('data-target', '#node-edit-modal');
+        });
         thisView.optimizeGraphPlacement(true, false);
-        thisView.render();
+        // thisView.render();
     },
 
     /**
@@ -856,6 +881,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         .attr("r", consts.nodeRadius);
 
       newGs.each(function(d){
+        console.log('new')
         var d3this = d3.select(this);
         thisView.insertTitleLinebreaks(d3this, d.get("title"), null, consts.reduceNodeTitleLength);
         if (d3this.selectAll("tspan")[0].length > consts.reduceNodeTitleLength) {
@@ -872,13 +898,11 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr('target', 'blank')
         .append("image")
             .attr("xlink:href", "img/list-icon.png")
-            .attr("x", -16)
+            .attr("x", -14)
             .attr("y", 20)
             .attr("width", 10)
             .attr("height", 10);
-        console.log('append');
 
-        
         var showNodeModal =
         'showNodeModal( "'+ d.get("title") + '" , "'+ d.get("summary") + '" )';
         d3this.append("svg:a")
@@ -886,10 +910,10 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr('data-toggle', 'modal')
         .append("image")
             .attr("xlink:href", "img/pencil-icon.png")
-            .attr("x", 1)
+            .attr("x", 0)
             .attr("y", 20)
-            .attr("width", 10)
-            .attr("height", 10)
+            .attr("width", 11)
+            .attr("height", 11)
             .attr('onclick', showNodeModal)
             .attr('data-toggle', 'modal')
             .attr('data-target', '#node-edit-modal');

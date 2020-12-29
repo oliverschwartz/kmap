@@ -30,6 +30,14 @@
         <script src="{{ url_for ('static', filename='js/lib/jquery.mousewheel.min.js') }}"></script>
         <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
     
+        <style>
+            .move-left {
+                width: auto;
+                box-shadow: none;
+                /* float:left !important; */
+            }
+        </style>
+
         <script>
             jQuery(document).ready(function($) {
                 $('#introModal').modal('show');
@@ -41,13 +49,28 @@
             });
         </script>
 
-        <style>
-            .move-left {
-                width: auto;
-                box-shadow: none;
-                /* float:left !important; */
+        <script>
+            function submitSummary() {
+                var nodeId = $('#node-edit-title').html();
+                console.log(nodeId);
+                var newSum = document.getElementById("node-edit-input").value
+                console.log(newSum);
+
+                const event = new CustomEvent("editSummary", {
+                    bubbles: true,
+                    detail: {
+                        title: nodeId,
+                        summary: newSum,
+                    }
+                }); 
+                var dispatcher = this.document.getElementById("event-dispatcher");
+                dispatcher.dispatchEvent(event);
+                // $("node-edit-input").value = "";
+                $('#node-edit-input').val('');
+                console.log('curr val' + document.getElementById("node-edit-input").value);
+                // return false;
             }
-        </style>
+        </script>
     </head>
 
 
@@ -106,20 +129,20 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span style='color:red;' aria-hidden="true">&times;</span></button>
                     </div>
                     <div id="node-edit-modal-body" class="modal-body">
-                        <div id='node-edit-title'></div> <br> 
-                        <form id='node-edit-form' method="POST" action="">
-                            <input id="node-edit-input" name="new_summary" type="text" class="form-control" placeholder="" aria-label="New summary" aria-describedby="basic-addon1">
+                        <div id='node-edit-title' class = font-weight-bold></div> <br> 
+                        <form id='node-edit-form'>
+                            <textarea id="node-edit-input" name="newSummary" type="text" class="form-control" placeholder="" aria-label="New summary" aria-describedby="basic-addon1"></textarea>
                         </form> 
                     </div>
                     <div class="modal-footer">
-                        <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-danger mr-auto " data-dismiss="modal" >
+                        <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-danger mr-auto " data-dismiss="modal" onclick = "$('#node-edit-input').val('');">
                             <span style="font-size:1.2em; color:white; margin:0px 0px">
                                 Cancel
                             </span>
                         </button>
-                        <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-primary" onclick="$(nodeEditForm).submit();" >
+                        <button style='margin: 0px 0px' type="button" class="btn btn-sm btn-primary" data-dismiss="modal" onclick="submitSummary();" >
                             <span style="font-size:1.2em; color:white; margin:0px 0px">
-                                Confirm
+                                Save
                             </span>
                         </button>
                     </div>
@@ -451,6 +474,8 @@
                 window.dispatchEvent(sel_event);
             }
         </script>
+
+        
 
 
         <script>
