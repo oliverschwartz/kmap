@@ -874,8 +874,8 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr("xlink:href", "img/list-icon.png")
             .attr("x", -16)
             .attr("y", 20)
-            .attr("width", 14)
-            .attr("height", 14);
+            .attr("width", 10)
+            .attr("height", 10);
         console.log('append');
 
         
@@ -888,8 +888,8 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
             .attr("xlink:href", "img/pencil-icon.png")
             .attr("x", 1)
             .attr("y", 20)
-            .attr("width", 14)
-            .attr("height", 14)
+            .attr("width", 10)
+            .attr("height", 10)
             .attr('onclick', showNodeModal)
             .attr('data-toggle', 'modal')
             .attr('data-target', '#node-edit-modal');

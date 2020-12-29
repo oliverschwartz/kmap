@@ -128,6 +128,7 @@
         </div>
 
         <!-- Multi-step Intro Modal -->
+        {% if not current_user.editor_dont_show %}
         <div class="modal multi-step" id="introModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -158,6 +159,14 @@
                     <div class="modal-body step-3" data-step="3">
                         Don't worry about it! Our <span class = font-weight-bold style="color: rgba(59, 116, 26, 0.973)">Auto-Save</span> feature will take care of saving any graph you create, so that you can focus on learning your material. <br> <br> 
                         Now that you have all the tools to begin, hit the <span class = font-weight-bold>tilde</span> key and run <span class = 'code_font' style="color: red">help</span> to get started! 
+                        <br><br>
+                        <div id='editor-dont-show-div'>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="editor-dont-show-input" class="form-check-input" onclick="
+                            el = $('#editor-dont-show-div')
+                            el.fadeOut(1000); 
+                            $.post('/editor-modal'); 
+                            "><label for="editor-dont-show-input">Never show this again</label>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="transparent step step-2 mr-auto" data-step="2" onclick="sendEvent('#demo-modal-3', 1)" style="float: left !important;">
@@ -183,6 +192,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
 
         <div id="main-display-view">
