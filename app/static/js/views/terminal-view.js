@@ -94,14 +94,12 @@ define(["backbone", "underscore"], function (Backbone, _) {
                     alert("edit: node must be present in graph");
                     return;
                 } 
-                // thisModel.trigger("destroyNode"); 
 
                 // Update the summary.
                 node.attributes.title = title;
 
                 node.attributes.summary = summary;
                 thisModel.trigger("refreshModel"); 
-
             },            
             
             // Listener: edit the summary of a node. 
