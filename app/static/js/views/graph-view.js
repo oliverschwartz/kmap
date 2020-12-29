@@ -28,9 +28,33 @@
  * + use handleNewPaths and handleNewCircles to attach listeners during calls to render
  */
 
+function showNodeModal(nodeId, nodeSummary) {
+  console.log('OUTER FCN');
+  // console.log(thisView);
+  var dispatcher = this.document.getElementById("event-dispatcher");
+  console.log(nodeId);
+  console.log(nodeSummary);
+
+  console.log(this.document.getElementById('node-edit-modal-title'));
+  $('#node-edit-title').html(nodeId)
+  // $("#node-edit-form").attr("action", "/graph-rename?graph_id=" + graphId);
+  $('#node-edit-input').attr("placeholder", nodeSummary)
+  // $('#node-edit-modal').modal('show');
+
+  // Build an event and fire it. 
+//   const event = new CustomEvent("editSummary", {
+//     bubbles: true,
+//     detail: {
+//         title: nodeId,
+//         summary: 'CHANGED',
+//     }
+//   }); 
+  // dispatcher.dispatchEvent(event);
+}
+
 /*global define/*/
 define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d3, _, dagre, $) {
-
+  
   /**********************
    *    private vars    *
    **********************/
@@ -112,6 +136,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
     .interpolate('bundle')
     .tension(0.85);
 
+  
 
   /*******************
    * private methods *
@@ -518,7 +543,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
     return {source: {x: srcX + offX, y: srcY + offY}, target: {x: tgtX - offX, y: tgtY - offY}};
   };
 
-
+  
 
   /***************
    Return the public backbone view
@@ -836,23 +861,40 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
         if (d3this.selectAll("tspan")[0].length > consts.reduceNodeTitleLength) {
           d3this.classed(consts.reduceNodeTitleClass, true);
         }
-
+        
         // Get the url to link this node to the markdown. 
         url = "/markdown?" + "graph_id=" + $("#graph_id").text() 
             + "&node_id=" + encodeURIComponent(d.get("title"));
-        console.log(url);
+        // console.log(url);
         // Add the list icon to the node, and hyperlink it. 
         d3this.append("svg:a")
             .attr("xlink:href", url)
+            .attr('target', 'blank')
         .append("image")
             .attr("xlink:href", "img/list-icon.png")
-            // .attr("target","_blank")
-            .attr("x", -8)
+            .attr("x", -16)
             .attr("y", 20)
-            .attr("width", 16)
-            .attr("height", 16);
+            .attr("width", 14)
+            .attr("height", 14);
         console.log('append');
+
+        
+        var showNodeModal =
+        'showNodeModal( "'+ d.get("title") + '" , "'+ d.get("summary") + '" )';
+        d3this.append("svg:a")
+            .attr("xlink:href", '#')
+            .attr('data-toggle', 'modal')
+        .append("image")
+            .attr("xlink:href", "img/pencil-icon.png")
+            .attr("x", 1)
+            .attr("y", 20)
+            .attr("width", 14)
+            .attr("height", 14)
+            .attr('onclick', showNodeModal)
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#node-edit-modal');
       });
+
 
       newGs.transition()
         .delay(thisView.newCircleTransDelay)
@@ -881,6 +923,8 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
           thisView.addExpContIcons(d, d3.select(this), thisView);
         }
       });
+
+      // thisView.handleShowAllClick();
 
       //***********
       // POSTRENDER
@@ -1355,8 +1399,13 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
       thisView.centerForNode(d).each("end", function () {
         thisView.optimizeGraphPlacement(true, false, d.id, true);
       });
-
+  
       thisView.postCircleMouseUp();
+      // show summary text
+      if (thisView.settings.showNodeSummary) {
+        thisView.showNodeSummary(d);
+        console.log('showing summary');
+      }
       return true;
     },
 
@@ -1571,6 +1620,7 @@ define(["backbone", "d3", "underscore", "dagre", "jquery"], function(Backbone, d
      */
     handleShowAllClick: function (evt) {
       var thisView = this;
+      console.log('show all')
       thisView.simulate(document.getElementById(thisView.getCircleGId(thisView.focusNode)), "mouseup");
     },
 
