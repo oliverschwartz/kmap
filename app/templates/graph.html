@@ -265,6 +265,21 @@
                     }, 
                     checkArity: false,
                 };
+                // if (options) {
+                //     $.extend(settings, options);
+                // }
+                $('#terminal').hide();
+                var focus = false;
+                $(document.documentElement).keypress(function(e) {
+                    var term1 = $('#terminal')[0];
+                    
+                    if (e.which == 96) {
+                        $('#terminal').slideToggle('fast')
+                        term1.scrollTop = term1.scrollHeight;
+                        $('#terminal').focus(true);
+                    }
+                });
+
                 $("#terminal").terminal(
                     {
 
@@ -488,17 +503,7 @@
             Modify the css of the terminal div accordingly.
 
              */
-            $('#terminal').hide();
-            var focus = false;
-            $(document.documentElement).keypress(function(e) {
-                var term1 = $('#terminal')[0];
-                
-                if (e.which == 96) {
-                    $('#terminal').slideToggle('fast')
-                    term1.scrollTop = term1.scrollHeight;
-                    $('#terminal').focus(true);
-                }
-            });
+            
         </script>
 
         <!-- AUTOSAVE -->
